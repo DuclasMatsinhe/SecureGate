@@ -1,0 +1,7 @@
+# Gitleaks findings accepted on purpose. Each line is one finding's fingerprint (commit:file:rule:line).
+# SecureGate records this file's SHA-256 and entry count in every run manifest (scanner rule_sources).
+#
+# Synthetic redaction-test value (an api_key assignment) in tests/test_completion.py, commit 41c10e7.
+# Not a credential. The line was rewritten in the next commit so new scans no longer match it, but the
+# commit stays in history (history is never rewritten), so the fingerprint is listed here. See DEC-011.
+41c10e7ee7113044cdd9f9d4760c9b3223742b7b:tests/test_completion.py:generic-api-key:185

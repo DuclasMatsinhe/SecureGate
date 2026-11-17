@@ -248,9 +248,14 @@ class GitleaksAdapter(Adapter):
         return cfg.get("config") or "default rules"
 
     def rule_sources(self, cfg, target):
-        if cfg.get("config"):
-            return [describe_source(cfg["config"], target)]
-        return [{"kind": "builtin", "id": "gitleaks default rules (identified by the Gitleaks version)"}]
+        sources = [describe_source(cfg["config"], target)] if cfg.get("config") else \
+            [{"kind": "builtin", "id": "gitleaks default rules (identified by the Gitleaks version)"}]
+        ignore = Path(target) / ".gitleaksignore"
+        if ignore.is_file():  # Gitleaks reads it automatically, so it changes results and must be recorded
+            sources.append({"kind": "ignore_file", "id": ".gitleaksignore", "sha256": _sha256_file(ignore),
+                            "entries": sum(1 for line in ignore.read_text(encoding="utf-8").splitlines()
+                                           if line.strip() and not line.startswith("#"))})
+        return sources
 
     def prepare(self, out_dir):
         path = self.report_path(out_dir)

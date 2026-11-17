@@ -70,6 +70,12 @@ def test_rule_sources_hash_local_files_and_name_registry_packs(tmp_path):
     assert evidence(result, "gitleaks").rule_sources[0]["kind"] == "builtin"
 
 
+def test_gitleaks_ignore_file_is_recorded(tmp_path):
+    (tmp_path / ".gitleaksignore").write_text("# synthetic fixture\nabc:tests/x.py:generic-api-key:1\n")
+    sources = evidence(run(tmp_path), "gitleaks").rule_sources
+    assert sources[-1]["kind"] == "ignore_file" and sources[-1]["entries"] == 1 and len(sources[-1]["sha256"]) == 64
+
+
 def test_manifest_records_versions_policy_hash_and_commands(tmp_path):
     m = run(tmp_path).manifest
     assert m["policy"]["sha256"] and all(s["version"].endswith("9.9.9-fake") for s in m["scanners"])
@@ -171,7 +177,7 @@ SYNTHETIC_SECRETS = [
     "sk_live_" + "E" * 24,
     "AIza" + "F" * 35,
     "eyJ" + "a" * 12 + "." + "b" * 12 + "." + "c" * 12,
-    "-----BEGIN RSA PRIVATE KEY-----\nMIIsynthetic\n-----END RSA PRIVATE KEY-----",
+    "-----BEGIN RSA " + "PRIVATE KEY-----\nMIIsynthetic\n-----END RSA " + "PRIVATE KEY-----",
 ]
 
 
@@ -181,9 +187,10 @@ def test_redaction_patterns(secret):
 
 
 @pytest.mark.parametrize("text,kept", [
-    ("password=hunter2hunter2", "password="),
-    ("api_key: 'abcdef123456'", "api_key: '"),
-    ("https://user:s3cr3tpass@example.com/repo", "https://"),
+    # Built by concatenation so secret scanners reading this file see no literal credential.
+    ("pass" + "word=" + "hunter2" * 2, "password="),
+    ("api_" + "key: '" + "abcdef" + "123456'", "api_key: '"),
+    ("https://user:" + "s3cr3t" + "pass@example.com/repo", "https://"),
 ])
 def test_redaction_keeps_key_names(text, kept):
     out = redact(text)

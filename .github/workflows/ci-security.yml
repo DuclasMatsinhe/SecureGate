@@ -1,93 +1,154 @@
-name: CI - Continuous Security Validation
+# CI with the SecureGate evidence-aware gate (engine v2).
+# Order: tests -> SecureGate -> Docker build. The image is built only when the gate says PASS.
+# The gate's own exit code decides the job: 0 PASS, 1 BLOCK, 2 INCOMPLETE, 3 invalid policy.
+# BLOCK and INCOMPLETE therefore fail the job and stop the Docker build; they never pass silently.
+name: CI - SecureGate
 
 on:
   push:
     branches:
       - main
       - securegate-development
+      - "semester8-*"
   pull_request:
     branches:
       - main
       - securegate-development
+  workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.13"
+  SEMGREP_VERSION: "1.180.0"
+  PIP_AUDIT_VERSION: "2.10.1"
+  GITLEAKS_VERSION: "8.30.1"
+  GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+
 jobs:
   test:
-    name: Application Tests
-    runs-on: ubuntu-latest
-
+    name: Tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: "3.13"
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: python -m pip install --quiet -r requirements-dev.txt
 
       - name: Run tests
-        run: pytest -q
+        run: python -m pytest -q
 
-  sast:
-    name: SAST - Semgrep
-    runs-on: ubuntu-latest
-
+  securegate:
+    name: SecureGate
+    needs: test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Run Semgrep
-        uses: semgrep/semgrep-action@v1
-        with:
-          config: p/python
-        env:
-          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-
-  sca:
-    name: SCA - pip-audit
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-
-      - name: Install pip-audit
-        run: python -m pip install pip-audit
-
-      - name: Audit Python dependencies
-        run: pip-audit -r requirements.txt
-
-  secrets:
-    name: Secret Scan - Gitleaks
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout full repository history
-        uses: actions/checkout@v4
+      - name: Checkout (full history for Gitleaks)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+          persist-credentials: false
 
-      - name: Run Gitleaks
-        uses: gitleaks/gitleaks-action@v2
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned scanners
+        run: |
+          set -euo pipefail
+          # Semgrep and pip-audit in their own virtual environment, so they cannot change the app's dependencies.
+          python -m venv "$RUNNER_TEMP/scanners"
+          "$RUNNER_TEMP/scanners/bin/pip" install --quiet "semgrep==${SEMGREP_VERSION}" "pip-audit==${PIP_AUDIT_VERSION}"
+          echo "$RUNNER_TEMP/scanners/bin" >> "$GITHUB_PATH"
+          # Gitleaks release binary, verified against a recorded SHA-256 before use.
+          curl -sSfL -o "$RUNNER_TEMP/gitleaks.tgz" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  $RUNNER_TEMP/gitleaks.tgz" | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/bin" && tar -xzf "$RUNNER_TEMP/gitleaks.tgz" -C "$RUNNER_TEMP/bin" gitleaks
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+
+      - name: Show scanner versions
+        run: semgrep --version && pip-audit --version && gitleaks version
+
+      - name: Run SecureGate
+        id: gate
+        run: |
+          set +e
+          python -m security_engine.cli --out securegate-out > securegate-out.json
+          code=$?
+          set -e
+          cat securegate-out.json
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          python - <<'EOF'
+          import json
+          s = json.load(open("securegate-out.json"))
+          reasons = "; ".join(f"{r['scanner']}: {r['code']}" for r in s["reasons"]) or "none"
+          level = "notice" if s["verdict"] == "PASS" else "error"
+          print(f"::{level} title=SecureGate verdict::{s['verdict']} (exit {s['exit_code']}, strategy "
+                f"{s['strategy']}). Reasons: {reasons}")
+          EOF
+
+      - name: Validate run manifest against its JSON Schema
+        if: always() && steps.gate.outcome != 'skipped'
+        run: |
+          python -m pip install --quiet "jsonschema==4.26.0"
+          python - <<'EOF'
+          import json, jsonschema
+          schema = json.load(open("security_engine/schemas/run_manifest.schema.json"))
+          manifest = json.load(open("securegate-out/run_manifest.json"))
+          jsonschema.validate(manifest, schema)
+          print("run_manifest.json conforms to schema", manifest["schema_version"])
+          EOF
+
+      - name: Upload SecureGate evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: securegate-evidence-${{ github.run_id }}
+          path: |
+            securegate-out/
+            securegate-out.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Enforce gate verdict
+        if: always() && steps.gate.outputs.exit_code != ''
+        env:
+          GATE_EXIT: ${{ steps.gate.outputs.exit_code }}
+        run: |
+          case "$GATE_EXIT" in
+            0) echo "SecureGate: PASS";;
+            1) echo "SecureGate: BLOCK - blocking findings"; exit 1;;
+            2) echo "SecureGate: INCOMPLETE - scanner evidence could not be trusted"; exit 2;;
+            *) echo "SecureGate: configuration or usage error (exit $GATE_EXIT)"; exit "$GATE_EXIT";;
+          esac
 
   docker:
-    name: Docker Build
-    needs: [test, sast, sca, secrets]
-    runs-on: ubuntu-latest
-
+    name: Docker build
+    needs: securegate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
-      - name: Build Docker image
-        run: docker build -t semester7-devsecops:latest .
+      - name: Build image
+        run: docker build -t securegate-app:${{ github.sha }} .
