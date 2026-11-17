@@ -40,3 +40,4 @@ Each experiment should contain:
 | ID | Title | Status |
 |---|---|---|
 | [EXP-00](EXP-00-live-scanner-check/README.md) | Live scanner check (pilot for the fault catalogue) | Done, 17 Nov 2026 |
+| [EXP-01](EXP-01-pilot/README.md) | Fault-injection pilot: S0–S3 × F1–F10, L1 simulated and L2 real binaries | Pilot run 17 Nov 2026; protocol not frozen |

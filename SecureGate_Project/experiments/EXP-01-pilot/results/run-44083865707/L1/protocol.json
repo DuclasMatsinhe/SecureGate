@@ -1,0 +1,1004 @@
+{
+  "status": "PILOT - protocol not frozen; results are not final study results",
+  "level": "L1",
+  "strategies": [
+    "S0",
+    "S1",
+    "S2",
+    "S3"
+  ],
+  "faults": {
+    "F1": {
+      "description": "executable missing",
+      "expected": [
+        "TOOL_MISSING"
+      ]
+    },
+    "F2": {
+      "description": "crash: unexpected non-zero exit, no report",
+      "expected": [
+        "NONZERO_EXIT"
+      ]
+    },
+    "F3": {
+      "description": "timeout / hang",
+      "expected": [
+        "TIMEOUT"
+      ]
+    },
+    "F4": {
+      "description": "missing report (exit 0, nothing written)",
+      "expected": [
+        "NO_OUTPUT"
+      ]
+    },
+    "F5": {
+      "description": "empty report (zero bytes / whitespace)",
+      "expected": [
+        "NO_OUTPUT"
+      ]
+    },
+    "F6": {
+      "description": "schema-invalid report ({})",
+      "expected": [
+        "SCHEMA_INVALID"
+      ]
+    },
+    "F7": {
+      "description": "truncated JSON (cut at 50%)",
+      "expected": [
+        "INVALID_JSON"
+      ]
+    },
+    "F8": {
+      "description": "no coverage (scanned nothing)",
+      "expected": [
+        "NO_COVERAGE"
+      ]
+    },
+    "F9": {
+      "description": "partial coverage (some inputs skipped or failed)",
+      "expected": [
+        "PARTIAL_COVERAGE"
+      ]
+    },
+    "F10": {
+      "description": "exit status inconsistent with report",
+      "expected": [
+        "INCONSISTENT_EXIT",
+        "NONZERO_EXIT"
+      ]
+    }
+  },
+  "cells": [
+    {
+      "cell_id": "L1-C-clean",
+      "level": "L1",
+      "kind": "C",
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [],
+      "realisation": "all three scanners: recorded clean outputs",
+      "expected_category": [],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-K-semgrep",
+      "level": "L1",
+      "kind": "K",
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [
+        "semgrep"
+      ],
+      "realisation": "recorded real finding (semgrep)",
+      "expected_category": [],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-K-pip-audit",
+      "level": "L1",
+      "kind": "K",
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [
+        "pip-audit"
+      ],
+      "realisation": "recorded real finding (pip-audit)",
+      "expected_category": [],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-K-gitleaks",
+      "level": "L1",
+      "kind": "K",
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [
+        "gitleaks"
+      ],
+      "realisation": "recorded real finding (gitleaks)",
+      "expected_category": [],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F1-semgrep",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F1",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "launch error: executable not found",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F1-pip-audit",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F1",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "launch error: executable not found",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F1-gitleaks",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F1",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "launch error: executable not found",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F2-semgrep",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F2",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "exit 2, no report",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F2-pip-audit",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F2",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "exit 2, no report",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F2-gitleaks",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F2",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "exit 1, no report",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F3-semgrep",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F3",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "killed after the policy timeout",
+      "expected_category": [
+        "TIMEOUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F3-pip-audit",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F3",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "killed after the policy timeout",
+      "expected_category": [
+        "TIMEOUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F3-gitleaks",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F3",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "killed after the policy timeout",
+      "expected_category": [
+        "TIMEOUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F4-semgrep",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F4",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "exit 0, report not written",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F4-pip-audit",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F4",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "exit 0, report not written",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F4-gitleaks",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F4",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "exit 0, report not written",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F5-semgrep",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F5",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "exit 0, whitespace-only report",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F5-pip-audit",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F5",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "exit 0, whitespace-only report",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F5-gitleaks",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F5",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "exit 0, whitespace-only report",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F6-semgrep",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F6",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "exit 0, report is {}",
+      "expected_category": [
+        "SCHEMA_INVALID"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F6-pip-audit",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F6",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "exit 0, report is {}",
+      "expected_category": [
+        "SCHEMA_INVALID"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F6-gitleaks",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F6",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "exit 0, report is {}",
+      "expected_category": [
+        "SCHEMA_INVALID"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F7-semgrep",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F7",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "exit 0, report cut at 50% of bytes",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F7-pip-audit",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F7",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "exit 0, report cut at 50% of bytes",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F7-gitleaks",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F7",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "exit 0, report cut at 50% of bytes",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F8-semgrep",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F8",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "recorded real SG06: paths.scanned empty",
+      "expected_category": [
+        "NO_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F8-pip-audit",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F8",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "dependencies list empty",
+      "expected_category": [
+        "NO_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F8-gitleaks",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F8",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "recorded real GL05: not a git repository, 0 commits scanned",
+      "expected_category": [
+        "NO_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F9-semgrep",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F9",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "paths.skipped holds an analysis failure",
+      "expected_category": [
+        "PARTIAL_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F9-pip-audit",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F9",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "one dependency has skip_reason",
+      "expected_category": [
+        "PARTIAL_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F10-semgrep",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F10",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "exit 1 (findings) but results empty",
+      "expected_category": [
+        "INCONSISTENT_EXIT",
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F10-pip-audit",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F10",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "exit 1 (vulnerabilities) but none reported",
+      "expected_category": [
+        "INCONSISTENT_EXIT",
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F10-gitleaks",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F10",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "exit 1 (Gitleaks error code; leak code is 3) with empty report",
+      "expected_category": [
+        "INCONSISTENT_EXIT",
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F1-semgrep+K-pip-audit",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F1",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [
+        "pip-audit"
+      ],
+      "realisation": "launch error: executable not found",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F1-semgrep+K-gitleaks",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F1",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [
+        "gitleaks"
+      ],
+      "realisation": "launch error: executable not found",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F1-pip-audit+K-semgrep",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F1",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [
+        "semgrep"
+      ],
+      "realisation": "launch error: executable not found",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F1-pip-audit+K-gitleaks",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F1",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [
+        "gitleaks"
+      ],
+      "realisation": "launch error: executable not found",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F1-gitleaks+K-semgrep",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F1",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [
+        "semgrep"
+      ],
+      "realisation": "launch error: executable not found",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F1-gitleaks+K-pip-audit",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F1",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [
+        "pip-audit"
+      ],
+      "realisation": "launch error: executable not found",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F2-semgrep+K-pip-audit",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F2",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [
+        "pip-audit"
+      ],
+      "realisation": "exit 2, no report",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F2-semgrep+K-gitleaks",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F2",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [
+        "gitleaks"
+      ],
+      "realisation": "exit 2, no report",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F2-pip-audit+K-semgrep",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F2",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [
+        "semgrep"
+      ],
+      "realisation": "exit 2, no report",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F2-pip-audit+K-gitleaks",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F2",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [
+        "gitleaks"
+      ],
+      "realisation": "exit 2, no report",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F2-gitleaks+K-semgrep",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F2",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [
+        "semgrep"
+      ],
+      "realisation": "exit 1, no report",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F2-gitleaks+K-pip-audit",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F2",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [
+        "pip-audit"
+      ],
+      "realisation": "exit 1, no report",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F6-semgrep+K-pip-audit",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F6",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [
+        "pip-audit"
+      ],
+      "realisation": "exit 0, report is {}",
+      "expected_category": [
+        "SCHEMA_INVALID"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F6-semgrep+K-gitleaks",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F6",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [
+        "gitleaks"
+      ],
+      "realisation": "exit 0, report is {}",
+      "expected_category": [
+        "SCHEMA_INVALID"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F6-pip-audit+K-semgrep",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F6",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [
+        "semgrep"
+      ],
+      "realisation": "exit 0, report is {}",
+      "expected_category": [
+        "SCHEMA_INVALID"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F6-pip-audit+K-gitleaks",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F6",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [
+        "gitleaks"
+      ],
+      "realisation": "exit 0, report is {}",
+      "expected_category": [
+        "SCHEMA_INVALID"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F6-gitleaks+K-semgrep",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F6",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [
+        "semgrep"
+      ],
+      "realisation": "exit 0, report is {}",
+      "expected_category": [
+        "SCHEMA_INVALID"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F6-gitleaks+K-pip-audit",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F6",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [
+        "pip-audit"
+      ],
+      "realisation": "exit 0, report is {}",
+      "expected_category": [
+        "SCHEMA_INVALID"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F8-semgrep+K-pip-audit",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F8",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [
+        "pip-audit"
+      ],
+      "realisation": "recorded real SG06: paths.scanned empty",
+      "expected_category": [
+        "NO_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F8-semgrep+K-gitleaks",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F8",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [
+        "gitleaks"
+      ],
+      "realisation": "recorded real SG06: paths.scanned empty",
+      "expected_category": [
+        "NO_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F8-pip-audit+K-semgrep",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F8",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [
+        "semgrep"
+      ],
+      "realisation": "dependencies list empty",
+      "expected_category": [
+        "NO_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F8-pip-audit+K-gitleaks",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F8",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [
+        "gitleaks"
+      ],
+      "realisation": "dependencies list empty",
+      "expected_category": [
+        "NO_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F8-gitleaks+K-semgrep",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F8",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [
+        "semgrep"
+      ],
+      "realisation": "recorded real GL05: not a git repository, 0 commits scanned",
+      "expected_category": [
+        "NO_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F8-gitleaks+K-pip-audit",
+      "level": "L1",
+      "kind": "FK",
+      "fault": "F8",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [
+        "pip-audit"
+      ],
+      "realisation": "recorded real GL05: not a git repository, 0 commits scanned",
+      "expected_category": [
+        "NO_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F1x2",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F1",
+      "faulted": [
+        "semgrep",
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "all listed scanners missing",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L1-F1x3",
+      "level": "L1",
+      "kind": "F",
+      "fault": "F1",
+      "faulted": [
+        "semgrep",
+        "pip-audit",
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "all listed scanners missing",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    }
+  ]
+}

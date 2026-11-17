@@ -1,0 +1,537 @@
+{
+  "status": "PILOT - protocol not frozen; results are not final study results",
+  "level": "L2",
+  "strategies": [
+    "S0",
+    "S1",
+    "S2",
+    "S3"
+  ],
+  "faults": {
+    "F1": {
+      "description": "executable missing",
+      "expected": [
+        "TOOL_MISSING"
+      ]
+    },
+    "F2": {
+      "description": "crash: unexpected non-zero exit, no report",
+      "expected": [
+        "NONZERO_EXIT"
+      ]
+    },
+    "F3": {
+      "description": "timeout / hang",
+      "expected": [
+        "TIMEOUT"
+      ]
+    },
+    "F4": {
+      "description": "missing report (exit 0, nothing written)",
+      "expected": [
+        "NO_OUTPUT"
+      ]
+    },
+    "F5": {
+      "description": "empty report (zero bytes / whitespace)",
+      "expected": [
+        "NO_OUTPUT"
+      ]
+    },
+    "F6": {
+      "description": "schema-invalid report ({})",
+      "expected": [
+        "SCHEMA_INVALID"
+      ]
+    },
+    "F7": {
+      "description": "truncated JSON (cut at 50%)",
+      "expected": [
+        "INVALID_JSON"
+      ]
+    },
+    "F8": {
+      "description": "no coverage (scanned nothing)",
+      "expected": [
+        "NO_COVERAGE"
+      ]
+    },
+    "F9": {
+      "description": "partial coverage (some inputs skipped or failed)",
+      "expected": [
+        "PARTIAL_COVERAGE"
+      ]
+    },
+    "F10": {
+      "description": "exit status inconsistent with report",
+      "expected": [
+        "INCONSISTENT_EXIT",
+        "NONZERO_EXIT"
+      ]
+    }
+  },
+  "cells": [
+    {
+      "cell_id": "L2-C-clean",
+      "level": "L2",
+      "kind": "C",
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [],
+      "realisation": "real tools, clean synthetic project",
+      "expected_category": [],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-K-semgrep",
+      "level": "L2",
+      "kind": "K",
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [
+        "semgrep"
+      ],
+      "realisation": "eval() matched by the local probe rule",
+      "expected_category": [],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-K-pip-audit",
+      "level": "L2",
+      "kind": "K",
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [
+        "pip-audit"
+      ],
+      "realisation": "urllib3==1.26.5 (known vulnerabilities)",
+      "expected_category": [],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-K-gitleaks",
+      "level": "L2",
+      "kind": "K",
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [
+        "gitleaks"
+      ],
+      "realisation": "synthetic GitHub token generated at run time, committed",
+      "expected_category": [],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F2-semgrep",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F2",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (crash)",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F2-pip-audit",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F2",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (crash)",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F2-gitleaks",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F2",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (crash)",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F3-semgrep",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F3",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (hang)",
+      "expected_category": [
+        "TIMEOUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F3-pip-audit",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F3",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (hang)",
+      "expected_category": [
+        "TIMEOUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F3-gitleaks",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F3",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (hang)",
+      "expected_category": [
+        "TIMEOUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F4-semgrep",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F4",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (silent)",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F4-pip-audit",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F4",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (silent)",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F4-gitleaks",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F4",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (silent)",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F6-semgrep",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F6",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (schema)",
+      "expected_category": [
+        "SCHEMA_INVALID"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F6-pip-audit",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F6",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (schema)",
+      "expected_category": [
+        "SCHEMA_INVALID"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F6-gitleaks",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F6",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (schema)",
+      "expected_category": [
+        "SCHEMA_INVALID"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F7-semgrep",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F7",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (truncate)",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F7-pip-audit",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F7",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (truncate)",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F7-gitleaks",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F7",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "L2 wrapper executable (truncate)",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F1-semgrep",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F1",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "L2 executable path does not exist",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F1-pip-audit",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F1",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "L2 executable path does not exist",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F1-gitleaks",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F1",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "L2 executable path does not exist",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F8-semgrep",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F8",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "L3 project with no Python files",
+      "expected_category": [
+        "NO_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F8-gitleaks",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F8",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "L3 folder is not a git repository (holds a synthetic token)",
+      "expected_category": [
+        "NO_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F8-pip-audit",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F8",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "L3 empty requirements file",
+      "expected_category": [
+        "NO_COVERAGE"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F9-semgrep",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F9",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "realisation": "L3 one file with a syntax error",
+      "expected_category": [
+        "PARTIAL_COVERAGE"
+      ],
+      "notes": "EXP-00 SG04: Semgrep 1.180.0 reported no parse error; a silent pass is the expected real outcome"
+    },
+    {
+      "cell_id": "L2-F9-pip-audit",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F9",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "realisation": "L3 requirement that does not exist on PyPI",
+      "expected_category": [
+        "PARTIAL_COVERAGE"
+      ],
+      "notes": "EXP-00 PA03: pip-audit exits 1 with empty stdout instead of skipping"
+    },
+    {
+      "cell_id": "L2-F10-gitleaks",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F10",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "L3 invalid Gitleaks config (exit 1 = error code, leak code is 3)",
+      "expected_category": [
+        "INCONSISTENT_EXIT",
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F1-semgrep+K-pip-audit",
+      "level": "L2",
+      "kind": "FK",
+      "fault": "F1",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [
+        "pip-audit"
+      ],
+      "realisation": "Semgrep missing while pip-audit finds urllib3 vulnerabilities",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F2-pip-audit+K-semgrep",
+      "level": "L2",
+      "kind": "FK",
+      "fault": "F2",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [
+        "semgrep"
+      ],
+      "realisation": "pip-audit crashes while Semgrep finds eval()",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "notes": ""
+    },
+    {
+      "cell_id": "L2-F1x3",
+      "level": "L2",
+      "kind": "F",
+      "fault": "F1",
+      "faulted": [
+        "semgrep",
+        "pip-audit",
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "realisation": "all scanners missing",
+      "expected_category": [
+        "TOOL_MISSING"
+      ],
+      "notes": ""
+    }
+  ]
+}

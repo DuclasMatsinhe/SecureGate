@@ -1,6 +1,6 @@
-# SecureGate engine: requirements specification (v1 draft)
+# SecureGate engine: requirements specification (v1.1)
 
-**Date:** 17 November 2026 · **Status:** draft for review (feeds SRS v1, milestone MS2, 6 Dec)
+**Date:** 17 November 2026 · **Status:** v1.1, implemented on branch `semester8-completion`; still a draft for guide review (feeds SRS v1, milestone MS2, 6 Dec). Changes from v1 are listed in §7; requirement text is unchanged except where §7 says so.
 **Scope:** the security engine, modules M2–M5 (orchestration, evidence validation, verdict and policy, reporting). Not in scope: GitHub Actions wiring (M1), job-summary styling (M6), dashboard (OBJ8), fault-injection harness (M7, except the hooks it needs).
 **Sources:**
 - the Stage 5 audit (code at `e7ca85b`, probes C0–C13c);
@@ -67,8 +67,8 @@
 | FR-19 | Produce one of three verdicts: **PASS** (all required scanners valid, no blocking finding); **BLOCK** (all required scanners valid, at least one blocking finding); **INCOMPLETE** (any required scanner invalid) | Must | Core design | One unit test per verdict |
 | FR-20 | INCOMPLETE takes precedence over BLOCK, and the verdict still lists every blocking finding from valid scanners | Must | Partial failure must not hide findings | Timeout + real finding → INCOMPLETE with the finding listed |
 | FR-21 | Every verdict carries reasons: a machine-readable code and a plain-language sentence (e.g. `SCHEMA_INVALID: Semgrep report has no 'results' key`) | Must | Transparency; job summary | Reasons present for every non-PASS verdict |
-| FR-22 | Read a versioned policy file (YAML), validated against a schema. It holds: policy version; required scanners; minimum blocking severity per scanner; timeouts; `on_incomplete` (`block` default; `warn`, `review` optional); strategy (S0–S3); suppressions with justification and expiry date | Must | "Policy-driven"; experiments vary the strategy | Valid policy loads; each invalid field is rejected with a clear message |
-| FR-23 | Support the four handling strategies by policy only, with no other code path changes: S0 exit codes only; S1 + schema; S2 + presence, consistency and coverage; S3 = S2 + INCOMPLETE routing. Under S0–S2, a detected fault yields BLOCK (fail-closed) | Must | Independent variable of the study | Same fault under S0–S3 gives the verdicts in the frozen protocol table |
+| FR-22 | Read a versioned policy file (YAML; **v1.1: TOML**, DEC-002), validated against a schema. It holds: policy version; required scanners; minimum blocking severity per scanner; timeouts; `on_incomplete` (`block` default; `warn`, `review` optional); strategy (S0–S3); suppressions with justification and expiry date | Must | "Policy-driven"; experiments vary the strategy | Valid policy loads; each invalid field is rejected with a clear message |
+| FR-23 | Support the four handling strategies by policy only, with no other code path changes: S0 exit codes only; S1 + schema; S2 + presence, consistency and coverage (**v1.1: presence moves to S1**, DEC-006); S3 = S2 + INCOMPLETE routing. Under S0–S2, a detected fault yields BLOCK (fail-closed) | Must | Independent variable of the study | Same fault under S0–S3 gives the verdicts in the frozen protocol table |
 | FR-24 | Expired suppressions stop applying, and the run reports that they expired | Should | Accountability | Suppression with a past expiry → finding counts again |
 | FR-25 | Same evidence + same policy → same verdict (deterministic) | Must | Reproducibility | Re-running the decision on stored evidence gives an identical verdict |
 | FR-26 | Any unexpected internal exception in the engine gives INCOMPLETE (`ENGINE_ERROR`), never PASS | Must | Fail-safe | Injected exception in a validator → INCOMPLETE |
@@ -164,3 +164,25 @@
 | D6 | pip-audit `--strict`? | No: detect `skip_reason` in validation instead, so S0–S3 can be compared on the same raw output |
 
 Inputs still pending: the **live scanner check** (confirms FR-13 and FR-14 details, D2 and D5).
+
+---
+
+## 7. Change log
+
+### v1.1 (17 Nov 2026, branch `semester8-completion`)
+
+| Item | Change | Why | Record |
+|---|---|---|---|
+| FR-22 | Policy format TOML instead of YAML | Standard library parser (`tomllib`), comments allowed | DEC-002 |
+| FR-23 | Presence check moves from S2 to S1 | A schema check needs a report to exist | DEC-006 |
+| FR-32 | Exit code 3 for policy and usage errors | Keeps INCOMPLETE meaning "evidence failed" | DEC-003 (D1) |
+| FR-05 | Semgrep accepts a list of pinned packs; `auto` rejected | Reproducibility | DEC-004, DEC-009 |
+| FR-04 | Rule sources also include `.gitleaksignore` (hash and entry count) | It changes Gitleaks' results | DEC-011 |
+| FR-14 | Semgrep skipped files classified: analysis failures are PARTIAL_COVERAGE, deliberate skips are recorded only | Avoid false INCOMPLETE on intended exclusions | DEC-008 |
+| FR-27 | Manifest schema 1.1 with a JSON Schema file | Machine-checkable manifests | DEC-010 |
+| NFR-07 | Execution, evidence-validation and decision time recorded separately | Overhead analysis (H4) | DEC-010 |
+| §6 D2 | Still open for the frozen protocol; development default `p/python`, experiments use local rules | Needs the EXP-01 probe and guide approval | DEC-009 |
+| §6 D5 | Gitleaks keeps `detect --source` (works on 8.30.1; recorded in every manifest) | Live check showed it works; `git`/`dir` subcommands can replace it later without changing evidence handling | EXP-00 |
+
+No requirement was removed. Every requirement maps to tests in `tests/traceability.py`; the generated matrix is `docs/traceability-matrix.md`.
+

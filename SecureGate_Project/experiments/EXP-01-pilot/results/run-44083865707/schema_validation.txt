@@ -1,0 +1,1 @@
+844 manifests conform to schema 1.1

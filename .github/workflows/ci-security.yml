@@ -75,12 +75,15 @@ jobs:
           # Semgrep and pip-audit in their own virtual environment, so they cannot change the app's dependencies.
           python -m venv "$RUNNER_TEMP/scanners"
           "$RUNNER_TEMP/scanners/bin/pip" install --quiet "semgrep==${SEMGREP_VERSION}" "pip-audit==${PIP_AUDIT_VERSION}"
-          echo "$RUNNER_TEMP/scanners/bin" >> "$GITHUB_PATH"
           # Gitleaks release binary, verified against a recorded SHA-256 before use.
           curl -sSfL -o "$RUNNER_TEMP/gitleaks.tgz" \
             "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
           echo "${GITLEAKS_SHA256}  $RUNNER_TEMP/gitleaks.tgz" | sha256sum -c -
           mkdir -p "$RUNNER_TEMP/bin" && tar -xzf "$RUNNER_TEMP/gitleaks.tgz" -C "$RUNNER_TEMP/bin" gitleaks
+          # Only the scanner commands go on PATH; "python" stays the setup-python interpreter.
+          for t in semgrep pysemgrep pip-audit; do
+            if [ -e "$RUNNER_TEMP/scanners/bin/$t" ]; then ln -s "$RUNNER_TEMP/scanners/bin/$t" "$RUNNER_TEMP/bin/$t"; fi
+          done
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
 
       - name: Show scanner versions
@@ -95,17 +98,23 @@ jobs:
           set -e
           cat securegate-out.json
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" -eq 3 ]; then
+            echo "::error title=SecureGate verdict::invalid policy or usage (exit 3); no scan was run"
+            exit 0
+          fi
           python - <<'EOF'
           import json
+          from collections import Counter
           s = json.load(open("securegate-out.json"))
-          reasons = "; ".join(f"{r['scanner']}: {r['code']}" for r in s["reasons"]) or "none"
+          counts = Counter(f"{r['scanner']}: {r['code']}" for r in s["reasons"])
+          reasons = "; ".join(f"{k} x{n}" if n > 1 else k for k, n in counts.items()) or "none"
           level = "notice" if s["verdict"] == "PASS" else "error"
           print(f"::{level} title=SecureGate verdict::{s['verdict']} (exit {s['exit_code']}, strategy "
                 f"{s['strategy']}). Reasons: {reasons}")
           EOF
 
       - name: Validate run manifest against its JSON Schema
-        if: always() && steps.gate.outcome != 'skipped'
+        if: always() && steps.gate.outputs.exit_code != '' && steps.gate.outputs.exit_code != '3'
         run: |
           python -m pip install --quiet "jsonschema==4.26.0"
           python - <<'EOF'
@@ -124,7 +133,7 @@ jobs:
           path: |
             securegate-out/
             securegate-out.json
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 30
 
       - name: Enforce gate verdict

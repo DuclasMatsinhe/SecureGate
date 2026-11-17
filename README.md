@@ -55,9 +55,9 @@ Gitleaks â”€â”€â”€â”€â”€â”€â”€â”˜        
                     â†“               â†“
               Docker Build      Pipeline Stops
 
-## Semester 8: evidence-aware security gate (engine v2, in development)
+## Semester 8: evidence-aware security gate (engine v2)
 
-The new gate (`security_engine/gate.py`) runs Semgrep, pip-audit and Gitleaks, **checks each scanner's evidence before trusting it**, and gives one of three verdicts:
+SecureGate runs Semgrep, pip-audit and Gitleaks, **checks each scanner's evidence before trusting it**, and gives one of three verdicts:
 
 | Verdict | Exit code | Meaning |
 |---|---|---|
@@ -66,22 +66,32 @@ The new gate (`security_engine/gate.py`) runs Semgrep, pip-audit and Gitleaks, *
 | INCOMPLETE | 2 | A required scanner's evidence is missing or invalid, so security was **not** established. Real findings are still listed |
 | (config error) | 3 | The policy file or the command line is invalid |
 
-The evidence checks cover:
-- **Execution:** the tool is missing, fails to start, times out, or exits with an unexpected code.
-- **Report:** the report is missing, empty, invalid JSON or the wrong structure.
-- **Consistency:** the exit code contradicts the report.
-- **Coverage:** the scanner scanned nothing, or skipped part of the input.
-
-Run it:
+The evidence checks cover execution (missing tool, launch failure, timeout, unexpected exit code), the report (missing, empty, invalid JSON, wrong structure), consistency (exit code contradicts the report) and coverage (nothing scanned, or part of the input failed).
 
 ```bash
 python -m security_engine.cli                     # uses securegate.toml if present
-python -m security_engine.cli --strategy S0       # experiment: exit-code-only baseline
+python -m security_engine.cli --strategy S0       # experiments: exit-code-only baseline
 python -m security_engine.cli --legacy            # the unchanged Semester 7 engine
 ```
 
-Each run writes `securegate-out/run_manifest.json` (versions, commands, policy hash, evidence status, verdict and reasons) and `securegate-out/report.md`. The report is also appended to the GitHub Actions job summary when it runs in Actions.
+Each run writes `securegate-out/run_manifest.json` (schema 1.1: versions, commands, rule sources, policy hash, timings, evidence status, verdict and reasons), `report.md` and the raw outputs of that run in `raw/<run_id>/`.
 
-The policy lives in `securegate.toml`: strategy, thresholds, timeouts, required scanners, what INCOMPLETE does, and time-limited suppressions.
+**CI:** `.github/workflows/ci-security.yml` runs Tests → SecureGate → Docker build. The gate's exit code decides the job, so BLOCK, INCOMPLETE and policy errors stop the pipeline before the image is built.
 
-Tests: `python -m pytest`. The Semester 7 tests are unchanged, and `tests/test_gate.py` reproduces every fault probe from the audit.
+**Documentation** (`SecureGate_Project/docs/`):
+
+| Document | Content |
+|---|---|
+| [architecture.md](SecureGate_Project/docs/architecture.md) | Modules, evidence pipeline, outputs |
+| [install-and-usage.md](SecureGate_Project/docs/install-and-usage.md) | Pinned tool installation, CLI, library use |
+| [policy-guide.md](SecureGate_Project/docs/policy-guide.md) | Every policy key, strategies S0–S3, suppressions |
+| [ci-integration.md](SecureGate_Project/docs/ci-integration.md) | Workflow design and the validation runs |
+| [requirements/engine-requirements-v1.md](SecureGate_Project/docs/requirements/engine-requirements-v1.md) | FR-01–FR-35, NFR-01–NFR-07 (v1.1 change log in §7) |
+| [traceability-matrix.md](SecureGate_Project/docs/traceability-matrix.md) | Requirement → tests, generated from a test run |
+| [test-report.md](SecureGate_Project/docs/test-report.md) | Generated test results |
+| [decision-log.md](SecureGate_Project/docs/decision-log.md) | DEC-001–DEC-013 |
+| [reproducibility.md](SecureGate_Project/docs/reproducibility.md) | How to reproduce runs and experiments |
+| [limitations.md](SecureGate_Project/docs/limitations.md) | Known limits of the engine and the evidence |
+| [experiments/](SecureGate_Project/experiments/README.md) | EXP-00 live scanner check, EXP-01 pilot protocol and results |
+
+Tests: `python -m pytest -q` (155 tests). The Semester 7 tests are unchanged.
