@@ -32,12 +32,14 @@ BLOCK and INCOMPLETE can never pass silently: the "Enforce gate verdict" step ex
 
 Each validation branch is the completion branch plus one commit that changes `securegate.toml`. They are never merged.
 
-| Branch | Change | Expected | Observed (run) |
-|---|---|---|---|
-| `semester8-completion` | none | PASS → Docker build runs | PASS, exit 0, Docker built ([44083975063](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44083975063); first run [44082447919](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44082447919)) |
-| `semester8-ci-validate-block` | pip-audit pointed at `pip_audit_test_requirements.txt` (urllib3 1.26.5) | BLOCK, job fails, Docker skipped | BLOCK, exit 1, pip-audit BLOCKING_FINDING reasons, Docker skipped ([44082714889](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44082714889)) |
-| `semester8-ci-validate-incomplete` | `executable = "semgrep-not-installed"` | INCOMPLETE, job fails, Docker skipped | INCOMPLETE, exit 2, `semgrep: TOOL_MISSING`, Docker skipped ([44082720043](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44082720043)) |
-| `semester8-ci-validate-config` | `strategy = "S9"` | pipeline stops before the gate | Tests job failed (repository-policy test), gate and Docker skipped ([44083925171](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44083925171)). The gate's exit 3 is covered by unit tests and a local run (exit 3, "strategy must be one of S0, S1, S2, S3") |
+| Branch | Change | Expected | Final workflow (commit `5709211`) | Earlier runs |
+|---|---|---|---|---|
+| `semester8-completion` | none | PASS → Docker build runs | PASS, exit 0, Docker built ([44090612694](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44090612694)) | PASS [44082447919](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44082447919), [44083975063](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44083975063); BLOCK on own code [44089985683](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44089985683) (§4) |
+| `semester8-ci-validate-block` | pip-audit pointed at `pip_audit_test_requirements.txt` (urllib3 1.26.5) | BLOCK, job fails, Docker skipped | BLOCK, exit 1, `pip-audit: BLOCKING_FINDING x18`, Docker skipped ([44090927129](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44090927129)) | BLOCK [44082714889](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44082714889), [44089995015](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44089995015) |
+| `semester8-ci-validate-incomplete` | `executable = "semgrep-not-installed"` | INCOMPLETE, job fails, Docker skipped | INCOMPLETE, exit 2, `semgrep: TOOL_MISSING`, Docker skipped ([44090934106](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44090934106)) | INCOMPLETE [44082720043](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44082720043), [44090003173](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44090003173) |
+| `semester8-ci-validate-config` | `strategy = "S9"` | pipeline stops before the gate | Tests job failed (repository-policy test); gate and Docker skipped ([44090938218](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44090938218)) | same [44083925171](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44083925171), [44090012385](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44090012385) |
+
+The gate's own exit 3 is covered by unit tests (`test_cli_invalid_policy_exits_3`, `test_only_pass_lets_ci_continue`) and a local run ("strategy must be one of S0, S1, S2, S3", exit 3).
 
 The verdicts above were read from the public GitHub API (job conclusions and the "SecureGate verdict" annotation).
 
