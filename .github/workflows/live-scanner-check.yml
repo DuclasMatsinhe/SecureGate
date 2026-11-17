@@ -1,0 +1,58 @@
+# Live scanner check (Stage 5.1 / OBJ2): records how the real Semgrep, pip-audit
+# and Gitleaks behave on normal and failure inputs, and runs engine v2 end to end.
+# Runs only on the live-scanner-check branch or by manual dispatch.
+name: live-scanner-check
+
+on:
+  push:
+    branches: [live-scanner-check]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Gitleaks (pinned, latest 8.x as fallback)
+        run: |
+          set -e
+          V=8.30.1
+          if ! curl -sSfL -o gl.tgz "https://github.com/gitleaks/gitleaks/releases/download/v${V}/gitleaks_${V}_linux_x64.tar.gz"; then
+            V=$(curl -sSfL https://api.github.com/repos/gitleaks/gitleaks/releases/latest | python -c "import sys,json;print(json.load(sys.stdin)['tag_name'].lstrip('v'))")
+            curl -sSfL -o gl.tgz "https://github.com/gitleaks/gitleaks/releases/download/v${V}/gitleaks_${V}_linux_x64.tar.gz"
+          fi
+          tar -xzf gl.tgz gitleaks && sudo mv gitleaks /usr/local/bin/ && gitleaks version
+
+      - name: Live scanner check (26 cases)
+        run: |
+          mkdir -p results && cd results
+          python ../tools/live_scanner_check.py --gitleaks /usr/local/bin/gitleaks --out live_check
+
+      - name: Install pinned Semgrep and pip-audit for the engine run
+        run: |
+          python -m pip install --quiet "semgrep==1.180.0" "pip-audit==2.10.1" || python -m pip install --quiet semgrep pip-audit
+          semgrep --version; pip-audit --version
+
+      - name: Engine v2 end to end on this repository (S3 and S0)
+        run: |
+          for s in S3 S0; do
+            python -m security_engine.cli --strategy $s --out results/engine_$s --no-summary > results/engine_$s.json; echo "$s exit=$?" | tee -a results/engine_exit_codes.txt
+          done
+          python -m security_engine.cli --legacy > results/legacy_engine.txt 2>&1; echo "legacy exit=$?" | tee -a results/engine_exit_codes.txt
+          cat results/engine_S3/report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-scanner-check-results
+          path: results/
+          retention-days: 30
