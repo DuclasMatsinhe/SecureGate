@@ -1,0 +1,39 @@
+# SecureGate security policy (versioned; its hash is recorded in every run manifest).
+# Exit codes: 0 PASS, 1 BLOCK, 2 INCOMPLETE, 3 invalid policy or usage.
+
+version = "1.0"
+
+# Evidence-handling strategy:
+#   S0 exit codes only (baseline)       S1 + report schema checks
+#   S2 + exit consistency and coverage  S3 = S2 checks + INCOMPLETE verdict (recommended)
+strategy = "S3"
+
+# What INCOMPLETE does to the job: "block" (fail, exit 2), "warn" (exit 0), "review" (exit 2 + review note).
+on_incomplete = "block"
+
+required_scanners = ["semgrep", "pip-audit", "gitleaks"]
+
+# Severity given to findings whose severity the engine does not recognise (never ignored).
+unknown_severity = "HIGH"
+
+[thresholds]
+default = "HIGH"   # findings at or above this severity block
+
+[scanners.semgrep]
+timeout = 600
+config = "p/python"   # pinned rule pack; replace with a committed rules file for full reproducibility
+
+[scanners.pip-audit]
+timeout = 300
+requirements = "requirements.txt"
+
+[scanners.gitleaks]
+timeout = 300
+leak_exit_code = 3    # distinct from Gitleaks' error exit code, so a leak and a crash never look the same
+
+# Accepted risks must have a reason and an expiry date, for example:
+# [[suppressions]]
+# rule_id = "python.flask.security.audit.app-run-param-config.avoid_app_run_with_bad_host"
+# path = "run.py"
+# reason = "Dev server only; production uses a WSGI server"
+# expires = 2027-01-31

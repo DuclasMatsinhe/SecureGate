@@ -11,3 +11,6 @@ scan-output.txt
 
 # Local test artifacts
 gitleaks-test/
+
+# SecureGate run outputs
+securegate-out/
