@@ -1,0 +1,13 @@
+{
+  "level": "L1",
+  "engine_version": "2.0.0.dev1",
+  "python": "3.13.18",
+  "platform": "Linux-7.0.0-1014-aws-x86_64-with-glibc2.39",
+  "runner": "GitHub Actions 1000000052",
+  "image": "ubuntu24",
+  "image_version": "20261111.127.1",
+  "github_run_id": "44083865707",
+  "github_sha": "46fcaf5f32e05e336ce18c2238698c8b872d56c8",
+  "started_utc": "2026-11-17T12:31:35+00:00",
+  "git_commit": "46fcaf5f32e05e336ce18c2238698c8b872d56c8"
+}

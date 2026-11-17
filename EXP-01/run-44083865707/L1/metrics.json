@@ -1,0 +1,428 @@
+{
+  "L1": {
+    "S0": {
+      "SPR": {
+        "k": 34,
+        "n": 110,
+        "rate": 0.3091,
+        "ci95": [
+          0.2304,
+          0.4007
+        ]
+      },
+      "FDR": {
+        "k": 76,
+        "n": 110,
+        "rate": 0.6909,
+        "ci95": [
+          0.5993,
+          0.7696
+        ]
+      },
+      "ICA": {
+        "k": 0,
+        "n": 110,
+        "rate": 0.0,
+        "ci95": [
+          0,
+          0.0337
+        ]
+      },
+      "FBR": {
+        "k": 0,
+        "n": 2,
+        "rate": 0.0,
+        "ci95": [
+          0,
+          0.6576
+        ]
+      },
+      "CBR": {
+        "k": 6,
+        "n": 6,
+        "rate": 1.0,
+        "ci95": [
+          0.6097,
+          1.0
+        ]
+      },
+      "FPP": {
+        "k": 48,
+        "n": 48,
+        "rate": 1.0,
+        "ci95": [
+          0.9259,
+          1.0
+        ]
+      },
+      "verdicts_on_faults": {
+        "PASS": 34,
+        "BLOCK": 76,
+        "INCOMPLETE": 0
+      }
+    },
+    "S1": {
+      "SPR": {
+        "k": 12,
+        "n": 110,
+        "rate": 0.1091,
+        "ci95": [
+          0.0635,
+          0.1811
+        ]
+      },
+      "FDR": {
+        "k": 98,
+        "n": 110,
+        "rate": 0.8909,
+        "ci95": [
+          0.8189,
+          0.9365
+        ]
+      },
+      "ICA": {
+        "k": 0,
+        "n": 110,
+        "rate": 0.0,
+        "ci95": [
+          0,
+          0.0337
+        ]
+      },
+      "FBR": {
+        "k": 0,
+        "n": 2,
+        "rate": 0.0,
+        "ci95": [
+          0,
+          0.6576
+        ]
+      },
+      "CBR": {
+        "k": 6,
+        "n": 6,
+        "rate": 1.0,
+        "ci95": [
+          0.6097,
+          1.0
+        ]
+      },
+      "FPP": {
+        "k": 48,
+        "n": 48,
+        "rate": 1.0,
+        "ci95": [
+          0.9259,
+          1.0
+        ]
+      },
+      "verdicts_on_faults": {
+        "PASS": 12,
+        "BLOCK": 98,
+        "INCOMPLETE": 0
+      }
+    },
+    "S2": {
+      "SPR": {
+        "k": 0,
+        "n": 110,
+        "rate": 0.0,
+        "ci95": [
+          0,
+          0.0337
+        ]
+      },
+      "FDR": {
+        "k": 110,
+        "n": 110,
+        "rate": 1.0,
+        "ci95": [
+          0.9663,
+          1
+        ]
+      },
+      "ICA": {
+        "k": 0,
+        "n": 110,
+        "rate": 0.0,
+        "ci95": [
+          0,
+          0.0337
+        ]
+      },
+      "FBR": {
+        "k": 0,
+        "n": 2,
+        "rate": 0.0,
+        "ci95": [
+          0,
+          0.6576
+        ]
+      },
+      "CBR": {
+        "k": 6,
+        "n": 6,
+        "rate": 1.0,
+        "ci95": [
+          0.6097,
+          1.0
+        ]
+      },
+      "FPP": {
+        "k": 48,
+        "n": 48,
+        "rate": 1.0,
+        "ci95": [
+          0.9259,
+          1.0
+        ]
+      },
+      "verdicts_on_faults": {
+        "PASS": 0,
+        "BLOCK": 110,
+        "INCOMPLETE": 0
+      }
+    },
+    "S3": {
+      "SPR": {
+        "k": 0,
+        "n": 110,
+        "rate": 0.0,
+        "ci95": [
+          0,
+          0.0337
+        ]
+      },
+      "FDR": {
+        "k": 110,
+        "n": 110,
+        "rate": 1.0,
+        "ci95": [
+          0.9663,
+          1
+        ]
+      },
+      "ICA": {
+        "k": 110,
+        "n": 110,
+        "rate": 1.0,
+        "ci95": [
+          0.9663,
+          1
+        ]
+      },
+      "FBR": {
+        "k": 0,
+        "n": 2,
+        "rate": 0.0,
+        "ci95": [
+          0,
+          0.6576
+        ]
+      },
+      "CBR": {
+        "k": 6,
+        "n": 6,
+        "rate": 1.0,
+        "ci95": [
+          0.6097,
+          1.0
+        ]
+      },
+      "FPP": {
+        "k": 48,
+        "n": 48,
+        "rate": 1.0,
+        "ci95": [
+          0.9259,
+          1.0
+        ]
+      },
+      "verdicts_on_faults": {
+        "PASS": 0,
+        "BLOCK": 0,
+        "INCOMPLETE": 110
+      }
+    },
+    "consistency": {
+      "k": 236,
+      "n": 236,
+      "rate": 1.0,
+      "ci95": [
+        0.984,
+        1.0
+      ]
+    },
+    "timing": {
+      "S0": {
+        "wall_s": {
+          "n": 8,
+          "median": 0.0021,
+          "iqr": [
+            0.00195,
+            0.0024
+          ]
+        },
+        "duration_s": {
+          "n": 8,
+          "median": 0.001,
+          "iqr": [
+            0.001,
+            0.001
+          ]
+        },
+        "scanner_execution_s": {
+          "n": 8,
+          "median": 0.0,
+          "iqr": [
+            0.0,
+            0.0
+          ]
+        },
+        "evidence_validation_s": {
+          "n": 8,
+          "median": 0.0001,
+          "iqr": [
+            9.7e-05,
+            0.000152
+          ]
+        },
+        "validation_share_of_run": {
+          "n": 8,
+          "median": 0.0995,
+          "iqr": [
+            0.09725,
+            0.15175
+          ]
+        }
+      },
+      "S1": {
+        "wall_s": {
+          "n": 8,
+          "median": 0.002,
+          "iqr": [
+            0.0019,
+            0.002325
+          ]
+        },
+        "duration_s": {
+          "n": 8,
+          "median": 0.001,
+          "iqr": [
+            0.001,
+            0.001
+          ]
+        },
+        "scanner_execution_s": {
+          "n": 8,
+          "median": 0.0,
+          "iqr": [
+            0.0,
+            0.0
+          ]
+        },
+        "evidence_validation_s": {
+          "n": 8,
+          "median": 9.2e-05,
+          "iqr": [
+            8.9e-05,
+            0.000134
+          ]
+        },
+        "validation_share_of_run": {
+          "n": 7,
+          "median": 0.094,
+          "iqr": [
+            0.089,
+            0.142
+          ]
+        }
+      },
+      "S2": {
+        "wall_s": {
+          "n": 8,
+          "median": 0.002,
+          "iqr": [
+            0.0019,
+            0.0023
+          ]
+        },
+        "duration_s": {
+          "n": 8,
+          "median": 0.001,
+          "iqr": [
+            0.0,
+            0.001
+          ]
+        },
+        "scanner_execution_s": {
+          "n": 8,
+          "median": 0.0,
+          "iqr": [
+            0.0,
+            0.0
+          ]
+        },
+        "evidence_validation_s": {
+          "n": 8,
+          "median": 9.1e-05,
+          "iqr": [
+            8.9e-05,
+            0.000129
+          ]
+        },
+        "validation_share_of_run": {
+          "n": 5,
+          "median": 0.091,
+          "iqr": [
+            0.089,
+            0.1445
+          ]
+        }
+      },
+      "S3": {
+        "wall_s": {
+          "n": 8,
+          "median": 0.002,
+          "iqr": [
+            0.0019,
+            0.0023
+          ]
+        },
+        "duration_s": {
+          "n": 8,
+          "median": 0.0005,
+          "iqr": [
+            0.0,
+            0.001
+          ]
+        },
+        "scanner_execution_s": {
+          "n": 8,
+          "median": 0.0,
+          "iqr": [
+            0.0,
+            0.0
+          ]
+        },
+        "evidence_validation_s": {
+          "n": 8,
+          "median": 9.2e-05,
+          "iqr": [
+            8.7e-05,
+            0.000134
+          ]
+        },
+        "validation_share_of_run": {
+          "n": 4,
+          "median": 0.1265,
+          "iqr": [
+            0.097,
+            0.14775
+          ]
+        }
+      },
+      "note": "Clean and known-finding cells only (fault cells end early or wait for timeouts). L1 replays outputs, so its execution time is not a real scanner time."
+    }
+  }
+}
