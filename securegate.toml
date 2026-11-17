@@ -26,6 +26,8 @@ timeout = 600
 # GitHub workflow files (12 pinned-action warnings) but added Python 3.6 compatibility noise.
 # Candidate: ["p/python", "p/github-actions"] (decision D2, pending).
 config = "p/python"
+# CI VALIDATION BRANCH ONLY: scanner binary that does not exist, expected verdict INCOMPLETE.
+executable = "semgrep-not-installed"
 
 [scanners.pip-audit]
 timeout = 300
