@@ -95,17 +95,23 @@ jobs:
           set -e
           cat securegate-out.json
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" -eq 3 ]; then
+            echo "::error title=SecureGate verdict::invalid policy or usage (exit 3); no scan was run"
+            exit 0
+          fi
           python - <<'EOF'
           import json
+          from collections import Counter
           s = json.load(open("securegate-out.json"))
-          reasons = "; ".join(f"{r['scanner']}: {r['code']}" for r in s["reasons"]) or "none"
+          counts = Counter(f"{r['scanner']}: {r['code']}" for r in s["reasons"])
+          reasons = "; ".join(f"{k} x{n}" if n > 1 else k for k, n in counts.items()) or "none"
           level = "notice" if s["verdict"] == "PASS" else "error"
           print(f"::{level} title=SecureGate verdict::{s['verdict']} (exit {s['exit_code']}, strategy "
                 f"{s['strategy']}). Reasons: {reasons}")
           EOF
 
       - name: Validate run manifest against its JSON Schema
-        if: always() && steps.gate.outcome != 'skipped'
+        if: always() && steps.gate.outputs.exit_code != '' && steps.gate.outputs.exit_code != '3'
         run: |
           python -m pip install --quiet "jsonschema==4.26.0"
           python - <<'EOF'
@@ -124,7 +130,7 @@ jobs:
           path: |
             securegate-out/
             securegate-out.json
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 30
 
       - name: Enforce gate verdict
