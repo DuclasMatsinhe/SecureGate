@@ -1,6 +1,6 @@
 # Requirement traceability matrix
 
-Generated 2026-11-17 12:32 UTC from `test-results.xml` at commit `4dbe5ee` (branch `semester8-completion`).
+Generated 2026-11-17 13:13 UTC by `tools/traceability_report.py` at commit `059cbb9` (branch `semester8-completion`).
 Source of the mapping: `tests/traceability.py` (enforced by `tests/test_traceability.py`).
 
 | Requirement | Summary | Verified by | Result |
@@ -26,7 +26,7 @@ Source of the mapping: `tests/traceability.py` (enforced by `tests/test_traceabi
 | FR-19 | Produce one of three verdicts: **PASS** (all required scanners valid, no blocking finding); **BLOCK** (all ... | `test_gate.py::test_probe_under_s3`<br>`test_gate.py::test_genuine_findings_block`<br>`test_gate.py::test_report_renders_each_verdict` | PASS |
 | FR-20 | INCOMPLETE takes precedence over BLOCK, and the verdict still lists every blocking finding from valid scann... | `test_gate.py::test_partial_failure_keeps_real_findings`<br>`test_completion.py::test_two_failures_one_real_finding` | PASS |
 | FR-21 | Every verdict carries reasons: a machine-readable code and a plain-language sentence (e.g. `SCHEMA_INVALID:... | `test_gate.py::test_partial_failure_keeps_real_findings`<br>`test_completion.py::test_reasons_always_name_the_scanner_id`<br>`test_completion.py::test_mixed_failures_report_every_scanner` | PASS |
-| FR-22 | Read a versioned policy file (YAML), validated against a schema. It holds: policy version; required scanner... | `test_gate.py::test_invalid_policies_are_rejected`<br>`test_gate.py::test_default_policy_loads`<br>`test_gate.py::test_repository_policy_file_is_valid`<br>`test_gate.py::test_policy_hash_changes_with_policy`<br>`test_gate.py::test_threshold_per_scanner`<br>`test_gate.py::test_optional_scanner_failure_is_a_note`<br>`test_gate.py::test_on_incomplete_warn_does_not_fail_the_job` | PASS |
+| FR-22 | Read a versioned policy file (YAML; **v1.1: TOML**, DEC-002), validated against a schema. It holds: policy ... | `test_gate.py::test_invalid_policies_are_rejected`<br>`test_gate.py::test_default_policy_loads`<br>`test_gate.py::test_repository_policy_file_is_valid`<br>`test_gate.py::test_policy_hash_changes_with_policy`<br>`test_gate.py::test_threshold_per_scanner`<br>`test_gate.py::test_optional_scanner_failure_is_a_note`<br>`test_gate.py::test_on_incomplete_warn_does_not_fail_the_job` | PASS |
 | FR-23 | Support the four handling strategies by policy only, with no other code path changes: S0 exit codes only; S... | `test_gate.py::test_probe_under_s0_baseline`<br>`test_gate.py::test_strategies_detect_progressively_more_faults`<br>`test_completion.py::test_checks_applied_are_recorded_per_strategy`<br>`test_completion.py::test_only_s3_produces_incomplete` | PASS |
 | FR-24 | Expired suppressions stop applying, and the run reports that they expired | `test_gate.py::test_active_and_expired_suppressions` | PASS |
 | FR-25 | Same evidence + same policy → same verdict (deterministic) | `test_gate.py::test_same_evidence_same_verdict` | PASS |
