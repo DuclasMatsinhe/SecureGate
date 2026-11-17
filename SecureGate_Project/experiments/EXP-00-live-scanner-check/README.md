@@ -11,9 +11,9 @@
 | **7. Procedure** | Workflow run 44043396994 on branch `live-scanner-check` ran `live_scanner_check.py`, then engine v2 (S3, S0) and the Semester 7 engine on this repository |
 | **8. Expected result** | Documented behaviour for the controls; unknown for the failure cases (that is what was measured) |
 | **9. Actual result** | See `analysis.md` §1–2. Key points: Gitleaks on a non-git folder exits 0 with an empty report (silent pass); Gitleaks (default) and pip-audit use exit 1 for both findings and crashes; Semgrep does not report Python parse errors |
-| **10. Raw measurements** | `results/summary.json` (per case: command, exit code, duration, parsed summary). Full raw outputs: branch `live-scanner-results`, commit `d1b0b90` |
+| **10. Raw measurements** | `results/summary.json` (per case: command, exit code, duration, parsed summary). Full raw outputs: branch `live-scanner-results`, commit `d054ce2` |
 | **11. Analysis** | `analysis.md` §3: changes to the fault catalogue (F8 revised, F9 output-level only, F10 confirmed) |
-| **12. Conclusion** | The engine was updated (commit `5880cd8`): Gitleaks no-coverage detection from its log, tool error lines in reasons, pinned Semgrep rule packs. Recorded real outputs are replayed in `tests/test_live_outputs.py` |
+| **12. Conclusion** | The engine was updated (commit `2798bcd`): Gitleaks no-coverage detection from its log, tool error lines in reasons, pinned Semgrep rule packs. Recorded real outputs are replayed in `tests/test_live_outputs.py` |
 
 **Reproduce:** `python live_scanner_check.py` on Linux with Gitleaks on PATH; it installs the pinned Semgrep and pip-audit in a private venv.
 

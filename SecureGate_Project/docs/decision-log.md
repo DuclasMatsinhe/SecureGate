@@ -83,3 +83,56 @@ When should this decision be reconsidered?
 - **Evidence:** EXP-00 cases GL02–GL07; `tests/test_live_outputs.py`.
 - **Consequences:** CI must check out full history (`fetch-depth: 0`) for meaningful history scans.
 - **Revisit condition:** If Gitleaks changes its exit codes or log messages (tests will catch it).
+
+---
+
+## Decisions from the completion work (branch `semester8-completion`, 17 Nov 2026)
+
+DEC-002 to DEC-005 above were confirmed, not changed. Status: **accepted for development**. Items marked *pending guide approval* are decided for the pilot only and must be confirmed before the protocol freeze (target 6 Dec).
+
+## DEC-006: Strategy semantics S0–S3 (FR-23 deviation)
+- **Decision:** The checks per strategy are defined once, in `security_engine/adapters.py` (`STRATEGY_CHECKS`), and recorded in every manifest (`checks_applied`):
+
+  | Strategy | Checks | Invalid evidence gives |
+  |---|---|---|
+  | S0 | execution, exit code | BLOCK |
+  | S1 | + presence, JSON, schema | BLOCK |
+  | S2 | + exit/report consistency, coverage | BLOCK |
+  | S3 | same checks as S2 | **INCOMPLETE** |
+
+- **Deviation from FR-23 v1:** FR-23 listed "presence" under S2. Presence moved to S1, because a schema check cannot run on a report that does not exist; S1 without presence would have to call a missing report "schema-invalid".
+- **Consequence observed (EXP-01 L1):** for pip-audit exit 1 with a report listing no vulnerabilities (F10), S0 gives BLOCK (it trusts the exit code) but S1 gives PASS (it trusts the parsed report, and consistency is not checked until S2). S1 is therefore not uniformly safer than S0. This is a result to report, not a defect to hide.
+- **Revisit:** at the protocol freeze, if the guide prefers presence in S2.
+
+## DEC-007: Incomplete, partial and failed evidence in verdicts
+- **Decision:** (1) Any required scanner with invalid evidence (any category in the taxonomy, including PARTIAL_COVERAGE) makes the run INCOMPLETE under S3 and BLOCK under S0–S2. (2) Findings from valid scanners are always kept and listed (BLOCKING_FINDING reasons) even when the verdict is INCOMPLETE. (3) Findings parsed from invalid evidence are kept but marked `from_incomplete_evidence`. (4) An optional scanner's failure is a note, not a reason. (5) `on_incomplete` = `block` (default, exit 2), `warn` (exit 0) or `review` (exit 2 + MANUAL_REVIEW note).
+- **Rationale:** Partial coverage means part of the input was never checked, so security is not established (NFR-02: no path from invalid evidence to PASS).
+- **Evidence:** `test_gate.py::test_partial_failure_keeps_real_findings`, `test_completion.py::test_two_failures_one_real_finding`; EXP-01 FPP.
+
+## DEC-008: Semgrep rules: deliberate skips are not failures
+- **Decision:** Semgrep `paths.skipped` is read. Skips caused by `analysis_failed_parser_or_internal_error`, `insufficient_permissions` or `nonexistent_file` count as PARTIAL_COVERAGE. Deliberate skips (ignore files, excluded paths, wrong language, size limits) are recorded in `coverage.files_skipped` only.
+- **Known limit:** Semgrep 1.180.0 did not report a Python syntax error at all in EXP-00 (SG04). The engine cannot see what the tool does not report; EXP-01 probes `--strict` and `--verbose` for this.
+
+## DEC-009: Semgrep rule packs, version pinning and rule updates (D2) — *pending guide approval*
+- **Decision for development:** Semgrep, pip-audit and Gitleaks versions are pinned in CI and in the experiment workflow (1.180.0 / 2.10.1 / 8.30.1); the Gitleaks binary is checked against a recorded SHA-256; GitHub Actions are pinned to full commit SHAs. The CI policy keeps `p/python`; `p/github-actions` is evaluated by the EXP-01 probe before it is added.
+- **Rule-update control:** registry packs are not content-hashed (Semgrep does not expose a pack version), so each manifest records the pack name, the Semgrep version and the run date. The **experiments use a committed local rule file** whose SHA-256 is recorded, so experiment runs do not depend on registry changes. Updating a version or pack = one reviewed commit that changes the pin, plus a CI run.
+- **Alternatives:** `--config auto` (rejected, DEC-004); committed copies of registry packs (licence and maintenance cost).
+- **Probe result (EXP-01, run 44083865707):** `p/github-actions` is a real pack (11 rules). On this repository it found nothing (actions are SHA-pinned) but raised 2 `PartialParsing` errors on `${{ github.sha }}` inside a `run:` line, which the engine correctly treats as PARTIAL_COVERAGE, so the gate would say INCOMPLETE on its own workflow. **CI keeps `p/python`.** Revisit if the workflow is rewritten to avoid expressions inside `run:` (pass them through `env:`), which is also the hardening the pack recommends.
+
+## DEC-010: Run manifest schema 1.1 and output isolation
+- **Decision:** The manifest has a JSON Schema (draft 2020-12, `security_engine/schemas/run_manifest.schema.json`), validated in unit tests, in CI and for every experiment manifest. Schema 1.1 adds `timings`, per-scanner `rule_sources`, `checks_applied` and `validation_s`. Raw scanner outputs go to `raw/<run_id>/` (new folder per run); stale reports are deleted before each run.
+- **Rationale:** FR-07, FR-27, NFR-05; the experiments compare manifests across hundreds of runs.
+
+## DEC-011: Synthetic secrets in tests, and `.gitleaksignore`
+- **Decision:** Synthetic credential-like test values are built by string concatenation so no literal appears in scannable source. One literal from commit `41c10e7` remains in history (history is never rewritten), so its single fingerprint is in `.gitleaksignore`. The Gitleaks adapter records the ignore file's SHA-256 and entry count as a rule source, because it changes Gitleaks' results.
+- **Rationale:** The gate scans its own repository history in CI; a synthetic value must not block it, and the exception must be visible and auditable.
+- **Revisit:** Any new `.gitleaksignore` entry needs its own justification in that file.
+
+## DEC-012: CI design
+- **Decision:** `ci-security.yml` replaces the Semester 7 workflow on this branch: Tests → SecureGate → Docker build. The gate runs the CLI and its exit code decides the job (0 PASS; 1 BLOCK, 2 INCOMPLETE, 3 policy error all fail it), so the Docker build runs only after PASS. Permissions `contents: read`; `persist-credentials: false`; scanners in their own virtual environment; evidence uploaded with `if: always()`; the verdict is also written as a job annotation.
+- **Deviation:** the Semester 7 jobs (semgrep-action, gitleaks-action) are removed; the gate now runs the scanners itself. `semgrep-action` is deprecated and needed a token.
+- **Validation:** real runs on the `semester8-ci-validate-*` branches (see `docs/ci-integration.md`).
+
+## DEC-013: EXP-01 pilot design — *pending guide approval*
+- **Decision:** A pilot before the protocol freeze, at two levels kept in separate tables: L1 simulated (real EXP-00 outputs replayed with deterministic fault edits) and L2 real binaries (wrapper executables for F2–F7, real-induced faults for F8–F10). Expected categories are written in the harness before any run. Results are labelled "pilot" and added as new folders on `semester8-completion-results`.
+- **Revisit:** at the freeze: cell set, repetitions, T-clean dependency, and whether F9/F10 stay.

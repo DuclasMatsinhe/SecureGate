@@ -113,11 +113,13 @@ def decide(evidences: List[ev.Evidence], policy: Policy, today: Optional[date] =
         exit_signal = [e for e in evidences
                        if e.exit_indicates_findings and not any(id(f) in blocking_ids for f in e.findings)]
 
+    scanner_of = {id(f): e.scanner for e in evidences for f in e.findings}
     for f in blocking:
         where = f"{f.file}:{f.line}" if f.file else "dependency"
+        # Reason.scanner is always the scanner id (as in every other reason), never the display name.
         reasons.append(Reason("BLOCKING_FINDING",
                               f"{f.tool} {f.severity}: {f.rule_id or f.title} ({where})",
-                              f.tool))
+                              scanner_of.get(id(f), f.tool)))
     for e in exit_signal:
         reasons.append(Reason("EXIT_CODE_FINDINGS",
                               f"{e.display_name} exit code indicates findings", e.scanner))
