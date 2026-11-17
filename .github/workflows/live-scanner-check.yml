@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write   # only to push results to the separate live-scanner-results branch
 
 jobs:
   live-check:
@@ -44,11 +44,31 @@ jobs:
 
       - name: Engine v2 end to end on this repository (S3 and S0)
         run: |
+          set +e   # the gate exits 1 (BLOCK) or 2 (INCOMPLETE) by design; record, do not stop
           for s in S3 S0; do
             python -m security_engine.cli --strategy $s --out results/engine_$s --no-summary > results/engine_$s.json; echo "$s exit=$?" | tee -a results/engine_exit_codes.txt
           done
           python -m security_engine.cli --legacy > results/legacy_engine.txt 2>&1; echo "legacy exit=$?" | tee -a results/engine_exit_codes.txt
           cat results/engine_S3/report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Print live-check summary
+        if: always()
+        run: cat results/live_check/summary.tsv || true
+
+      - name: Save results to the live-scanner-results branch
+        if: always()
+        run: |
+          mv results /tmp/results
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan live-scanner-results
+          git rm -rf -q .
+          cp -r /tmp/results/. .
+          printf 'Results of workflow run %s (commit %s).\n' "$GITHUB_RUN_ID" "$GITHUB_SHA" > README.md
+          git add -A
+          git commit -q -m "Live scanner check results, run $GITHUB_RUN_ID [skip ci]"
+          git push -f origin live-scanner-results
+          mv /tmp/results results
 
       - uses: actions/upload-artifact@v4
         if: always()
