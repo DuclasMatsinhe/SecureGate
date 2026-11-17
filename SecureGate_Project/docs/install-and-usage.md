@@ -62,8 +62,7 @@ EOF
 
 ```bash
 python -m pytest -q                                      # 155 tests
-python -m pytest -q --junitxml=test-results.xml && \
-  python tools/traceability_report.py test-results.xml SecureGate_Project/docs   # regenerate matrix + test report
+python tools/traceability_report.py SecureGate_Project/docs   # runs the tests, regenerates matrix + test report
 ```
 
 ## Library use (same decision as the CLI, FR-35)
