@@ -43,15 +43,21 @@ jobs:
           python -m pip install --quiet -r requirements-dev.txt
           python -m venv "$RUNNER_TEMP/scanners"
           "$RUNNER_TEMP/scanners/bin/pip" install --quiet "semgrep==${SEMGREP_VERSION}" "pip-audit==${PIP_AUDIT_VERSION}"
-          echo "$RUNNER_TEMP/scanners/bin" >> "$GITHUB_PATH"
           curl -sSfL -o "$RUNNER_TEMP/gitleaks.tgz" \
             "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
           echo "${GITLEAKS_SHA256}  $RUNNER_TEMP/gitleaks.tgz" | sha256sum -c -
           mkdir -p "$RUNNER_TEMP/bin" && tar -xzf "$RUNNER_TEMP/gitleaks.tgz" -C "$RUNNER_TEMP/bin" gitleaks
+          # Only the scanner commands go on PATH; "python" stays the setup-python interpreter.
+          for t in semgrep pysemgrep pip-audit; do
+            if [ -e "$RUNNER_TEMP/scanners/bin/$t" ]; then ln -s "$RUNNER_TEMP/scanners/bin/$t" "$RUNNER_TEMP/bin/$t"; fi
+          done
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
 
       - name: Unit tests
-        run: python -m pytest -q | tee unit-tests.txt
+        run: |
+          set -o pipefail
+          python -c "import sys; print(sys.executable)" | tee unit-tests.txt
+          python -m pytest -q | tee -a unit-tests.txt
 
       - name: L1 simulated harness
         run: python SecureGate_Project/experiments/EXP-01-pilot/harness.py L1 --out results/L1 --reps 2
