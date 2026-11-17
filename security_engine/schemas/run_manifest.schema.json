@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DuclasMatsinhe/SecureGate/security_engine/schemas/run_manifest.schema.json",
+  "title": "SecureGate run manifest",
+  "description": "One record per SecureGate run (requirements FR-27 to FR-30). Schema version 1.1.",
+  "type": "object",
+  "required": ["schema_version", "run_id", "engine", "started_at", "finished_at", "duration_s", "timings",
+               "target", "policy", "scanners", "findings", "verdict"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "1.1"},
+    "run_id": {"type": "string", "pattern": "^[0-9a-f-]{36}$"},
+    "engine": {
+      "type": "object", "required": ["name", "version"], "additionalProperties": false,
+      "properties": {"name": {"const": "securegate"}, "version": {"type": "string"}}
+    },
+    "started_at": {"type": "string"},
+    "finished_at": {"type": "string"},
+    "duration_s": {"type": "number", "minimum": 0},
+    "timings": {
+      "type": "object",
+      "required": ["scanning_s", "scanner_execution_s", "evidence_validation_s", "decision_s"],
+      "additionalProperties": false,
+      "properties": {
+        "scanning_s": {"type": "number", "minimum": 0},
+        "scanner_execution_s": {"type": "number", "minimum": 0},
+        "evidence_validation_s": {"type": "number", "minimum": 0},
+        "decision_s": {"type": "number", "minimum": 0}
+      }
+    },
+    "target": {
+      "type": "object", "required": ["name", "commit"], "additionalProperties": false,
+      "properties": {
+        "name": {"type": "string"},
+        "commit": {"type": ["string", "null"], "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "policy": {
+      "type": "object",
+      "required": ["source", "sha256", "version", "strategy", "on_incomplete", "required_scanners", "thresholds"],
+      "additionalProperties": false,
+      "properties": {
+        "source": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "version": {"type": "string"},
+        "strategy": {"enum": ["S0", "S1", "S2", "S3"]},
+        "on_incomplete": {"enum": ["block", "warn", "review"]},
+        "required_scanners": {"type": "array", "items": {"enum": ["semgrep", "pip-audit", "gitleaks"]}},
+        "thresholds": {"type": "object", "additionalProperties": {"enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]}}
+      }
+    },
+    "scanners": {"type": "array", "items": {"$ref": "#/$defs/scanner"}},
+    "findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
+    "verdict": {
+      "type": "object",
+      "required": ["verdict", "exit_code", "strategy", "reasons", "notes", "blocking_findings"],
+      "additionalProperties": false,
+      "properties": {
+        "verdict": {"enum": ["PASS", "BLOCK", "INCOMPLETE"]},
+        "exit_code": {"enum": [0, 1, 2]},
+        "strategy": {"enum": ["S0", "S1", "S2", "S3"]},
+        "reasons": {"type": "array", "items": {"$ref": "#/$defs/reason"}},
+        "notes": {"type": "array", "items": {"$ref": "#/$defs/reason"}},
+        "blocking_findings": {"type": "integer", "minimum": 0}
+      }
+    }
+  },
+  "$defs": {
+    "category": {"enum": [null, "TOOL_MISSING", "LAUNCH_ERROR", "TIMEOUT", "NONZERO_EXIT", "NO_OUTPUT",
+                          "INVALID_JSON", "SCHEMA_INVALID", "INCONSISTENT_EXIT", "NO_COVERAGE",
+                          "PARTIAL_COVERAGE", "ENGINE_ERROR"]},
+    "reason": {
+      "type": "object", "required": ["code", "scanner", "message"], "additionalProperties": false,
+      "properties": {"code": {"type": "string"}, "scanner": {"type": ["string", "null"]},
+                     "message": {"type": "string"}}
+    },
+    "scanner": {
+      "type": "object",
+      "required": ["scanner", "required", "version", "config", "rule_sources", "checks_applied", "evidence_status",
+                   "category", "problems", "coverage", "exit_indicates_findings", "findings_count",
+                   "validation_s", "execution"],
+      "additionalProperties": false,
+      "properties": {
+        "scanner": {"enum": ["semgrep", "pip-audit", "gitleaks"]},
+        "required": {"type": "boolean"},
+        "version": {"type": "string"},
+        "config": {"type": ["string", "null"]},
+        "rule_sources": {"type": "array", "items": {"type": "object", "required": ["kind", "id"]}},
+        "checks_applied": {"type": "array", "items": {"enum": ["execution", "exit_code", "presence", "json",
+                                                               "schema", "consistency", "coverage"]}},
+        "evidence_status": {"enum": ["VALID", "INVALID"]},
+        "category": {"$ref": "#/$defs/category"},
+        "problems": {"type": "array", "items": {
+          "type": "object", "required": ["category", "message"], "additionalProperties": false,
+          "properties": {"category": {"$ref": "#/$defs/category"}, "message": {"type": "string"}}}},
+        "coverage": {"type": "object"},
+        "exit_indicates_findings": {"type": "boolean"},
+        "findings_count": {"type": "integer", "minimum": 0},
+        "validation_s": {"type": "number", "minimum": 0},
+        "execution": {
+          "type": ["object", "null"],
+          "required": ["command", "started_at", "duration_s", "exit_code", "launch_error", "launch_detail",
+                       "stdout_bytes", "stderr_tail"],
+          "additionalProperties": false,
+          "properties": {
+            "command": {"type": "array", "items": {"type": "string"}},
+            "started_at": {"type": "string"},
+            "duration_s": {"type": "number", "minimum": 0},
+            "exit_code": {"type": ["integer", "null"]},
+            "launch_error": {"enum": [null, "TOOL_MISSING", "LAUNCH_ERROR", "TIMEOUT"]},
+            "launch_detail": {"type": ["string", "null"]},
+            "stdout_bytes": {"type": "integer", "minimum": 0},
+            "stderr_tail": {"type": "string"}
+          }
+        }
+      },
+      "if": {"properties": {"evidence_status": {"const": "INVALID"}}},
+      "then": {"properties": {"category": {"not": {"const": null}}}}
+    },
+    "finding": {
+      "type": "object",
+      "required": ["tool", "severity", "raw_severity", "severity_mapped", "title", "file", "line", "rule_id",
+                   "from_incomplete_evidence", "suppressed", "suppression_reason"],
+      "additionalProperties": false,
+      "properties": {
+        "tool": {"type": "string"},
+        "severity": {"enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]},
+        "raw_severity": {"type": ["string", "null"]},
+        "severity_mapped": {"type": "boolean"},
+        "title": {"type": "string"},
+        "file": {"type": ["string", "null"]},
+        "line": {"type": ["integer", "null"]},
+        "rule_id": {"type": ["string", "null"]},
+        "from_incomplete_evidence": {"type": "boolean"},
+        "suppressed": {"type": "boolean"},
+        "suppression_reason": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

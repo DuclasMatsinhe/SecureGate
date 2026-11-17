@@ -5,33 +5,44 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from . import evidence as ev
 from .verdict import Verdict
 
-MANIFEST_SCHEMA_VERSION = "1.0"
+MANIFEST_SCHEMA_VERSION = "1.1"
 MAX_FINDINGS_IN_REPORT = 20
 
 # Common credential shapes, redacted from any free text we store (FR-29).
 _SECRET_PATTERNS = [
+    re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]*?(?:-----END [A-Z ]*PRIVATE KEY-----|$)"),
     re.compile(r"gh[pousr]_[A-Za-z0-9]{20,}"),
     re.compile(r"github_pat_[A-Za-z0-9_]{20,}"),
+    re.compile(r"glpat-[A-Za-z0-9_-]{20,}"),
     re.compile(r"(?:A3T[A-Z0-9]|AKIA|ASIA|ABIA|ACCA)[A-Z0-9]{16}"),
     re.compile(r"xox[baprs]-[A-Za-z0-9-]{10,}"),
-    re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]*?-----END [A-Z ]*PRIVATE KEY-----"),
+    re.compile(r"https://hooks\.slack\.com/services/[A-Za-z0-9/]+"),
+    re.compile(r"(?:sk|rk)_(?:live|test)_[A-Za-z0-9]{16,}"),
+    re.compile(r"AIza[0-9A-Za-z_-]{35}"),
+    re.compile(r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}"),
+    re.compile(r"(?i)(\b(?:https?|ftp)://[^\s:/@]+:)[^\s@/]+(?=@)"),
+    re.compile(r"(?i)((?:password|passwd|pwd|secret|api[_-]?key|access[_-]?token|auth[_-]?token|"
+               r"aws_secret_access_key)[\"']?\s*[:=]\s*[\"']?)[^\s\"',;]{6,}"),
 ]
 REDACTED = "[REDACTED]"
 
 REQUIRED_MANIFEST_KEYS = {
-    "schema_version", "run_id", "engine", "started_at", "finished_at", "duration_s",
+    "schema_version", "run_id", "engine", "started_at", "finished_at", "duration_s", "timings",
     "target", "policy", "scanners", "findings", "verdict",
 }
 
 
 def redact(text: str) -> str:
     for pattern in _SECRET_PATTERNS:
-        text = pattern.sub(REDACTED, text)
+        if pattern.groups:  # keep the key name, hide the value
+            text = pattern.sub(lambda m: m.group(1) + REDACTED, text)
+        else:
+            text = pattern.sub(REDACTED, text)
     return text
 
 
@@ -48,7 +59,8 @@ def _scrub(value, home: str):
 
 
 def build_manifest(*, run_id, engine_version, started_at, finished_at, duration_s, target_name,
-                   commit, policy, evidences: List[ev.Evidence], verdict: Verdict) -> dict:
+                   commit, policy, evidences: List[ev.Evidence], verdict: Verdict,
+                   timings: Optional[dict] = None) -> dict:
     findings = [f for e in evidences for f in e.findings]
     manifest = {
         "schema_version": MANIFEST_SCHEMA_VERSION,
@@ -57,6 +69,7 @@ def build_manifest(*, run_id, engine_version, started_at, finished_at, duration_
         "started_at": started_at,
         "finished_at": finished_at,
         "duration_s": round(duration_s, 3),
+        "timings": timings or {},
         "target": {"name": target_name, "commit": commit},
         "policy": {
             "source": policy.source,

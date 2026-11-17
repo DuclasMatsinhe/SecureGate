@@ -28,8 +28,23 @@ from .scanners.gitleaks import parse_gitleaks_results
 from .scanners.pip_audit import parse_pip_audit_results
 from .scanners.semgrep import parse_semgrep_results
 
-SCHEMA_STRATEGIES = {"S1", "S2", "S3"}
-DEEP_STRATEGIES = {"S2", "S3"}
+# Checks applied by each handling strategy (FR-23). Recorded in every manifest.
+STRATEGY_CHECKS = {
+    "S0": ("execution", "exit_code"),
+    "S1": ("execution", "exit_code", "presence", "json", "schema"),
+    "S2": ("execution", "exit_code", "presence", "json", "schema", "consistency", "coverage"),
+    "S3": ("execution", "exit_code", "presence", "json", "schema", "consistency", "coverage"),
+}
+SCHEMA_STRATEGIES = {s for s, checks in STRATEGY_CHECKS.items() if "schema" in checks}
+DEEP_STRATEGIES = {s for s, checks in STRATEGY_CHECKS.items() if "coverage" in checks}
+
+# Semgrep skip reasons that mean the scanner tried and failed (coverage gap),
+# as opposed to files deliberately excluded by ignore rules or language filters.
+SEMGREP_FAILURE_SKIPS = {
+    "analysis_failed_parser_or_internal_error",
+    "insufficient_permissions",
+    "nonexistent_file",
+}
 
 
 class Adapter:
@@ -45,6 +60,10 @@ class Adapter:
 
     def config_id(self, cfg: dict) -> Optional[str]:
         return None
+
+    def rule_sources(self, cfg: dict, target: str) -> List[dict]:
+        """Identity of the rules or inputs the scanner used (FR-04)."""
+        return []
 
     def prepare(self, out_dir: Path) -> None:
         """Remove stale outputs before a run (FR-07)."""
@@ -88,6 +107,10 @@ class SemgrepAdapter(Adapter):
         configs = cfg["config"] if isinstance(cfg["config"], list) else [cfg["config"]]
         return ", ".join(configs)
 
+    def rule_sources(self, cfg, target):
+        configs = cfg["config"] if isinstance(cfg["config"], list) else [cfg["config"]]
+        return [describe_source(c, target) for c in configs]
+
     def schema_problem(self, data):
         if not isinstance(data, dict):
             return "Semgrep report is not a JSON object"
@@ -112,10 +135,20 @@ class SemgrepAdapter(Adapter):
         errors = data.get("errors") or []
         paths = data.get("paths") or {}
         scanned = paths.get("scanned") if isinstance(paths, dict) else None
+        skipped = paths.get("skipped") if isinstance(paths, dict) else None
+        skipped = skipped if isinstance(skipped, list) else []
+        failed_skips = [s for s in skipped
+                        if isinstance(s, dict) and str(s.get("reason", "")).lower() in SEMGREP_FAILURE_SKIPS]
         numbers = {"files_scanned": len(scanned) if isinstance(scanned, list) else None,
+                   "files_skipped": len(skipped),
+                   "files_failed": len(failed_skips),
                    "errors": len(errors)}
         if isinstance(scanned, list) and len(scanned) == 0:
             return ev.NO_COVERAGE, numbers, "Semgrep reports that it scanned 0 files"
+        if failed_skips:
+            names = ", ".join(str(s.get("path")) for s in failed_skips[:5])
+            return (ev.PARTIAL_COVERAGE, numbers,
+                    f"Semgrep could not analyse {len(failed_skips)} file(s) ({names})")
         if errors:
             kinds = sorted({str(e.get("type", "error")) if isinstance(e, dict) else "error" for e in errors})
             return (ev.PARTIAL_COVERAGE, numbers,
@@ -133,6 +166,15 @@ class PipAuditAdapter(Adapter):
 
     def config_id(self, cfg):
         return f"requirements={cfg['requirements']}"
+
+    def rule_sources(self, cfg, target):
+        service = "pypi (default)"
+        args = cfg["extra_args"]
+        for flag in ("-s", "--vulnerability-service"):
+            if flag in args and args.index(flag) + 1 < len(args):
+                service = args[args.index(flag) + 1]
+        return [describe_source(cfg["requirements"], target, kind="requirements"),
+                {"kind": "vulnerability_service", "id": service}]
 
     def success_codes(self, cfg):
         # pip-audit: 0 = no known vulnerabilities, 1 = vulnerabilities found.
@@ -205,6 +247,11 @@ class GitleaksAdapter(Adapter):
     def config_id(self, cfg):
         return cfg.get("config") or "default rules"
 
+    def rule_sources(self, cfg, target):
+        if cfg.get("config"):
+            return [describe_source(cfg["config"], target)]
+        return [{"kind": "builtin", "id": "gitleaks default rules (identified by the Gitleaks version)"}]
+
     def prepare(self, out_dir):
         path = self.report_path(out_dir)
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -258,6 +305,26 @@ _ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
 _ERROR_LINE = re.compile(r"(error|fatal|ftl|err)\b", re.IGNORECASE)
 
 
+def _sha256_file(path: Path) -> str:
+    import hashlib
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(65536), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def describe_source(ref: str, target: str, kind: str = "rules") -> dict:
+    """A local file is identified by its SHA-256; anything else is a registry or built-in name."""
+    for candidate in (Path(target) / ref, Path(ref)):
+        if candidate.is_file():
+            return {"kind": f"{kind}_file", "id": candidate.name, "sha256": _sha256_file(candidate)}
+    if kind == "requirements":
+        return {"kind": "requirements_file", "id": ref, "sha256": None, "note": "file not found"}
+    return {"kind": "registry", "id": ref,
+            "note": "registry content is not hashed; identified by name, scanner version and run date"}
+
+
 def strip_ansi(text: str) -> str:
     return _ANSI.sub("", text)
 
@@ -309,7 +376,8 @@ def evaluate(adapter: Adapter, record: ExecutionRecord, raw: Optional[str], stra
              cfg: dict, required: bool, unknown_severity: str) -> ev.Evidence:
     """Turn one execution into validated evidence according to the strategy."""
     evidence = ev.Evidence(scanner=adapter.key, display_name=adapter.display_name,
-                           required=required, execution=record, config_id=adapter.config_id(cfg))
+                           required=required, execution=record, config_id=adapter.config_id(cfg),
+                           checks_applied=list(STRATEGY_CHECKS[strategy]))
 
     if record.launch_error:
         evidence.add_problem(record.launch_error,

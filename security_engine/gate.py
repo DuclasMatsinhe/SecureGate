@@ -42,18 +42,21 @@ class SecureGate:
         self.adapters = adapters or ADAPTERS
         self.today = today
 
-    def _scan(self, name: str, target: str, out_dir: Path, versions: VersionCache) -> ev.Evidence:
+    def _scan(self, name: str, target: str, raw_dir: Path, versions: VersionCache) -> ev.Evidence:
         adapter = self.adapters[name]
         cfg = self.policy.scanners[name]
         required = name in self.policy.required_scanners
         try:
             executable = resolve_executable(adapter.executable_name, cfg.get("executable") or None)
-            adapter.prepare(out_dir)
-            command = adapter.command(executable, cfg, out_dir)
+            adapter.prepare(raw_dir)
+            command = adapter.command(executable, cfg, raw_dir)
             record = self.runner.run(command, timeout=cfg["timeout"], cwd=scanner_cwd(target))
-            raw = adapter.collect(record, out_dir)
+            raw = adapter.collect(record, raw_dir)
+            validation_start = time.perf_counter()
             evidence = evaluate(adapter, record, raw, self.policy.strategy, cfg, required,
                                 self.policy.unknown_severity)
+            evidence.validation_s = time.perf_counter() - validation_start
+            evidence.rule_sources = adapter.rule_sources(cfg, target)
             if not record.launch_error:
                 evidence.version = versions.get(self.runner, name, adapter.version_command(executable))
             return evidence
@@ -69,9 +72,12 @@ class SecureGate:
         run_id = str(uuid.uuid4())
         started_at, start = utc_now(), time.monotonic()
         versions = VersionCache()
+        raw_dir = out / "raw" / run_id  # fresh per run, so no earlier output can be reused (FR-07)
 
-        evidences = [self._scan(name, target, out, versions) for name in self.policy.enabled_scanners()]
+        evidences = [self._scan(name, target, raw_dir, versions) for name in self.policy.enabled_scanners()]
+        scanning_s = time.monotonic() - start
 
+        decision_start = time.perf_counter()
         try:
             verdict = decide(evidences, self.policy, self.today)
         except Exception as exc:  # noqa: BLE001 - fail-safe by design
@@ -80,10 +86,19 @@ class SecureGate:
                               reasons=[Reason(ev.ENGINE_ERROR, f"Engine error while deciding: "
                                                                f"{type(exc).__name__}: {exc}")])
 
+        decision_s = time.perf_counter() - decision_start
+
+        timings = {
+            "scanning_s": round(scanning_s, 3),
+            "scanner_execution_s": round(sum(e.execution.duration_s for e in evidences if e.execution), 3),
+            "evidence_validation_s": round(sum(e.validation_s for e in evidences), 6),
+            "decision_s": round(decision_s, 6),
+        }
         manifest = build_manifest(
             run_id=run_id, engine_version=__version__, started_at=started_at, finished_at=utc_now(),
             duration_s=time.monotonic() - start, target_name=Path(scanner_cwd(target)).name,
             commit=_git_commit(target), policy=self.policy, evidences=evidences, verdict=verdict,
+            timings=timings,
         )
         manifest_path = out / "run_manifest.json"
         write_json(manifest_path, manifest)

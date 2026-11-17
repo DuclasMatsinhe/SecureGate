@@ -102,6 +102,9 @@ class Evidence:
     exit_indicates_findings: bool = False
     version: str = "unknown"
     config_id: Optional[str] = None
+    rule_sources: List[dict] = field(default_factory=list)
+    checks_applied: List[str] = field(default_factory=list)
+    validation_s: float = 0.0
     execution: Optional[ExecutionRecord] = None
 
     def add_problem(self, category: str, message: str) -> None:
@@ -126,11 +129,14 @@ class Evidence:
             "required": self.required,
             "version": self.version,
             "config": self.config_id,
+            "rule_sources": self.rule_sources,
+            "checks_applied": list(self.checks_applied),
             "evidence_status": self.status,
             "category": self.category,
             "problems": [{"category": p.category, "message": p.message} for p in self.problems],
             "coverage": self.coverage,
             "exit_indicates_findings": self.exit_indicates_findings,
             "findings_count": len(self.findings),
+            "validation_s": round(self.validation_s, 6),
             "execution": self.execution.to_dict() if self.execution else None,
         }
