@@ -1,0 +1,6 @@
+d2_python_on_repo exit=0
+d2_github_actions_on_repo exit=0
+d2_both_on_repo exit=0
+sg_parse_default exit=0
+sg_parse_strict exit=0
+sg_parse_verbose exit=0

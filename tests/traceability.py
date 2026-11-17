@@ -53,6 +53,7 @@ REQUIREMENT_TESTS = {
     "FR-20": ["test_gate.py::test_partial_failure_keeps_real_findings",
               "test_completion.py::test_two_failures_one_real_finding"],
     "FR-21": ["test_gate.py::test_partial_failure_keeps_real_findings",
+              "test_completion.py::test_reasons_always_name_the_scanner_id",
               "test_completion.py::test_mixed_failures_report_every_scanner"],
     "FR-22": ["test_gate.py::test_invalid_policies_are_rejected", "test_gate.py::test_default_policy_loads",
               "test_gate.py::test_repository_policy_file_is_valid",

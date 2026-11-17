@@ -147,6 +147,12 @@ def test_two_failures_one_real_finding(tmp_path):
     assert sum(r.code == "BLOCKING_FINDING" for r in result.verdict.reasons) == 1
 
 
+def test_reasons_always_name_the_scanner_id(tmp_path):
+    result = run(tmp_path, semgrep={"exit": 0, "stdout": semgrep_report([semgrep_result("ERROR")])},
+                 gitleaks={"exit": LEAK_CODE, "report": gitleaks_report(1)}, pip_audit={"launch_error": "TIMEOUT"})
+    assert {r.scanner for r in result.verdict.reasons} == {"semgrep", "gitleaks", "pip-audit"}
+
+
 # ---------------------------------------------------------------- manifest schema (FR-27)
 @pytest.mark.parametrize("behaviours", [
     {},
