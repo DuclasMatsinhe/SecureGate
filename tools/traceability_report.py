@@ -1,16 +1,18 @@
-"""Build the requirement traceability matrix and the test report from a real test run.
+"""Run the test suite and build the requirement traceability matrix and the test report from it.
 
-    python -m pytest -q --junitxml=test-results.xml
-    python tools/traceability_report.py test-results.xml SecureGate_Project/docs
+    python tools/traceability_report.py SecureGate_Project/docs
 
-Writes traceability-matrix.md and test-report.md. Every status shown comes from the JUnit file
-of that run; nothing is typed by hand.
+Writes traceability-matrix.md and test-report.md. Every status shown comes from the test run made
+by this script (pytest in-process, outcomes collected by a small plugin); nothing is typed by hand.
+No XML is parsed (SecureGate's own Semgrep gate flagged the earlier JUnit-XML version).
 """
 
 import re
 import subprocess
 import sys
-import xml.etree.ElementTree as ET  # parsing our own pytest output, not untrusted input
+import time
+
+import pytest
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -32,32 +34,40 @@ def requirements():
     return reqs
 
 
-def results(junit):
-    out = {}
-    for case in ET.parse(junit).getroot().iter("testcase"):
-        file = Path(case.get("classname").replace(".", "/")).name + ".py"
-        name = case.get("name").split("[")[0]
-        status = "failed" if case.find("failure") is not None or case.find("error") is not None else \
-            "skipped" if case.find("skipped") is not None else "passed"
-        key = f"{file}::{name}"
-        prev = out.get(key, "passed")
-        out[key] = status if status != "passed" else prev   # a parametrised test passes only if all cases pass
-        out.setdefault(key + "#n", 0)
-        out[key + "#n"] += 1
-    return out
+class _Collector:
+    def __init__(self):
+        self.outcomes = {}   # "file.py::test_name" -> list of outcomes (one per parametrised case)
+
+    def pytest_runtest_logreport(self, report):
+        if report.when == "call" or (report.when == "setup" and report.outcome != "passed"):
+            file, _, name = report.nodeid.partition("::")
+            key = f"{Path(file).name}::{name.split('[')[0]}"
+            self.outcomes.setdefault(key, []).append(report.outcome)
+
+
+def run_tests():
+    collector = _Collector()
+    started = time.perf_counter()
+    code = pytest.main(["-q", "-p", "no:cacheprovider", str(ROOT / "tests")], plugins=[collector])
+    return collector.outcomes, int(code), time.perf_counter() - started
+
+
+def status(outcomes):
+    return "failed" if "failed" in outcomes else "skipped" if "skipped" in outcomes else "passed"
 
 
 def git(*args):
     return subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True).stdout.strip()
 
 
-def main(junit, out_dir):
+def main(out_dir):
     out_dir = Path(out_dir)
-    reqs, res = requirements(), results(junit)
-    root = ET.parse(junit).getroot()
-    suite = root if root.tag == "testsuite" else root.find("testsuite")
-    stamp = (f"Generated {datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC from `{Path(junit).name}` "
-             f"at commit `{git('rev-parse', '--short', 'HEAD')}` (branch `{git('rev-parse', '--abbrev-ref', 'HEAD')}`).")
+    reqs = requirements()
+    outcomes, exit_code, elapsed = run_tests()
+    res = {k: status(v) for k, v in outcomes.items()}
+    stamp = (f"Generated {datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC by `tools/traceability_report.py` "
+             f"at commit `{git('rev-parse', '--short', 'HEAD')}` "
+             f"(branch `{git('rev-parse', '--abbrev-ref', 'HEAD')}`).")
 
     lines = ["# Requirement traceability matrix", "", stamp,
              "Source of the mapping: `tests/traceability.py` (enforced by `tests/test_traceability.py`).", "",
@@ -68,7 +78,8 @@ def main(junit, out_dir):
         if tests:
             states = [res.get(t, "not run") for t in tests]
             overall = "PASS" if all(s == "passed" for s in states) else "FAIL"
-            shown = "<br>".join(f"`{t}`" + ("" if s == "passed" else f" ({s})") for t, s in zip(tests, states))
+            shown = "<br>".join(f"`{t}`" + ("" if s == "passed" else f" ({s})")
+                                for t, s in zip(tests, states, strict=True))
         else:
             overall, shown = "Verified outside unit tests", VERIFIED_OUTSIDE_UNIT_TESTS.get(rid, "**MISSING**")
         status_count[overall] += 1
@@ -77,14 +88,17 @@ def main(junit, out_dir):
     (out_dir / "traceability-matrix.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     per_file = Counter()
-    for key, state in res.items():
-        if not key.endswith("#n"):
-            per_file[(key.split("::")[0], state)] += res[key + "#n"]
+    for key, outs in outcomes.items():
+        for o in outs:
+            per_file[(key.split("::")[0], o)] += 1
+    total = sum(per_file.values())
     files = sorted({f for f, _ in per_file})
     report = ["# Test report", "", stamp, "",
-              f"- Test cases run: {suite.get('tests')}; failures: {suite.get('failures')}; errors: {suite.get('errors')}; "
-              f"skipped: {suite.get('skipped')}; time: {float(suite.get('time')):.2f} s",
-              "- Command: `python -m pytest -q --junitxml=test-results.xml`", "",
+              f"- Test cases run: {total}; passed: {sum(v for (f, o), v in per_file.items() if o == 'passed')}; "
+              f"failed: {sum(v for (f, o), v in per_file.items() if o == 'failed')}; "
+              f"skipped: {sum(v for (f, o), v in per_file.items() if o == 'skipped')}; pytest exit code {exit_code}; "
+              f"time: {elapsed:.2f} s",
+              "- Command: `python tools/traceability_report.py SecureGate_Project/docs` (runs pytest on `tests/`)", "",
               "| Test file | What it covers | Passed | Failed | Skipped |", "|---|---|---|---|---|"]
     about = {
         "test_app.py": "Flask app health check (Semester 7)",
@@ -104,7 +118,8 @@ def main(junit, out_dir):
                "exercised in CI (`ci-security.yml`) and in EXP-00/EXP-01 L2, not in this unit-test run.", ""]
     (out_dir / "test-report.md").write_text("\n".join(report) + "\n", encoding="utf-8")
     print(f"wrote {out_dir / 'traceability-matrix.md'} and {out_dir / 'test-report.md'}; {dict(status_count)}")
+    return exit_code
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:3])
+    sys.exit(main(sys.argv[1]) if len(sys.argv) > 1 else "usage: traceability_report.py OUT_DIR")

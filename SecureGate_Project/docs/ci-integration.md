@@ -41,6 +41,10 @@ Each validation branch is the completion branch plus one commit that changes `se
 
 The verdicts above were read from the public GitHub API (job conclusions and the "SecureGate verdict" annotation).
 
-## 4. Making it a required check
+## 4. A real block on SecureGate's own code
+
+Run [44089985683](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/44089985683) (commit `059cbb9`) was **blocked by the gate itself**: `semgrep: BLOCKING_FINDING x2`, Docker build skipped. The only Python file changed since the previous PASS was `tools/traceability_report.py`, which parsed pytest's JUnit XML with `xml.etree.ElementTree` (two `ET.parse` calls; Semgrep's `p/python` flags this because of XML entity attacks). The input was trusted, but instead of suppressing the finding the tool was rewritten to collect test outcomes in-process with a pytest plugin, so no XML is parsed. The exact rule IDs are in that run's evidence artifact (artifact download needs a signed-in GitHub account; the public API shows the verdict annotation only).
+
+## 5. Making it a required check
 
 To stop merges, mark the **SecureGate** job as a required status check in the branch protection of `main`. That is a repository-settings change and was not made; it needs the owner's approval.
