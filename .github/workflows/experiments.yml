@@ -1,0 +1,140 @@
+# EXP-01 pilot: runs the experiment harness at L1 (simulated) and L2 (real pinned binaries),
+# plus the probes for open decision D2, and stores every raw output.
+# Runs only when the semester8-experiments branch is pushed (or by manual dispatch).
+# Results are added as a new folder on the semester8-completion-results branch; nothing is overwritten.
+name: experiments
+
+on:
+  push:
+    branches: [semester8-experiments]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHON_VERSION: "3.13"
+  SEMGREP_VERSION: "1.180.0"
+  PIP_AUDIT_VERSION: "2.10.1"
+  GITLEAKS_VERSION: "8.30.1"
+  GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+  RESULTS_BRANCH: semester8-completion-results
+
+jobs:
+  pilot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    permissions:
+      contents: write   # only to add results to the separate results branch
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned scanners and test dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet -r requirements-dev.txt
+          python -m venv "$RUNNER_TEMP/scanners"
+          "$RUNNER_TEMP/scanners/bin/pip" install --quiet "semgrep==${SEMGREP_VERSION}" "pip-audit==${PIP_AUDIT_VERSION}"
+          echo "$RUNNER_TEMP/scanners/bin" >> "$GITHUB_PATH"
+          curl -sSfL -o "$RUNNER_TEMP/gitleaks.tgz" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  $RUNNER_TEMP/gitleaks.tgz" | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/bin" && tar -xzf "$RUNNER_TEMP/gitleaks.tgz" -C "$RUNNER_TEMP/bin" gitleaks
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+
+      - name: Unit tests
+        run: python -m pytest -q | tee unit-tests.txt
+
+      - name: L1 simulated harness
+        run: python SecureGate_Project/experiments/EXP-01-pilot/harness.py L1 --out results/L1 --reps 2
+
+      - name: L2 real-binary harness
+        run: python SecureGate_Project/experiments/EXP-01-pilot/harness.py L2 --out results/L2 --reps 3
+
+      - name: Probes for decision D2 and Semgrep parse errors
+        run: |
+          set +e
+          mkdir -p results/probes && cd results/probes
+          R="$GITHUB_WORKSPACE"
+          probe() { name=$1; shift; "$@" > "$name.json" 2> "$name.stderr"; echo "$name exit=$?" | tee -a exit_codes.txt; }
+          probe d2_python_on_repo semgrep --config p/python --json --metrics=off --disable-version-check "$R"
+          probe d2_github_actions_on_repo semgrep --config p/github-actions --json --metrics=off --disable-version-check "$R"
+          probe d2_both_on_repo semgrep --config p/python --config p/github-actions --json --metrics=off --disable-version-check "$R"
+          mkdir -p broken && printf 'def broken(:\n    return 1\n' > broken/broken.py && printf 'def ok():\n    return eval("1")\n' > broken/ok.py
+          printf 'rules:\n  - id: probe-eval\n    pattern: eval(...)\n    message: probe\n    languages: [python]\n    severity: ERROR\n' > rules.yml
+          probe sg_parse_default semgrep --config rules.yml --json --metrics=off broken
+          probe sg_parse_strict semgrep --config rules.yml --json --metrics=off --strict broken
+          probe sg_parse_verbose semgrep --config rules.yml --json --metrics=off --verbose broken
+          rm -rf broken rules.yml
+          python - <<'EOF'
+          import json, glob
+          out = {}
+          for f in sorted(glob.glob("*.json")):
+              try:
+                  d = json.load(open(f))
+              except Exception as exc:
+                  out[f] = {"json": False, "error": str(exc)[:200]}
+                  continue
+              paths = d.get("paths", {})
+              out[f] = {"results": len(d.get("results", [])), "errors": [e.get("type") for e in d.get("errors", [])],
+                        "rule_ids": sorted({r["check_id"] for r in d.get("results", [])}),
+                        "scanned": len(paths.get("scanned", [])), "skipped": paths.get("skipped", [])}
+          json.dump(out, open("probe_summary.json", "w"), indent=2)
+          print(json.dumps(out, indent=2))
+          EOF
+
+      - name: Validate every manifest against the JSON Schema
+        run: |
+          python - <<'EOF' | tee results/schema_validation.txt
+          import json, glob, jsonschema
+          schema = json.load(open("security_engine/schemas/run_manifest.schema.json"))
+          files = glob.glob("results/L*/runs/**/run_manifest.json", recursive=True)
+          for f in files:
+              jsonschema.validate(json.load(open(f)), schema)
+          print(f"{len(files)} manifests conform to schema 1.1")
+          EOF
+
+      - name: Package results and check that no synthetic token is stored
+        run: |
+          set -euo pipefail
+          cp unit-tests.txt results/
+          if grep -rEl 'ghp_[A-Za-z0-9]{36}|AKIA[A-Z0-9]{16}' results/; then echo "unredacted token found"; exit 1; fi
+          for L in L1 L2; do tar -czf "results/$L/runs.tar.gz" -C "results/$L" runs && rm -rf "results/$L/runs"; done
+          printf 'EXP-01 pilot. Workflow run %s, commit %s, %s.\nL1 = simulated, L2 = real binaries. Pilot: protocol not frozen.\n' \
+            "$GITHUB_RUN_ID" "$GITHUB_SHA" "$(date -u +%FT%TZ)" > results/README.md
+          cat results/L1/summary.md results/L2/summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Add results to the results branch (new folder, no force push)
+        run: |
+          set -euo pipefail
+          dest="EXP-01/run-${GITHUB_RUN_ID}"
+          mv results /tmp/results
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin "$RESULTS_BRANCH" >/dev/null; then
+            git fetch -q origin "$RESULTS_BRANCH" && git checkout -q -B "$RESULTS_BRANCH" FETCH_HEAD
+          else
+            git checkout -q --orphan "$RESULTS_BRANCH" && git rm -rfq . && git clean -fdxq
+          fi
+          test ! -e "$dest" || { echo "$dest already exists"; exit 1; }
+          mkdir -p "$dest" && cp -r /tmp/results/. "$dest/"
+          git add "$dest"
+          git commit -q -m "EXP-01 pilot results, run $GITHUB_RUN_ID [skip ci]"
+          git push -q origin "$RESULTS_BRANCH"
+          mv /tmp/results results
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: exp01-pilot-${{ github.run_id }}
+          path: results/
+          retention-days: 90
