@@ -6,7 +6,7 @@ version = "1.0"
 # Evidence-handling strategy:
 #   S0 exit codes only (baseline)       S1 + report schema checks
 #   S2 + exit consistency and coverage  S3 = S2 checks + INCOMPLETE verdict (recommended)
-strategy = "S3"
+strategy = "S9"   # CI VALIDATION BRANCH ONLY: invalid strategy, expected exit 3 (policy error)
 
 # What INCOMPLETE does to the job: "block" (fail, exit 2), "warn" (exit 0), "review" (exit 2 + review note).
 on_incomplete = "block"
