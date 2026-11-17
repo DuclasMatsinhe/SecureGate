@@ -5,7 +5,7 @@
 | Item | Value |
 |---|---|
 | Where | GitHub-hosted runner `ubuntu-24.04`, Python 3.13.18 |
-| Workflow | Run 44043396994; branch `live-scanner-check` (commit `b4bc961`); results on branch `live-scanner-results` (commit `d1b0b90`) |
+| Workflow | Run 44043396994; branch `live-scanner-check` (commit `043c992`); results on branch `live-scanner-results` (commit `d054ce2`) |
 | Tools | Semgrep 1.180.0 · pip-audit 2.10.1 · Gitleaks 8.30.1 (all pinned versions installed as requested) |
 | Inputs | 26 synthetic cases (10 controls, 16 failure cases), plus engine v2 (strategies S3 and S0) and the Semester 7 engine run on the SecureGate repository |
 | Safety | Synthetic inputs only; fake tokens scrubbed; no secrets in the published results (verified) |
@@ -71,7 +71,7 @@ Neither rule set flags `semgrep_test.py`: the SQL string is built but never exec
 
 **New observation for the paper (RQ1).** An exit-code-only gate (S0) handles these real ambiguities by accident: pip-audit's crash and Gitleaks' config error both *look like findings*, so S0 blocks them. That is "fail closed for the wrong reason": the developer is told to fix code that is not at fault. And S0 *passes* the Gitleaks non-repository case outright. This is exactly the silent-pass versus misattributed-block distinction the study measures.
 
-## 4. Engine changes made from this evidence (commit `5880cd8`, branch `semester8-engine`)
+## 4. Engine changes made from this evidence (commit `2798bcd`, branch `semester8-engine`)
 
 - **Gitleaks coverage from its log:** "not a git repository" or "0 commits scanned" gives `NO_COVERAGE`. Commits scanned are recorded.
 - **Failure reasons quote the tool's own error line,** e.g. "No matching distribution found", rather than a dump of its internal command.
@@ -92,3 +92,7 @@ Neither rule set flags `semgrep_test.py`: the SQL string is built but never exec
 - **Review 1 slide 5 ("Defaults" card)** can now cite **observed** behaviour: "Live check: Gitleaks scans a non-git folder, finds nothing and exits 0; pip-audit and Gitleaks use exit 1 for both findings and crashes."
 - **Backup fault table:** F10 becomes "Confirmed (live)", and F8 is revised as above.
 - **Protocol (due 6 Dec):** choose T-clean dependency versions with no known vulnerabilities on the freeze date.
+
+---
+
+**Note on commit IDs (added 17 Nov 2026).** The branches were later re-authored so that only the student appears as author, which changed every commit ID. The IDs above are the current ones: `2798bcd` (was `5880cd8`), `043c992` (was `b4bc961`; the workflow run itself ran on the original commit), `d054ce2` (was `d1b0b90`). Content and run results are unchanged.
