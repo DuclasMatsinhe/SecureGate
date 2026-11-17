@@ -59,6 +59,15 @@ Evidence validation is measured inside the engine, separately from scanner execu
 | D2: `p/github-actions` on this repository | exit 0; a real pack (11 YAML rules); 2 workflow files; **0 findings** (the 12 mutable-tag warnings from EXP-00 are gone because the actions are now pinned to SHAs); **2 `PartialParsing` errors** at `ci-security.yml` line 154, `${{ github.sha }}` inside `run:` |
 | Semgrep syntax error, default / `--strict` / `--verbose` | all exit 0, 2 files scanned, no error, no skipped entry: the broken file is not reported by any flag |
 
+### Replication (run 44089989905, commit `059cbb9`, fixed workflow)
+
+The whole pilot was run a second time on a fresh runner (image 20261111.370.1) after the workflow fix. Results: `results/run-44089989905/`; raw archives on `semester8-completion-results` (commit `21306df`).
+
+- **Verdicts and categories: identical run for run** to the first pilot at both levels (L2: all 372 runs; L1: all 472 runs). Every metric above is unchanged.
+- Unit tests recorded this time: 155 passed, with `python` = the setup-python interpreter (fix confirmed).
+- 844 manifests valid against schema 1.1. Probe results unchanged.
+- Timing differed between runners: wall time median S0 10.10 s / S3 10.11 s (first run 6.71 / 6.64 s), scanner execution 7.92 / 7.89 s. Evidence validation stayed about 0.44–0.47 ms per run (≈0.004% of engine time). The absolute times depend on the runner; the validation cost does not change the conclusion.
+
 ## 11. Analysis
 
 1. **H1 supported (pilot):** with real binaries, exit-code-only gating (S0) passed 39 of 81 faulted runs: missing, empty, schema-invalid and truncated reports, and every no-coverage case.

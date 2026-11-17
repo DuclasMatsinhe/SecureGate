@@ -1,0 +1,128 @@
+{
+  "d2_both_on_repo.json": {
+    "results": 2,
+    "errors": [
+      [
+        "PartialParsing",
+        [
+          {
+            "path": "/home/runner/work/SecureGate/SecureGate/.github/workflows/ci-security.yml",
+            "start": {
+              "line": 163,
+              "col": 45,
+              "offset": 6057
+            },
+            "end": {
+              "line": 163,
+              "col": 48,
+              "offset": 6060
+            }
+          }
+        ]
+      ],
+      [
+        "PartialParsing",
+        [
+          {
+            "path": "/home/runner/work/SecureGate/SecureGate/.github/workflows/ci-security.yml",
+            "start": {
+              "line": 163,
+              "col": 45,
+              "offset": 6057
+            },
+            "end": {
+              "line": 163,
+              "col": 48,
+              "offset": 6060
+            }
+          }
+        ]
+      ]
+    ],
+    "rule_ids": [
+      "python.lang.security.use-defused-xml-parse.use-defused-xml-parse"
+    ],
+    "scanned": 31,
+    "skipped": []
+  },
+  "d2_github_actions_on_repo.json": {
+    "results": 0,
+    "errors": [
+      [
+        "PartialParsing",
+        [
+          {
+            "path": "/home/runner/work/SecureGate/SecureGate/.github/workflows/ci-security.yml",
+            "start": {
+              "line": 163,
+              "col": 45,
+              "offset": 6057
+            },
+            "end": {
+              "line": 163,
+              "col": 48,
+              "offset": 6060
+            }
+          }
+        ]
+      ],
+      [
+        "PartialParsing",
+        [
+          {
+            "path": "/home/runner/work/SecureGate/SecureGate/.github/workflows/ci-security.yml",
+            "start": {
+              "line": 163,
+              "col": 45,
+              "offset": 6057
+            },
+            "end": {
+              "line": 163,
+              "col": 48,
+              "offset": 6060
+            }
+          }
+        ]
+      ]
+    ],
+    "rule_ids": [],
+    "scanned": 2,
+    "skipped": []
+  },
+  "d2_python_on_repo.json": {
+    "results": 2,
+    "errors": [],
+    "rule_ids": [
+      "python.lang.security.use-defused-xml-parse.use-defused-xml-parse"
+    ],
+    "scanned": 29,
+    "skipped": []
+  },
+  "sg_parse_default.json": {
+    "results": 1,
+    "errors": [],
+    "rule_ids": [
+      "probe-eval"
+    ],
+    "scanned": 2,
+    "skipped": []
+  },
+  "sg_parse_strict.json": {
+    "results": 1,
+    "errors": [],
+    "rule_ids": [
+      "probe-eval"
+    ],
+    "scanned": 2,
+    "skipped": []
+  },
+  "sg_parse_verbose.json": {
+    "results": 1,
+    "errors": [],
+    "rule_ids": [
+      "probe-eval"
+    ],
+    "scanned": 2,
+    "skipped": []
+  }
+}

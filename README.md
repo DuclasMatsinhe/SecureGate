@@ -90,6 +90,7 @@ Each run writes `securegate-out/run_manifest.json` (schema 1.1: versions, comman
 | [traceability-matrix.md](SecureGate_Project/docs/traceability-matrix.md) | Requirement → tests, generated from a test run |
 | [test-report.md](SecureGate_Project/docs/test-report.md) | Generated test results |
 | [decision-log.md](SecureGate_Project/docs/decision-log.md) | DEC-001–DEC-013 |
+| [completion-report.md](SecureGate_Project/docs/completion-report.md) | What was done, verified and left open in the Semester 8 completion work |
 | [reproducibility.md](SecureGate_Project/docs/reproducibility.md) | How to reproduce runs and experiments |
 | [limitations.md](SecureGate_Project/docs/limitations.md) | Known limits of the engine and the evidence |
 | [experiments/](SecureGate_Project/experiments/README.md) | EXP-00 live scanner check, EXP-01 pilot protocol and results |
