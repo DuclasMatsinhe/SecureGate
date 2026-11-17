@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from pathlib import Path
 from typing import List, Optional, Tuple
 
@@ -67,7 +68,7 @@ class Adapter:
     def consistency_problem(self, record: ExecutionRecord, data, findings: list, cfg: dict) -> Optional[str]:
         return None
 
-    def coverage(self, data) -> Tuple[Optional[str], dict, Optional[str]]:
+    def coverage(self, data, record: ExecutionRecord) -> Tuple[Optional[str], dict, Optional[str]]:
         """Return (category or None, coverage numbers, message)."""
         return None, {}, None
 
@@ -78,11 +79,14 @@ class SemgrepAdapter(Adapter):
     executable_name = "semgrep"
 
     def command(self, executable, cfg, out_dir):
-        return [executable, "--config", cfg["config"], "--json", "--metrics=off",
+        configs = cfg["config"] if isinstance(cfg["config"], list) else [cfg["config"]]
+        config_args = [arg for c in configs for arg in ("--config", c)]
+        return [executable, *config_args, "--json", "--metrics=off",
                 "--disable-version-check", *cfg["extra_args"], "."]
 
     def config_id(self, cfg):
-        return cfg["config"]
+        configs = cfg["config"] if isinstance(cfg["config"], list) else [cfg["config"]]
+        return ", ".join(configs)
 
     def schema_problem(self, data):
         if not isinstance(data, dict):
@@ -104,7 +108,7 @@ class SemgrepAdapter(Adapter):
     def parse(self, data):
         return parse_semgrep_results(data)
 
-    def coverage(self, data):
+    def coverage(self, data, record):
         errors = data.get("errors") or []
         paths = data.get("paths") or {}
         scanned = paths.get("scanned") if isinstance(paths, dict) else None
@@ -162,7 +166,7 @@ class PipAuditAdapter(Adapter):
             return "pip-audit exited 1 (vulnerabilities found) but its report lists none"
         return None
 
-    def coverage(self, data):
+    def coverage(self, data, record):
         deps = data.get("dependencies") or []
         skipped = [d for d in deps if isinstance(d, dict) and d.get("skip_reason")]
         audited = len(deps) - len(skipped)
@@ -236,8 +240,36 @@ class GitleaksAdapter(Adapter):
             return f"Gitleaks exited {leak_code} (leaks found) but its report is empty"
         return None
 
-    def coverage(self, data):
-        return None, {"findings": len(data)}, None
+    def coverage(self, data, record):
+        log = strip_ansi(record.stderr or "")
+        numbers = {"findings": len(data)}
+        commits = re.search(r"(\d+) commits scanned", log)
+        if commits:
+            numbers["commits_scanned"] = int(commits.group(1))
+        if "not a git repository" in log:
+            return (ev.NO_COVERAGE, numbers,
+                    "Gitleaks found no git repository at the target, so it scanned nothing")
+        if commits and int(commits.group(1)) == 0:
+            return ev.NO_COVERAGE, numbers, "Gitleaks reports that it scanned 0 commits"
+        return None, numbers, None
+
+
+_ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
+_ERROR_LINE = re.compile(r"(error|fatal|ftl|err)\b", re.IGNORECASE)
+
+
+def strip_ansi(text: str) -> str:
+    return _ANSI.sub("", text)
+
+
+def tool_error_line(record: ExecutionRecord) -> Optional[str]:
+    """The last line of the tool's own log that looks like an error, for clearer reasons."""
+    lines = [ln.strip() for ln in strip_ansi(record.stderr or "").splitlines() if ln.strip()]
+    errors = [ln for ln in lines if _ERROR_LINE.search(ln)]
+    # Prefer a specific message over a dump of an internal command line ("['/tmp/...', ...]").
+    specific = [ln for ln in errors if "['" not in ln]
+    chosen = (specific or errors or [None])[-1]
+    return chosen[:240] if chosen else None
 
 
 ADAPTERS = {a.key: a for a in (SemgrepAdapter(), PipAuditAdapter(), GitleaksAdapter())}
@@ -300,16 +332,19 @@ def evaluate(adapter: Adapter, record: ExecutionRecord, raw: Optional[str], stra
     evidence.findings = normalise(raw_findings, adapter.display_name, unknown_severity)
     evidence.exit_indicates_findings = adapter.exit_indicates_findings(record.exit_code, cfg)
 
+    tool_says = tool_error_line(record)
+    suffix = f". Tool says: {tool_says}" if tool_says else ""
+
     if record.exit_code not in adapter.success_codes(cfg):
         evidence.add_problem(
             ev.NONZERO_EXIT,
             f"{adapter.display_name} exited with code {record.exit_code}; "
-            f"expected {sorted(adapter.success_codes(cfg))}",
+            f"expected {sorted(adapter.success_codes(cfg))}{suffix}",
         )
 
     if strategy in SCHEMA_STRATEGIES:
         if parse_category:
-            evidence.add_problem(parse_category, parse_message)
+            evidence.add_problem(parse_category, parse_message + (suffix if parse_category == ev.NO_OUTPUT else ""))
         elif schema_message:
             evidence.add_problem(ev.SCHEMA_INVALID, f"{adapter.display_name}: {schema_message}")
 
@@ -317,12 +352,12 @@ def evaluate(adapter: Adapter, record: ExecutionRecord, raw: Optional[str], stra
         inconsistency = adapter.consistency_problem(record, data, raw_findings, cfg)
         if inconsistency:
             evidence.add_problem(ev.INCONSISTENT_EXIT, inconsistency)
-        category, numbers, message = adapter.coverage(data)
+        category, numbers, message = adapter.coverage(data, record)
         evidence.coverage = numbers
         if category:
             evidence.add_problem(category, message)
     elif data is not None and schema_message is None:
-        evidence.coverage = adapter.coverage(data)[1]
+        evidence.coverage = adapter.coverage(data, record)[1]
 
     return evidence.finalise()
 

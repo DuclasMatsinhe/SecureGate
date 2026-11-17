@@ -1,0 +1,4 @@
+ERROR:pip_audit._virtual_env:internal pip failure: ERROR: Could not find a version that satisfies the requirement securegate-nonexistent-probe-package==0.0.1 (from versions: none)
+ERROR: No matching distribution found for securegate-nonexistent-probe-package==0.0.1
+
+ERROR:pip_audit._cli:Failed to install packages: ['/tmp/tmp3n3or2qf/bin/python', '-m', 'pip', 'install', '--no-input', '--keyring-provider=subprocess', '--dry-run', '--report', '/tmp/tmp8lnysb_f/tmpmbtwg8mg', '-r', 'requirements.txt']

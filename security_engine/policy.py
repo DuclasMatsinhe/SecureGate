@@ -183,8 +183,12 @@ def _validate(raw: dict, source: str) -> Policy:
             raise PolicyError(f"scanners.{name}.executable must be a string")
         if not isinstance(cfg["extra_args"], list) or not all(isinstance(a, str) for a in cfg["extra_args"]):
             raise PolicyError(f"scanners.{name}.extra_args must be a list of strings")
-    if not isinstance(scanners["semgrep"]["config"], str) or not scanners["semgrep"]["config"].strip():
-        raise PolicyError("scanners.semgrep.config must name a rule pack or rules file")
+    semgrep_config = scanners["semgrep"]["config"]
+    configs = semgrep_config if isinstance(semgrep_config, list) else [semgrep_config]
+    if not configs or not all(isinstance(c, str) and c.strip() for c in configs):
+        raise PolicyError("scanners.semgrep.config must name a rule pack or rules file, or a list of them")
+    if any(c.strip() == "auto" for c in configs):
+        raise PolicyError("scanners.semgrep.config must be pinned; 'auto' changes rules between runs")
     if not isinstance(scanners["pip-audit"]["requirements"], str) or not scanners["pip-audit"]["requirements"]:
         raise PolicyError("scanners.pip-audit.requirements must be a file path")
     leak_code = scanners["gitleaks"]["leak_exit_code"]

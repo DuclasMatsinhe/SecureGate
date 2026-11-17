@@ -21,7 +21,11 @@ default = "HIGH"   # findings at or above this severity block
 
 [scanners.semgrep]
 timeout = 600
-config = "p/python"   # pinned rule pack; replace with a committed rules file for full reproducibility
+# One rule pack or a list. "auto" is rejected because its rules change between runs.
+# Live check (17 Nov 2026): p/python found nothing in this repository; "auto" also scanned the
+# GitHub workflow files (12 pinned-action warnings) but added Python 3.6 compatibility noise.
+# Candidate: ["p/python", "p/github-actions"] (decision D2, pending).
+config = "p/python"
 
 [scanners.pip-audit]
 timeout = 300
