@@ -1,0 +1,614 @@
+[
+  {
+    "id": "SG01",
+    "tool": "semgrep",
+    "fault": "control",
+    "expected": "exit 0; 0 results; 0 errors",
+    "question": "Clean baseline",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/semgrep --config /tmp/sg_live_hji3r2iq/fixtures/rules.yml --json --metrics=off --disable-version-check .",
+    "duration_s": 1.2,
+    "status": "RAN",
+    "exit_code": 0,
+    "summary": {
+      "json_parsed": true,
+      "top_level_keys": [
+        "engine_requested",
+        "errors",
+        "paths",
+        "profiling_results",
+        "results",
+        "skipped_rules",
+        "time",
+        "version"
+      ],
+      "results": 0,
+      "errors": 0,
+      "error_types": [],
+      "paths_scanned": 1,
+      "paths_skipped": null,
+      "version_field": "1.180.0"
+    },
+    "stdout_bytes": 1319,
+    "stderr_bytes": 570
+  },
+  {
+    "id": "SG02",
+    "tool": "semgrep",
+    "fault": "control",
+    "expected": "exit 0 with 1 result (documented: findings do not change the exit code without --error)",
+    "question": "Do findings change the exit code?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/semgrep --config /tmp/sg_live_hji3r2iq/fixtures/rules.yml --json --metrics=off --disable-version-check .",
+    "duration_s": 1.22,
+    "status": "RAN",
+    "exit_code": 0,
+    "summary": {
+      "json_parsed": true,
+      "top_level_keys": [
+        "engine_requested",
+        "errors",
+        "paths",
+        "profiling_results",
+        "results",
+        "skipped_rules",
+        "time",
+        "version"
+      ],
+      "results": 1,
+      "errors": 0,
+      "error_types": [],
+      "paths_scanned": 1,
+      "paths_skipped": null,
+      "version_field": "1.180.0"
+    },
+    "stdout_bytes": 1672,
+    "stderr_bytes": 569
+  },
+  {
+    "id": "SG03",
+    "tool": "semgrep",
+    "fault": "control",
+    "expected": "exit 1 (documented with --error)",
+    "question": "Does --error turn findings into exit 1?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/semgrep --config /tmp/sg_live_hji3r2iq/fixtures/rules.yml --json --metrics=off --disable-version-check --error .",
+    "duration_s": 1.22,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "json_parsed": true,
+      "top_level_keys": [
+        "engine_requested",
+        "errors",
+        "paths",
+        "profiling_results",
+        "results",
+        "skipped_rules",
+        "time",
+        "version"
+      ],
+      "results": 1,
+      "errors": 0,
+      "error_types": [],
+      "paths_scanned": 1,
+      "paths_skipped": null,
+      "version_field": "1.180.0"
+    },
+    "stdout_bytes": 1673,
+    "stderr_bytes": 569
+  },
+  {
+    "id": "SG04",
+    "tool": "semgrep",
+    "fault": "F8",
+    "expected": "UNKNOWN (measured)",
+    "question": "Parse error in one file: exit code? errors[]? scanned count?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/semgrep --config /tmp/sg_live_hji3r2iq/fixtures/rules.yml --json --metrics=off --disable-version-check .",
+    "duration_s": 1.22,
+    "status": "RAN",
+    "exit_code": 0,
+    "summary": {
+      "json_parsed": true,
+      "top_level_keys": [
+        "engine_requested",
+        "errors",
+        "paths",
+        "profiling_results",
+        "results",
+        "skipped_rules",
+        "time",
+        "version"
+      ],
+      "results": 0,
+      "errors": 0,
+      "error_types": [],
+      "paths_scanned": 2,
+      "paths_skipped": null,
+      "version_field": "1.180.0"
+    },
+    "stdout_bytes": 1353,
+    "stderr_bytes": 573
+  },
+  {
+    "id": "SG05",
+    "tool": "semgrep",
+    "fault": "F8+finding (SRQ4)",
+    "expected": "UNKNOWN (measured)",
+    "question": "Parse error next to a real finding: is the finding still reported?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/semgrep --config /tmp/sg_live_hji3r2iq/fixtures/rules.yml --json --metrics=off --disable-version-check .",
+    "duration_s": 1.21,
+    "status": "RAN",
+    "exit_code": 0,
+    "summary": {
+      "json_parsed": true,
+      "top_level_keys": [
+        "engine_requested",
+        "errors",
+        "paths",
+        "profiling_results",
+        "results",
+        "skipped_rules",
+        "time",
+        "version"
+      ],
+      "results": 1,
+      "errors": 0,
+      "error_types": [],
+      "paths_scanned": 2,
+      "paths_skipped": null,
+      "version_field": "1.180.0"
+    },
+    "stdout_bytes": 1709,
+    "stderr_bytes": 572
+  },
+  {
+    "id": "SG06",
+    "tool": "semgrep",
+    "fault": "F8 (no files)",
+    "expected": "UNKNOWN (measured)",
+    "question": "Nothing to scan: exit code and scanned count?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/semgrep --config /tmp/sg_live_hji3r2iq/fixtures/rules.yml --json --metrics=off --disable-version-check .",
+    "duration_s": 1.2,
+    "status": "RAN",
+    "exit_code": 0,
+    "summary": {
+      "json_parsed": true,
+      "top_level_keys": [
+        "engine_requested",
+        "errors",
+        "paths",
+        "profiling_results",
+        "results",
+        "skipped_rules",
+        "time",
+        "version"
+      ],
+      "results": 0,
+      "errors": 0,
+      "error_types": [],
+      "paths_scanned": 0,
+      "paths_skipped": null,
+      "version_field": "1.180.0"
+    },
+    "stdout_bytes": 434,
+    "stderr_bytes": 586
+  },
+  {
+    "id": "SG07",
+    "tool": "semgrep",
+    "fault": "F2 (bad config)",
+    "expected": "UNKNOWN (measured)",
+    "question": "Invalid rules file: exit code? JSON on stdout?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/semgrep --config /tmp/sg_live_hji3r2iq/fixtures/bad_rules.yml --json --metrics=off --disable-version-check .",
+    "duration_s": 0.97,
+    "status": "RAN",
+    "exit_code": 7,
+    "summary": {
+      "json_parsed": true,
+      "top_level_keys": [
+        "engine_requested",
+        "errors",
+        "paths",
+        "profiling_results",
+        "results",
+        "skipped_rules",
+        "version"
+      ],
+      "results": 0,
+      "errors": 2,
+      "error_types": [
+        "SemgrepError/error"
+      ],
+      "paths_scanned": 0,
+      "paths_skipped": null,
+      "version_field": "1.180.0"
+    },
+    "stdout_bytes": 535,
+    "stderr_bytes": 0
+  },
+  {
+    "id": "SG08",
+    "tool": "semgrep",
+    "fault": "F2 (bad target)",
+    "expected": "UNKNOWN (measured)",
+    "question": "Non-existent target path: exit code?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/semgrep --config /tmp/sg_live_hji3r2iq/fixtures/rules.yml --json --metrics=off --disable-version-check does_not_exist",
+    "duration_s": 1.04,
+    "status": "RAN",
+    "exit_code": 2,
+    "summary": {
+      "json_parsed": true,
+      "top_level_keys": [
+        "engine_requested",
+        "errors",
+        "paths",
+        "profiling_results",
+        "results",
+        "skipped_rules",
+        "version"
+      ],
+      "results": 0,
+      "errors": 1,
+      "error_types": [
+        "SemgrepError/error"
+      ],
+      "paths_scanned": 0,
+      "paths_skipped": null,
+      "version_field": "1.180.0"
+    },
+    "stdout_bytes": 235,
+    "stderr_bytes": 0
+  },
+  {
+    "id": "SG09",
+    "tool": "semgrep",
+    "fault": "control (SecureGate command)",
+    "expected": "UNKNOWN (registry rules; needs network)",
+    "question": "SecureGate's exact command: does it run, and what does it report?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/semgrep --config auto --json .",
+    "duration_s": 2.36,
+    "status": "RAN",
+    "exit_code": 0,
+    "summary": {
+      "json_parsed": true,
+      "top_level_keys": [
+        "engine_requested",
+        "errors",
+        "paths",
+        "profiling_results",
+        "results",
+        "skipped_rules",
+        "time",
+        "version"
+      ],
+      "results": 1,
+      "errors": 0,
+      "error_types": [],
+      "paths_scanned": 1,
+      "paths_skipped": null,
+      "version_field": "1.180.0"
+    },
+    "stdout_bytes": 2981,
+    "stderr_bytes": 1460
+  },
+  {
+    "id": "PA01",
+    "tool": "pip-audit",
+    "fault": "control",
+    "expected": "exit 0; no vulnerabilities",
+    "question": "Clean baseline",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json",
+    "duration_s": 5.84,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "json_parsed": true,
+      "top_level_keys": [
+        "dependencies",
+        "fixes"
+      ],
+      "dependencies": 7,
+      "vulnerabilities": 2,
+      "skipped": 0,
+      "skip_reasons": []
+    },
+    "stdout_bytes": 2303,
+    "stderr_bytes": 43
+  },
+  {
+    "id": "PA02",
+    "tool": "pip-audit",
+    "fault": "control",
+    "expected": "exit 1; vulnerabilities in urllib3 1.26.5",
+    "question": "Known vulnerable dependency",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json",
+    "duration_s": 4.27,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "json_parsed": true,
+      "top_level_keys": [
+        "dependencies",
+        "fixes"
+      ],
+      "dependencies": 1,
+      "vulnerabilities": 18,
+      "skipped": 0,
+      "skip_reasons": []
+    },
+    "stdout_bytes": 32695,
+    "stderr_bytes": 44
+  },
+  {
+    "id": "PA03",
+    "tool": "pip-audit",
+    "fault": "F9/F2",
+    "expected": "UNKNOWN (measured)",
+    "question": "Non-existent package with dependency resolution: error or skip?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json",
+    "duration_s": 4.12,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "json_parsed": false
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 502
+  },
+  {
+    "id": "PA04",
+    "tool": "pip-audit",
+    "fault": "F9",
+    "expected": "UNKNOWN (measured)",
+    "question": "Non-existent package without resolution: exit 0 with skip_reason?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json --no-deps",
+    "duration_s": 3.74,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "json_parsed": false
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 736
+  },
+  {
+    "id": "PA05",
+    "tool": "pip-audit",
+    "fault": "F9 (--strict)",
+    "expected": "UNKNOWN (measured; expected non-zero)",
+    "question": "Does --strict turn the skip into a failure?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json --no-deps --strict",
+    "duration_s": 3.74,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "json_parsed": false
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 736
+  },
+  {
+    "id": "PA06",
+    "tool": "pip-audit",
+    "fault": "F9+finding (SRQ4)",
+    "expected": "UNKNOWN (measured)",
+    "question": "Vulnerable package plus skipped package: exit code? both visible?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json --no-deps",
+    "duration_s": 3.74,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "json_parsed": false
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 736
+  },
+  {
+    "id": "PA07",
+    "tool": "pip-audit",
+    "fault": "F2 (malformed file)",
+    "expected": "UNKNOWN (measured)",
+    "question": "Malformed requirement line: exit code? JSON?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json",
+    "duration_s": 0.35,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "json_parsed": false
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 206
+  },
+  {
+    "id": "PA08",
+    "tool": "pip-audit",
+    "fault": "F2/F4 (missing file)",
+    "expected": "UNKNOWN (measured)",
+    "question": "requirements.txt missing: exit code? JSON?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json",
+    "duration_s": 0.35,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "json_parsed": false
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 66
+  },
+  {
+    "id": "PA09",
+    "tool": "pip-audit",
+    "fault": "F2 (network outage)",
+    "expected": "UNKNOWN (measured)",
+    "question": "Advisory service unreachable: exit code? silent empty result?",
+    "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json --no-deps",
+    "duration_s": 3.7,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "json_parsed": true,
+      "top_level_keys": [
+        "dependencies",
+        "fixes"
+      ],
+      "dependencies": 1,
+      "vulnerabilities": 18,
+      "skipped": 0,
+      "skip_reasons": []
+    },
+    "stdout_bytes": 32695,
+    "stderr_bytes": 278
+  },
+  {
+    "id": "GL01",
+    "tool": "gitleaks",
+    "fault": "control",
+    "expected": "exit 0; report []",
+    "question": "Clean baseline",
+    "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL01.json --no-banner",
+    "duration_s": 0.34,
+    "status": "RAN",
+    "exit_code": 0,
+    "summary": {
+      "report_exists": true,
+      "report_bytes": 3,
+      "json_parsed": true,
+      "findings": 0,
+      "rule_ids": []
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 183
+  },
+  {
+    "id": "GL02",
+    "tool": "gitleaks",
+    "fault": "control",
+    "expected": "exit 1 (default --exit-code); >= 1 finding",
+    "question": "Synthetic secrets detected by default rules?",
+    "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL02.json --no-banner",
+    "duration_s": 0.34,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "report_exists": true,
+      "report_bytes": 705,
+      "json_parsed": true,
+      "findings": 1,
+      "rule_ids": [
+        "github-pat"
+      ]
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 185
+  },
+  {
+    "id": "GL03",
+    "tool": "gitleaks",
+    "fault": "control",
+    "expected": "exit 3",
+    "question": "Does an explicit --exit-code separate leaks from errors?",
+    "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL03.json --no-banner --exit-code 3",
+    "duration_s": 0.35,
+    "status": "RAN",
+    "exit_code": 3,
+    "summary": {
+      "report_exists": true,
+      "report_bytes": 705,
+      "json_parsed": true,
+      "findings": 1,
+      "rule_ids": [
+        "github-pat"
+      ]
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 185
+  },
+  {
+    "id": "GL04",
+    "tool": "gitleaks",
+    "fault": "F10 (bad config)",
+    "expected": "UNKNOWN (U21)",
+    "question": "Invalid config: which exit code? Same as a leak (1)? Report written?",
+    "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL04.json --no-banner --config /tmp/sg_live_hji3r2iq/fixtures/gl_bad.toml",
+    "duration_s": 0.22,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "report_exists": false
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 120
+  },
+  {
+    "id": "GL05",
+    "tool": "gitleaks",
+    "fault": "F10 (not a repo)",
+    "expected": "UNKNOWN (U21)",
+    "question": "`detect` on a folder that is not a git repo: exit code? report?",
+    "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL05.json --no-banner",
+    "duration_s": 0.33,
+    "status": "RAN",
+    "exit_code": 0,
+    "summary": {
+      "report_exists": true,
+      "report_bytes": 3,
+      "json_parsed": true,
+      "findings": 0,
+      "rule_ids": []
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 370
+  },
+  {
+    "id": "GL06",
+    "tool": "gitleaks",
+    "fault": "F2 (bad source)",
+    "expected": "UNKNOWN (U21)",
+    "question": "Non-existent source: exit code? report?",
+    "command": "/usr/local/bin/gitleaks detect --source does_not_exist --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL06.json --no-banner",
+    "duration_s": 0.22,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "report_exists": false
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 84
+  },
+  {
+    "id": "GL07",
+    "tool": "gitleaks",
+    "fault": "F4 (report not writable)",
+    "expected": "UNKNOWN (measured)",
+    "question": "Report path not writable: exit code? report missing?",
+    "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/no_such_dir/GL07.json --no-banner",
+    "duration_s": 0.33,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "report_exists": false
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 220
+  },
+  {
+    "id": "GL08",
+    "tool": "gitleaks",
+    "fault": "control (--no-git)",
+    "expected": "exit 1; >= 1 finding",
+    "question": "Directory mode finds the secret?",
+    "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL08.json --no-banner --no-git",
+    "duration_s": 0.33,
+    "status": "RAN",
+    "exit_code": 1,
+    "summary": {
+      "report_exists": true,
+      "report_bytes": 571,
+      "json_parsed": true,
+      "findings": 1,
+      "rule_ids": [
+        "github-pat"
+      ]
+    },
+    "stdout_bytes": 0,
+    "stderr_bytes": 127
+  }
+]

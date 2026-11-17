@@ -34,3 +34,9 @@ Each experiment should contain:
 - Record configuration changes.
 - Do not modify raw data to improve results.
 - Make experiments reproducible whenever possible.
+
+## Experiment index
+
+| ID | Title | Status |
+|---|---|---|
+| [EXP-00](EXP-00-live-scanner-check/README.md) | Live scanner check (pilot for the fault catalogue) | Done, 17 Nov 2026 |
