@@ -1,0 +1,22 @@
+{
+  "id": "GL02",
+  "tool": "gitleaks",
+  "fault": "control",
+  "expected": "exit 1 (default --exit-code); >= 1 finding",
+  "question": "Synthetic secrets detected by default rules?",
+  "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL02.json --no-banner",
+  "duration_s": 0.34,
+  "status": "RAN",
+  "exit_code": 1,
+  "summary": {
+    "report_exists": true,
+    "report_bytes": 705,
+    "json_parsed": true,
+    "findings": 1,
+    "rule_ids": [
+      "github-pat"
+    ]
+  },
+  "stdout_bytes": 0,
+  "stderr_bytes": 185
+}

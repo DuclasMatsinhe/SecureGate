@@ -1,0 +1,24 @@
+{
+  "id": "PA02",
+  "tool": "pip-audit",
+  "fault": "control",
+  "expected": "exit 1; vulnerabilities in urllib3 1.26.5",
+  "question": "Known vulnerable dependency",
+  "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json",
+  "duration_s": 4.27,
+  "status": "RAN",
+  "exit_code": 1,
+  "summary": {
+    "json_parsed": true,
+    "top_level_keys": [
+      "dependencies",
+      "fixes"
+    ],
+    "dependencies": 1,
+    "vulnerabilities": 18,
+    "skipped": 0,
+    "skip_reasons": []
+  },
+  "stdout_bytes": 32695,
+  "stderr_bytes": 44
+}

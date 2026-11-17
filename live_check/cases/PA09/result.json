@@ -1,0 +1,24 @@
+{
+  "id": "PA09",
+  "tool": "pip-audit",
+  "fault": "F2 (network outage)",
+  "expected": "UNKNOWN (measured)",
+  "question": "Advisory service unreachable: exit code? silent empty result?",
+  "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json --no-deps",
+  "duration_s": 3.7,
+  "status": "RAN",
+  "exit_code": 1,
+  "summary": {
+    "json_parsed": true,
+    "top_level_keys": [
+      "dependencies",
+      "fixes"
+    ],
+    "dependencies": 1,
+    "vulnerabilities": 18,
+    "skipped": 0,
+    "skip_reasons": []
+  },
+  "stdout_bytes": 32695,
+  "stderr_bytes": 278
+}

@@ -1,0 +1,22 @@
+{
+  "id": "GL08",
+  "tool": "gitleaks",
+  "fault": "control (--no-git)",
+  "expected": "exit 1; >= 1 finding",
+  "question": "Directory mode finds the secret?",
+  "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL08.json --no-banner --no-git",
+  "duration_s": 0.33,
+  "status": "RAN",
+  "exit_code": 1,
+  "summary": {
+    "report_exists": true,
+    "report_bytes": 571,
+    "json_parsed": true,
+    "findings": 1,
+    "rule_ids": [
+      "github-pat"
+    ]
+  },
+  "stdout_bytes": 0,
+  "stderr_bytes": 127
+}

@@ -1,0 +1,16 @@
+{
+  "id": "PA06",
+  "tool": "pip-audit",
+  "fault": "F9+finding (SRQ4)",
+  "expected": "UNKNOWN (measured)",
+  "question": "Vulnerable package plus skipped package: exit code? both visible?",
+  "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json --no-deps",
+  "duration_s": 3.74,
+  "status": "RAN",
+  "exit_code": 1,
+  "summary": {
+    "json_parsed": false
+  },
+  "stdout_bytes": 0,
+  "stderr_bytes": 736
+}

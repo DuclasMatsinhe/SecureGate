@@ -1,0 +1,16 @@
+{
+  "id": "GL07",
+  "tool": "gitleaks",
+  "fault": "F4 (report not writable)",
+  "expected": "UNKNOWN (measured)",
+  "question": "Report path not writable: exit code? report missing?",
+  "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/no_such_dir/GL07.json --no-banner",
+  "duration_s": 0.33,
+  "status": "RAN",
+  "exit_code": 1,
+  "summary": {
+    "report_exists": false
+  },
+  "stdout_bytes": 0,
+  "stderr_bytes": 220
+}

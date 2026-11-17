@@ -1,0 +1,33 @@
+{
+  "id": "SG08",
+  "tool": "semgrep",
+  "fault": "F2 (bad target)",
+  "expected": "UNKNOWN (measured)",
+  "question": "Non-existent target path: exit code?",
+  "command": "/tmp/sg_live_hji3r2iq/venv/bin/semgrep --config /tmp/sg_live_hji3r2iq/fixtures/rules.yml --json --metrics=off --disable-version-check does_not_exist",
+  "duration_s": 1.04,
+  "status": "RAN",
+  "exit_code": 2,
+  "summary": {
+    "json_parsed": true,
+    "top_level_keys": [
+      "engine_requested",
+      "errors",
+      "paths",
+      "profiling_results",
+      "results",
+      "skipped_rules",
+      "version"
+    ],
+    "results": 0,
+    "errors": 1,
+    "error_types": [
+      "SemgrepError/error"
+    ],
+    "paths_scanned": 0,
+    "paths_skipped": null,
+    "version_field": "1.180.0"
+  },
+  "stdout_bytes": 235,
+  "stderr_bytes": 0
+}

@@ -1,0 +1,20 @@
+{
+  "id": "GL01",
+  "tool": "gitleaks",
+  "fault": "control",
+  "expected": "exit 0; report []",
+  "question": "Clean baseline",
+  "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL01.json --no-banner",
+  "duration_s": 0.34,
+  "status": "RAN",
+  "exit_code": 0,
+  "summary": {
+    "report_exists": true,
+    "report_bytes": 3,
+    "json_parsed": true,
+    "findings": 0,
+    "rule_ids": []
+  },
+  "stdout_bytes": 0,
+  "stderr_bytes": 183
+}

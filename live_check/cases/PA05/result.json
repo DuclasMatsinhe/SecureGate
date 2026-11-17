@@ -1,0 +1,16 @@
+{
+  "id": "PA05",
+  "tool": "pip-audit",
+  "fault": "F9 (--strict)",
+  "expected": "UNKNOWN (measured; expected non-zero)",
+  "question": "Does --strict turn the skip into a failure?",
+  "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json --no-deps --strict",
+  "duration_s": 3.74,
+  "status": "RAN",
+  "exit_code": 1,
+  "summary": {
+    "json_parsed": false
+  },
+  "stdout_bytes": 0,
+  "stderr_bytes": 736
+}

@@ -1,0 +1,16 @@
+{
+  "id": "PA03",
+  "tool": "pip-audit",
+  "fault": "F9/F2",
+  "expected": "UNKNOWN (measured)",
+  "question": "Non-existent package with dependency resolution: error or skip?",
+  "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json",
+  "duration_s": 4.12,
+  "status": "RAN",
+  "exit_code": 1,
+  "summary": {
+    "json_parsed": false
+  },
+  "stdout_bytes": 0,
+  "stderr_bytes": 502
+}

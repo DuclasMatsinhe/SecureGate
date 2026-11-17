@@ -1,0 +1,6 @@
+WARNING:pip_audit._cli:--no-deps is supported, but users are encouraged to fully hash their pinned dependencies
+WARNING:pip_audit._cli:Consider using a tool like `pip-compile`: https://pip-tools.readthedocs.io/en/latest/#using-hashes
+ERROR:pip_audit._virtual_env:internal pip failure: ERROR: Could not find a version that satisfies the requirement securegate-nonexistent-probe-package==0.0.1 (from versions: none)
+ERROR: No matching distribution found for securegate-nonexistent-probe-package==0.0.1
+
+ERROR:pip_audit._cli:Failed to install packages: ['/tmp/tmpnqkkj4o_/bin/python', '-m', 'pip', 'install', '--no-input', '--keyring-provider=subprocess', '--dry-run', '--report', '/tmp/tmp5b04pwlb/tmp_qh9afhv', '-r', 'requirements.txt']

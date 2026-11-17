@@ -1,0 +1,33 @@
+{
+  "id": "SG07",
+  "tool": "semgrep",
+  "fault": "F2 (bad config)",
+  "expected": "UNKNOWN (measured)",
+  "question": "Invalid rules file: exit code? JSON on stdout?",
+  "command": "/tmp/sg_live_hji3r2iq/venv/bin/semgrep --config /tmp/sg_live_hji3r2iq/fixtures/bad_rules.yml --json --metrics=off --disable-version-check .",
+  "duration_s": 0.97,
+  "status": "RAN",
+  "exit_code": 7,
+  "summary": {
+    "json_parsed": true,
+    "top_level_keys": [
+      "engine_requested",
+      "errors",
+      "paths",
+      "profiling_results",
+      "results",
+      "skipped_rules",
+      "version"
+    ],
+    "results": 0,
+    "errors": 2,
+    "error_types": [
+      "SemgrepError/error"
+    ],
+    "paths_scanned": 0,
+    "paths_skipped": null,
+    "version_field": "1.180.0"
+  },
+  "stdout_bytes": 535,
+  "stderr_bytes": 0
+}

@@ -1,0 +1,16 @@
+{
+  "run_utc": "20261117T080259Z",
+  "os": "Linux 7.0.0-1014-aws x86_64",
+  "python": "3.13.18",
+  "requested_versions": {
+    "semgrep": "1.180.0",
+    "pip-audit": "2.10.1"
+  },
+  "installed_versions": {
+    "semgrep": "1.180.0\n\nA new version of Semgrep is available. See https://semgrep.dev/docs/upgrading",
+    "pip-audit": "pip-audit 2.10.1",
+    "gitleaks": "8.30.1",
+    "git": "git version 2.56.1"
+  },
+  "install_notes": []
+}

@@ -1,0 +1,32 @@
+{
+  "id": "SG05",
+  "tool": "semgrep",
+  "fault": "F8+finding (SRQ4)",
+  "expected": "UNKNOWN (measured)",
+  "question": "Parse error next to a real finding: is the finding still reported?",
+  "command": "/tmp/sg_live_hji3r2iq/venv/bin/semgrep --config /tmp/sg_live_hji3r2iq/fixtures/rules.yml --json --metrics=off --disable-version-check .",
+  "duration_s": 1.21,
+  "status": "RAN",
+  "exit_code": 0,
+  "summary": {
+    "json_parsed": true,
+    "top_level_keys": [
+      "engine_requested",
+      "errors",
+      "paths",
+      "profiling_results",
+      "results",
+      "skipped_rules",
+      "time",
+      "version"
+    ],
+    "results": 1,
+    "errors": 0,
+    "error_types": [],
+    "paths_scanned": 2,
+    "paths_skipped": null,
+    "version_field": "1.180.0"
+  },
+  "stdout_bytes": 1709,
+  "stderr_bytes": 572
+}

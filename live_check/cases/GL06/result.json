@@ -1,0 +1,16 @@
+{
+  "id": "GL06",
+  "tool": "gitleaks",
+  "fault": "F2 (bad source)",
+  "expected": "UNKNOWN (U21)",
+  "question": "Non-existent source: exit code? report?",
+  "command": "/usr/local/bin/gitleaks detect --source does_not_exist --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL06.json --no-banner",
+  "duration_s": 0.22,
+  "status": "RAN",
+  "exit_code": 1,
+  "summary": {
+    "report_exists": false
+  },
+  "stdout_bytes": 0,
+  "stderr_bytes": 84
+}

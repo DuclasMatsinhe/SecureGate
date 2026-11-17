@@ -1,0 +1,29 @@
+{
+  "verdict": "PASS",
+  "exit_code": 0,
+  "security_gate_passed": true,
+  "strategy": "S3",
+  "reasons": [],
+  "scanners": [
+    {
+      "scanner": "semgrep",
+      "evidence": "VALID",
+      "category": null,
+      "findings": 0
+    },
+    {
+      "scanner": "pip-audit",
+      "evidence": "VALID",
+      "category": null,
+      "findings": 0
+    },
+    {
+      "scanner": "gitleaks",
+      "evidence": "VALID",
+      "category": null,
+      "findings": 0
+    }
+  ],
+  "manifest": "results/engine_S3/run_manifest.json",
+  "report": "results/engine_S3/report.md"
+}

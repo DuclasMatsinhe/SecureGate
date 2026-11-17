@@ -1,0 +1,312 @@
+{
+  "total_findings": 15,
+  "severity_counts": {
+    "LOW": 0,
+    "MEDIUM": 12,
+    "HIGH": 3,
+    "CRITICAL": 0
+  },
+  "highest_severity": "HIGH",
+  "blocking_findings": true,
+  "scanner_errors": 0,
+  "scanner_results": [
+    {
+      "tool": "Semgrep",
+      "status": "SUCCESS",
+      "findings": [
+        {
+          "tool": "Semgrep",
+          "severity": "MEDIUM",
+          "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+          "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+          "file": ".github/workflows/ci-security.yml",
+          "line": 23,
+          "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "MEDIUM",
+          "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+          "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+          "file": ".github/workflows/ci-security.yml",
+          "line": 26,
+          "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "MEDIUM",
+          "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+          "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+          "file": ".github/workflows/ci-security.yml",
+          "line": 42,
+          "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "MEDIUM",
+          "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+          "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+          "file": ".github/workflows/ci-security.yml",
+          "line": 45,
+          "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "MEDIUM",
+          "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+          "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+          "file": ".github/workflows/ci-security.yml",
+          "line": 57,
+          "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "MEDIUM",
+          "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+          "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+          "file": ".github/workflows/ci-security.yml",
+          "line": 60,
+          "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "MEDIUM",
+          "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+          "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+          "file": ".github/workflows/ci-security.yml",
+          "line": 76,
+          "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "MEDIUM",
+          "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+          "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+          "file": ".github/workflows/ci-security.yml",
+          "line": 81,
+          "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "MEDIUM",
+          "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+          "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+          "file": ".github/workflows/ci-security.yml",
+          "line": 90,
+          "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "MEDIUM",
+          "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+          "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+          "file": ".github/workflows/live-scanner-check.yml",
+          "line": 19,
+          "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "MEDIUM",
+          "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+          "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+          "file": ".github/workflows/live-scanner-check.yml",
+          "line": 21,
+          "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "HIGH",
+          "title": "yaml.github-actions.security.gha-curl-pipe-shell.gha-curl-pipe-shell",
+          "description": "A `run:` step pipes the output of `curl` or `wget` directly into a shell interpreter. This is the \"curl | bash\" install pattern \u2014 if the remote server is compromised or the URL is hijacked, an attacker can execute arbitrary code in your CI runner. Consider downloading the file first, verifying its checksum or signature, and then executing it.",
+          "file": ".github/workflows/live-scanner-check.yml",
+          "line": 26,
+          "rule_id": "yaml.github-actions.security.gha-curl-pipe-shell.gha-curl-pipe-shell"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "MEDIUM",
+          "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+          "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+          "file": ".github/workflows/live-scanner-check.yml",
+          "line": 73,
+          "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "HIGH",
+          "title": "python.lang.compatibility.python36.python36-compatibility-Popen1",
+          "description": "the `errors` argument to Popen is only available on Python 3.6+",
+          "file": "security_engine/execution.py",
+          "line": 80,
+          "rule_id": "python.lang.compatibility.python36.python36-compatibility-Popen1"
+        },
+        {
+          "tool": "Semgrep",
+          "severity": "HIGH",
+          "title": "python.lang.compatibility.python36.python36-compatibility-Popen2",
+          "description": "the `encoding` argument to Popen is only available on Python 3.6+",
+          "file": "security_engine/execution.py",
+          "line": 80,
+          "rule_id": "python.lang.compatibility.python36.python36-compatibility-Popen2"
+        }
+      ],
+      "error": null,
+      "return_code": 0
+    },
+    {
+      "tool": "pip-audit",
+      "status": "SUCCESS",
+      "findings": [],
+      "error": null,
+      "return_code": 0
+    },
+    {
+      "tool": "GitLeaks",
+      "status": "SUCCESS",
+      "findings": [],
+      "error": null,
+      "return_code": 0
+    }
+  ],
+  "security_gate_passed": false
+}
+
+Findings:
+{
+  "tool": "Semgrep",
+  "severity": "MEDIUM",
+  "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+  "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+  "file": ".github/workflows/ci-security.yml",
+  "line": 23,
+  "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+}
+{
+  "tool": "Semgrep",
+  "severity": "MEDIUM",
+  "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+  "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+  "file": ".github/workflows/ci-security.yml",
+  "line": 26,
+  "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+}
+{
+  "tool": "Semgrep",
+  "severity": "MEDIUM",
+  "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+  "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+  "file": ".github/workflows/ci-security.yml",
+  "line": 42,
+  "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+}
+{
+  "tool": "Semgrep",
+  "severity": "MEDIUM",
+  "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+  "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+  "file": ".github/workflows/ci-security.yml",
+  "line": 45,
+  "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+}
+{
+  "tool": "Semgrep",
+  "severity": "MEDIUM",
+  "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+  "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+  "file": ".github/workflows/ci-security.yml",
+  "line": 57,
+  "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+}
+{
+  "tool": "Semgrep",
+  "severity": "MEDIUM",
+  "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+  "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+  "file": ".github/workflows/ci-security.yml",
+  "line": 60,
+  "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+}
+{
+  "tool": "Semgrep",
+  "severity": "MEDIUM",
+  "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+  "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+  "file": ".github/workflows/ci-security.yml",
+  "line": 76,
+  "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+}
+{
+  "tool": "Semgrep",
+  "severity": "MEDIUM",
+  "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+  "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+  "file": ".github/workflows/ci-security.yml",
+  "line": 81,
+  "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+}
+{
+  "tool": "Semgrep",
+  "severity": "MEDIUM",
+  "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+  "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+  "file": ".github/workflows/ci-security.yml",
+  "line": 90,
+  "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+}
+{
+  "tool": "Semgrep",
+  "severity": "MEDIUM",
+  "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+  "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+  "file": ".github/workflows/live-scanner-check.yml",
+  "line": 19,
+  "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+}
+{
+  "tool": "Semgrep",
+  "severity": "MEDIUM",
+  "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+  "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+  "file": ".github/workflows/live-scanner-check.yml",
+  "line": 21,
+  "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+}
+{
+  "tool": "Semgrep",
+  "severity": "HIGH",
+  "title": "yaml.github-actions.security.gha-curl-pipe-shell.gha-curl-pipe-shell",
+  "description": "A `run:` step pipes the output of `curl` or `wget` directly into a shell interpreter. This is the \"curl | bash\" install pattern \u2014 if the remote server is compromised or the URL is hijacked, an attacker can execute arbitrary code in your CI runner. Consider downloading the file first, verifying its checksum or signature, and then executing it.",
+  "file": ".github/workflows/live-scanner-check.yml",
+  "line": 26,
+  "rule_id": "yaml.github-actions.security.gha-curl-pipe-shell.gha-curl-pipe-shell"
+}
+{
+  "tool": "Semgrep",
+  "severity": "MEDIUM",
+  "title": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+  "description": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks \u2014 as seen in the trivy-action and kics-github-action compromises. Pin the reference to a full 40-character commit SHA instead, e.g. `uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608`.",
+  "file": ".github/workflows/live-scanner-check.yml",
+  "line": 73,
+  "rule_id": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag"
+}
+{
+  "tool": "Semgrep",
+  "severity": "HIGH",
+  "title": "python.lang.compatibility.python36.python36-compatibility-Popen1",
+  "description": "the `errors` argument to Popen is only available on Python 3.6+",
+  "file": "security_engine/execution.py",
+  "line": 80,
+  "rule_id": "python.lang.compatibility.python36.python36-compatibility-Popen1"
+}
+{
+  "tool": "Semgrep",
+  "severity": "HIGH",
+  "title": "python.lang.compatibility.python36.python36-compatibility-Popen2",
+  "description": "the `encoding` argument to Popen is only available on Python 3.6+",
+  "file": "security_engine/execution.py",
+  "line": 80,
+  "rule_id": "python.lang.compatibility.python36.python36-compatibility-Popen2"
+}
+
+SECURITY GATE: FAILED
+Blocking security findings were detected.

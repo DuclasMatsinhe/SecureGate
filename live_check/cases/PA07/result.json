@@ -1,0 +1,16 @@
+{
+  "id": "PA07",
+  "tool": "pip-audit",
+  "fault": "F2 (malformed file)",
+  "expected": "UNKNOWN (measured)",
+  "question": "Malformed requirement line: exit code? JSON?",
+  "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json",
+  "duration_s": 0.35,
+  "status": "RAN",
+  "exit_code": 1,
+  "summary": {
+    "json_parsed": false
+  },
+  "stdout_bytes": 0,
+  "stderr_bytes": 206
+}

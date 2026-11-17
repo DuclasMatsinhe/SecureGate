@@ -1,0 +1,24 @@
+{
+  "id": "PA01",
+  "tool": "pip-audit",
+  "fault": "control",
+  "expected": "exit 0; no vulnerabilities",
+  "question": "Clean baseline",
+  "command": "/tmp/sg_live_hji3r2iq/venv/bin/pip-audit -r requirements.txt --format json",
+  "duration_s": 5.84,
+  "status": "RAN",
+  "exit_code": 1,
+  "summary": {
+    "json_parsed": true,
+    "top_level_keys": [
+      "dependencies",
+      "fixes"
+    ],
+    "dependencies": 7,
+    "vulnerabilities": 2,
+    "skipped": 0,
+    "skip_reasons": []
+  },
+  "stdout_bytes": 2303,
+  "stderr_bytes": 43
+}

@@ -1,0 +1,32 @@
+{
+  "id": "SG03",
+  "tool": "semgrep",
+  "fault": "control",
+  "expected": "exit 1 (documented with --error)",
+  "question": "Does --error turn findings into exit 1?",
+  "command": "/tmp/sg_live_hji3r2iq/venv/bin/semgrep --config /tmp/sg_live_hji3r2iq/fixtures/rules.yml --json --metrics=off --disable-version-check --error .",
+  "duration_s": 1.22,
+  "status": "RAN",
+  "exit_code": 1,
+  "summary": {
+    "json_parsed": true,
+    "top_level_keys": [
+      "engine_requested",
+      "errors",
+      "paths",
+      "profiling_results",
+      "results",
+      "skipped_rules",
+      "time",
+      "version"
+    ],
+    "results": 1,
+    "errors": 0,
+    "error_types": [],
+    "paths_scanned": 1,
+    "paths_skipped": null,
+    "version_field": "1.180.0"
+  },
+  "stdout_bytes": 1673,
+  "stderr_bytes": 569
+}

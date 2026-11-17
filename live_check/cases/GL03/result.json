@@ -1,0 +1,22 @@
+{
+  "id": "GL03",
+  "tool": "gitleaks",
+  "fault": "control",
+  "expected": "exit 3",
+  "question": "Does an explicit --exit-code separate leaks from errors?",
+  "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL03.json --no-banner --exit-code 3",
+  "duration_s": 0.35,
+  "status": "RAN",
+  "exit_code": 3,
+  "summary": {
+    "report_exists": true,
+    "report_bytes": 705,
+    "json_parsed": true,
+    "findings": 1,
+    "rule_ids": [
+      "github-pat"
+    ]
+  },
+  "stdout_bytes": 0,
+  "stderr_bytes": 185
+}

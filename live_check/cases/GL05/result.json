@@ -1,0 +1,20 @@
+{
+  "id": "GL05",
+  "tool": "gitleaks",
+  "fault": "F10 (not a repo)",
+  "expected": "UNKNOWN (U21)",
+  "question": "`detect` on a folder that is not a git repo: exit code? report?",
+  "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL05.json --no-banner",
+  "duration_s": 0.33,
+  "status": "RAN",
+  "exit_code": 0,
+  "summary": {
+    "report_exists": true,
+    "report_bytes": 3,
+    "json_parsed": true,
+    "findings": 0,
+    "rule_ids": []
+  },
+  "stdout_bytes": 0,
+  "stderr_bytes": 370
+}

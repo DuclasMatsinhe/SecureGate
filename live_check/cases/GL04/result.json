@@ -1,0 +1,16 @@
+{
+  "id": "GL04",
+  "tool": "gitleaks",
+  "fault": "F10 (bad config)",
+  "expected": "UNKNOWN (U21)",
+  "question": "Invalid config: which exit code? Same as a leak (1)? Report written?",
+  "command": "/usr/local/bin/gitleaks detect --source . --report-format json --report-path /tmp/sg_live_hji3r2iq/gl_reports/GL04.json --no-banner --config /tmp/sg_live_hji3r2iq/fixtures/gl_bad.toml",
+  "duration_s": 0.22,
+  "status": "RAN",
+  "exit_code": 1,
+  "summary": {
+    "report_exists": false
+  },
+  "stdout_bytes": 0,
+  "stderr_bytes": 120
+}
