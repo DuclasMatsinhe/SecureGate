@@ -29,7 +29,8 @@ config = "p/python"
 
 [scanners.pip-audit]
 timeout = 300
-requirements = "requirements.txt"
+# CI VALIDATION BRANCH ONLY: known-vulnerable synthetic fixture, expected verdict BLOCK.
+requirements = "pip_audit_test_requirements.txt"
 
 [scanners.gitleaks]
 timeout = 300
