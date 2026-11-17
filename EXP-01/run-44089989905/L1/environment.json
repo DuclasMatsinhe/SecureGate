@@ -1,0 +1,13 @@
+{
+  "level": "L1",
+  "engine_version": "2.0.0.dev1",
+  "python": "3.13.18",
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+  "runner": "GitHub Actions 1000000062",
+  "image": "ubuntu24",
+  "image_version": "20261111.370.1",
+  "github_run_id": "44089989905",
+  "github_sha": "059cbb9f1e0a2396f19d66e1a16872fe968d5c1b",
+  "started_utc": "2026-11-17T13:10:23+00:00",
+  "git_commit": "059cbb9f1e0a2396f19d66e1a16872fe968d5c1b"
+}
