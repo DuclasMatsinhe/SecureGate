@@ -1,5 +1,5 @@
 {
-  "mode": "candidate",
+  "mode": "final",
   "reps": {"L1": 10, "L2": 10, "R": 10},
-  "note": "Candidate run: the full protocol (10 repetitions) before guide approval, labelled 'candidate'. After approval, FROZEN.sha256 is committed and the same protocol is run with mode 'final', which refuses any other protocol."
+  "note": "Final run of the frozen protocol (FROZEN.sha256). The harness runs with --final and refuses any protocol whose SHA-256 differs."
 }

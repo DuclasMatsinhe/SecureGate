@@ -1,0 +1,3746 @@
+{
+  "arms": {
+    "S0": {
+      "parse_check": false,
+      "strategy": "S0"
+    },
+    "S1": {
+      "parse_check": false,
+      "strategy": "S1"
+    },
+    "S2": {
+      "parse_check": false,
+      "strategy": "S2"
+    },
+    "S3": {
+      "parse_check": false,
+      "strategy": "S3"
+    },
+    "S3P": {
+      "parse_check": true,
+      "strategy": "S3"
+    }
+  },
+  "cells": {
+    "L1": [
+      {
+        "cell_id": "L1-C-clean",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [],
+        "ground_truth": "PASS",
+        "kind": "C",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "all three scanners: recorded clean outputs",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-K-semgrep",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [
+          "semgrep"
+        ],
+        "ground_truth": "BLOCK",
+        "kind": "K",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "recorded real finding (semgrep)",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-K-pip-audit",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [
+          "pip-audit"
+        ],
+        "ground_truth": "BLOCK",
+        "kind": "K",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "recorded real finding (pip-audit)",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-K-gitleaks",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [
+          "gitleaks"
+        ],
+        "ground_truth": "BLOCK",
+        "kind": "K",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "recorded real finding (gitleaks)",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F1-semgrep",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "launch error: executable not found",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F1-pip-audit",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "launch error: executable not found",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F1-gitleaks",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "launch error: executable not found",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F2-semgrep",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 2, no report",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F2-pip-audit",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 2, no report",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F2-gitleaks",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 1, no report",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F3-semgrep",
+        "expected_category": [
+          "TIMEOUT"
+        ],
+        "fault": "F3",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "killed after the policy timeout",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F3-pip-audit",
+        "expected_category": [
+          "TIMEOUT"
+        ],
+        "fault": "F3",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "killed after the policy timeout",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F3-gitleaks",
+        "expected_category": [
+          "TIMEOUT"
+        ],
+        "fault": "F3",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "killed after the policy timeout",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F4-semgrep",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report not written",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F4-pip-audit",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report not written",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F4-gitleaks",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report not written",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F5-semgrep",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F5",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, whitespace-only report",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F5-pip-audit",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F5",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, whitespace-only report",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F5-gitleaks",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F5",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, whitespace-only report",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F6-semgrep",
+        "expected_category": [
+          "SCHEMA_INVALID"
+        ],
+        "fault": "F6",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report is {}",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F6-pip-audit",
+        "expected_category": [
+          "SCHEMA_INVALID"
+        ],
+        "fault": "F6",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report is {}",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F6-gitleaks",
+        "expected_category": [
+          "SCHEMA_INVALID"
+        ],
+        "fault": "F6",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report is {}",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F7-semgrep",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report cut at 50% of bytes",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F7-pip-audit",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report cut at 50% of bytes",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F7-gitleaks",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report cut at 50% of bytes",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F8-semgrep",
+        "expected_category": [
+          "NO_COVERAGE"
+        ],
+        "fault": "F8",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "recorded real SG06: paths.scanned empty",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F8-pip-audit",
+        "expected_category": [
+          "NO_COVERAGE"
+        ],
+        "fault": "F8",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "dependencies list empty",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F8-gitleaks",
+        "expected_category": [
+          "NO_COVERAGE"
+        ],
+        "fault": "F8",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "recorded real GL05: not a git repository, 0 commits scanned",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F9-semgrep",
+        "expected_category": [
+          "PARTIAL_COVERAGE"
+        ],
+        "fault": "F9",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "paths.skipped holds an analysis failure",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F9-pip-audit",
+        "expected_category": [
+          "PARTIAL_COVERAGE"
+        ],
+        "fault": "F9",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "one dependency has skip_reason",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F10-semgrep",
+        "expected_category": [
+          "INCONSISTENT_EXIT",
+          "NONZERO_EXIT"
+        ],
+        "fault": "F10",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 1 (findings) but results empty",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F10-pip-audit",
+        "expected_category": [
+          "INCONSISTENT_EXIT",
+          "NONZERO_EXIT"
+        ],
+        "fault": "F10",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 1 (vulnerabilities) but none reported",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F10-gitleaks",
+        "expected_category": [
+          "INCONSISTENT_EXIT",
+          "NONZERO_EXIT"
+        ],
+        "fault": "F10",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "leak exit code but empty report",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F1-semgrep+K-pip-audit",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [
+          "pip-audit"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "launch error: executable not found",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F1-semgrep+K-gitleaks",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [
+          "gitleaks"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "launch error: executable not found",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F1-pip-audit+K-semgrep",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [
+          "semgrep"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "launch error: executable not found",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F1-pip-audit+K-gitleaks",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [
+          "gitleaks"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "launch error: executable not found",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F1-gitleaks+K-semgrep",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [
+          "semgrep"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "launch error: executable not found",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F1-gitleaks+K-pip-audit",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [
+          "pip-audit"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "launch error: executable not found",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F2-semgrep+K-pip-audit",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [
+          "pip-audit"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 2, no report",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F2-semgrep+K-gitleaks",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [
+          "gitleaks"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 2, no report",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F2-pip-audit+K-semgrep",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [
+          "semgrep"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 2, no report",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F2-pip-audit+K-gitleaks",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [
+          "gitleaks"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 2, no report",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F2-gitleaks+K-semgrep",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [
+          "semgrep"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 1, no report",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F2-gitleaks+K-pip-audit",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [
+          "pip-audit"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 1, no report",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F6-semgrep+K-pip-audit",
+        "expected_category": [
+          "SCHEMA_INVALID"
+        ],
+        "fault": "F6",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [
+          "pip-audit"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report is {}",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F6-semgrep+K-gitleaks",
+        "expected_category": [
+          "SCHEMA_INVALID"
+        ],
+        "fault": "F6",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [
+          "gitleaks"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report is {}",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F6-pip-audit+K-semgrep",
+        "expected_category": [
+          "SCHEMA_INVALID"
+        ],
+        "fault": "F6",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [
+          "semgrep"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report is {}",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F6-pip-audit+K-gitleaks",
+        "expected_category": [
+          "SCHEMA_INVALID"
+        ],
+        "fault": "F6",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [
+          "gitleaks"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report is {}",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F6-gitleaks+K-semgrep",
+        "expected_category": [
+          "SCHEMA_INVALID"
+        ],
+        "fault": "F6",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [
+          "semgrep"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report is {}",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F6-gitleaks+K-pip-audit",
+        "expected_category": [
+          "SCHEMA_INVALID"
+        ],
+        "fault": "F6",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [
+          "pip-audit"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "exit 0, report is {}",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F8-semgrep+K-pip-audit",
+        "expected_category": [
+          "NO_COVERAGE"
+        ],
+        "fault": "F8",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [
+          "pip-audit"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "recorded real SG06: paths.scanned empty",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F8-semgrep+K-gitleaks",
+        "expected_category": [
+          "NO_COVERAGE"
+        ],
+        "fault": "F8",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [
+          "gitleaks"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "recorded real SG06: paths.scanned empty",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F8-pip-audit+K-semgrep",
+        "expected_category": [
+          "NO_COVERAGE"
+        ],
+        "fault": "F8",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [
+          "semgrep"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "dependencies list empty",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F8-pip-audit+K-gitleaks",
+        "expected_category": [
+          "NO_COVERAGE"
+        ],
+        "fault": "F8",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [
+          "gitleaks"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "dependencies list empty",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F8-gitleaks+K-semgrep",
+        "expected_category": [
+          "NO_COVERAGE"
+        ],
+        "fault": "F8",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [
+          "semgrep"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "recorded real GL05: not a git repository, 0 commits scanned",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F8-gitleaks+K-pip-audit",
+        "expected_category": [
+          "NO_COVERAGE"
+        ],
+        "fault": "F8",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [
+          "pip-audit"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "recorded real GL05: not a git repository, 0 commits scanned",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F1x2",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "semgrep",
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "all listed scanners missing",
+        "target": {}
+      },
+      {
+        "cell_id": "L1-F1x3",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "semgrep",
+          "pip-audit",
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L1",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "all listed scanners missing",
+        "target": {}
+      }
+    ],
+    "L2": [
+      {
+        "cell_id": "L2-C-clean",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [],
+        "ground_truth": "PASS",
+        "kind": "C",
+        "level": "L2",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "real tools, synthetic project t-clean",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-C-clean-pkg",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [],
+        "ground_truth": "PASS",
+        "kind": "C",
+        "level": "L2",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "real tools, synthetic project t-clean-pkg",
+        "target": {
+          "name": "t-clean-pkg"
+        }
+      },
+      {
+        "cell_id": "L2-C-clean-history",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [],
+        "ground_truth": "PASS",
+        "kind": "C",
+        "level": "L2",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "real tools, synthetic project t-clean-history",
+        "target": {
+          "name": "t-clean-history"
+        }
+      },
+      {
+        "cell_id": "L2-K-sast-eval",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [
+          "semgrep"
+        ],
+        "ground_truth": "BLOCK",
+        "kind": "K",
+        "level": "L2",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "known finding in t-sast-eval",
+        "target": {
+          "name": "t-sast-eval"
+        }
+      },
+      {
+        "cell_id": "L2-K-sast-pickle",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [
+          "semgrep"
+        ],
+        "ground_truth": "BLOCK",
+        "kind": "K",
+        "level": "L2",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "known finding in t-sast-pickle",
+        "target": {
+          "name": "t-sast-pickle"
+        }
+      },
+      {
+        "cell_id": "L2-K-sca-urllib3",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [
+          "pip-audit"
+        ],
+        "ground_truth": "BLOCK",
+        "kind": "K",
+        "level": "L2",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "known finding in t-sca-urllib3",
+        "target": {
+          "name": "t-sca-urllib3"
+        }
+      },
+      {
+        "cell_id": "L2-K-sca-jinja2",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [
+          "pip-audit"
+        ],
+        "ground_truth": "BLOCK",
+        "kind": "K",
+        "level": "L2",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "known finding in t-sca-jinja2",
+        "target": {
+          "name": "t-sca-jinja2"
+        }
+      },
+      {
+        "cell_id": "L2-K-secret-github",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [
+          "gitleaks"
+        ],
+        "ground_truth": "BLOCK",
+        "kind": "K",
+        "level": "L2",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "known finding in t-secret-github",
+        "target": {
+          "name": "t-secret-github"
+        }
+      },
+      {
+        "cell_id": "L2-K-secret-aws",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [
+          "gitleaks"
+        ],
+        "ground_truth": "BLOCK",
+        "kind": "K",
+        "level": "L2",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "known finding in t-secret-aws",
+        "target": {
+          "name": "t-secret-aws"
+        }
+      },
+      {
+        "cell_id": "L2-F2-semgrep",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (crash)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F2-pip-audit",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (crash)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F2-gitleaks",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (crash)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F3-semgrep",
+        "expected_category": [
+          "TIMEOUT"
+        ],
+        "fault": "F3",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:hang",
+            "timeout": 3
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (hang)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F3-pip-audit",
+        "expected_category": [
+          "TIMEOUT"
+        ],
+        "fault": "F3",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:hang",
+            "timeout": 3
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (hang)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F3-gitleaks",
+        "expected_category": [
+          "TIMEOUT"
+        ],
+        "fault": "F3",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:hang",
+            "timeout": 3
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (hang)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F4-semgrep",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (silent)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F4-pip-audit",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (silent)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F4-gitleaks",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (silent)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F5-semgrep",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F5",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:empty"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (empty)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F5-pip-audit",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F5",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:empty"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (empty)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F5-gitleaks",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F5",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:empty"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (empty)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F6-semgrep",
+        "expected_category": [
+          "SCHEMA_INVALID"
+        ],
+        "fault": "F6",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:schema"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (schema)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F6-pip-audit",
+        "expected_category": [
+          "SCHEMA_INVALID"
+        ],
+        "fault": "F6",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:schema"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (schema)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F6-gitleaks",
+        "expected_category": [
+          "SCHEMA_INVALID"
+        ],
+        "fault": "F6",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:schema"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (schema)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F7-semgrep",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (truncate)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F7-pip-audit",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (truncate)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F7-gitleaks",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (truncate)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F10-semgrep",
+        "expected_category": [
+          "INCONSISTENT_EXIT",
+          "NONZERO_EXIT"
+        ],
+        "fault": "F10",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:exitlie:1"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (exitlie:1)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F10-pip-audit",
+        "expected_category": [
+          "INCONSISTENT_EXIT",
+          "NONZERO_EXIT"
+        ],
+        "fault": "F10",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:exitlie:1"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (exitlie:1)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F10-gitleaks",
+        "expected_category": [
+          "INCONSISTENT_EXIT",
+          "NONZERO_EXIT"
+        ],
+        "fault": "F10",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:exitlie:3"
+          }
+        },
+        "prediction": {},
+        "realisation": "execution level: wrapper executable (exitlie:3)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F1-semgrep",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@missing"
+          }
+        },
+        "prediction": {},
+        "realisation": "executable path does not exist",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F1-pip-audit",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@missing"
+          }
+        },
+        "prediction": {},
+        "realisation": "executable path does not exist",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F1-gitleaks",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@missing"
+          }
+        },
+        "prediction": {},
+        "realisation": "executable path does not exist",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F8-semgrep",
+        "expected_category": [
+          "NO_COVERAGE"
+        ],
+        "fault": "F8",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "real-induced: no Python files",
+        "target": {
+          "name": "t-nopy"
+        }
+      },
+      {
+        "cell_id": "L2-F8-gitleaks",
+        "expected_category": [
+          "NO_COVERAGE"
+        ],
+        "fault": "F8",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "real-induced: folder is not a git repository (holds a synthetic token)",
+        "target": {
+          "name": "t-nogit"
+        }
+      },
+      {
+        "cell_id": "L2-F8-pip-audit",
+        "expected_category": [
+          "NO_COVERAGE"
+        ],
+        "fault": "F8",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {},
+        "prediction": {},
+        "realisation": "real-induced: empty requirements file",
+        "target": {
+          "name": "t-noreq"
+        }
+      },
+      {
+        "cell_id": "L2-F9-semgrep",
+        "expected_category": [
+          "PARTIAL_COVERAGE"
+        ],
+        "fault": "F9",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "EXP-01: Semgrep 1.180.0 lists the file as scanned and reports no error; only the FR-14a parse check (S3P) is predicted to detect it",
+        "policy": {},
+        "prediction": {
+          "S2": "PASS",
+          "S3": "PASS",
+          "S3P": "INCOMPLETE"
+        },
+        "realisation": "real-induced: one file with a syntax error",
+        "target": {
+          "name": "t-broken"
+        }
+      },
+      {
+        "cell_id": "L2-F9-pip-audit",
+        "expected_category": [
+          "PARTIAL_COVERAGE"
+        ],
+        "fault": "F9",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "Replaces the EXP-01 realisation, where pip's resolver failed instead of skipping (DEC-016)",
+        "policy": {},
+        "prediction": {},
+        "realisation": "real-induced: pinned requirement not on PyPI (audited with --no-deps --disable-pip)",
+        "target": {
+          "name": "t-missingpkg"
+        }
+      },
+      {
+        "cell_id": "L2-F10b-gitleaks",
+        "expected_category": [
+          "INCONSISTENT_EXIT",
+          "NONZERO_EXIT"
+        ],
+        "fault": "F10",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "config": "@badconfig"
+          }
+        },
+        "prediction": {},
+        "realisation": "real-induced: invalid Gitleaks config (exit 1 = error code, leak code is 3)",
+        "target": {
+          "name": "t-clean"
+        }
+      },
+      {
+        "cell_id": "L2-F1-semgrep+K-pip-audit",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [
+          "pip-audit"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@missing"
+          }
+        },
+        "prediction": {},
+        "realisation": "semgrep: executable path does not exist; pip-audit holds a known finding",
+        "target": {
+          "name": "t-sca-urllib3"
+        }
+      },
+      {
+        "cell_id": "L2-F2-pip-audit+K-semgrep",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [
+          "semgrep"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "pip-audit: wrapper executable (crash); semgrep holds a known finding",
+        "target": {
+          "name": "t-sast-eval"
+        }
+      },
+      {
+        "cell_id": "L2-F3-gitleaks+K-semgrep",
+        "expected_category": [
+          "TIMEOUT"
+        ],
+        "fault": "F3",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [
+          "semgrep"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:hang",
+            "timeout": 3
+          }
+        },
+        "prediction": {},
+        "realisation": "gitleaks: wrapper executable (hang); semgrep holds a known finding",
+        "target": {
+          "name": "t-sast-eval"
+        }
+      },
+      {
+        "cell_id": "L2-F7-semgrep+K-gitleaks",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [
+          "gitleaks"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "semgrep: wrapper executable (truncate); gitleaks holds a known finding",
+        "target": {
+          "name": "t-secret-github"
+        }
+      },
+      {
+        "cell_id": "L2-F4-pip-audit+K-gitleaks",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [
+          "gitleaks"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "pip-audit: wrapper executable (silent); gitleaks holds a known finding",
+        "target": {
+          "name": "t-secret-github"
+        }
+      },
+      {
+        "cell_id": "L2-F6-gitleaks+K-pip-audit",
+        "expected_category": [
+          "SCHEMA_INVALID"
+        ],
+        "fault": "F6",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [
+          "pip-audit"
+        ],
+        "ground_truth": "NOT_PASS",
+        "kind": "FK",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:schema"
+          }
+        },
+        "prediction": {},
+        "realisation": "gitleaks: wrapper executable (schema); pip-audit holds a known finding",
+        "target": {
+          "name": "t-sca-urllib3"
+        }
+      },
+      {
+        "cell_id": "L2-F1x3",
+        "expected_category": [
+          "TOOL_MISSING"
+        ],
+        "fault": "F1",
+        "faulted": [
+          "semgrep",
+          "pip-audit",
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "L2",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@missing"
+          },
+          "pip-audit": {
+            "executable": "@missing"
+          },
+          "semgrep": {
+            "executable": "@missing"
+          }
+        },
+        "prediction": {},
+        "realisation": "all scanners missing",
+        "target": {
+          "name": "t-clean"
+        }
+      }
+    ],
+    "R": [
+      {
+        "cell_id": "R-microblog-base",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [],
+        "ground_truth": "OBSERVED",
+        "kind": "B",
+        "level": "R",
+        "notes": "observed: no ground truth for the unmodified project",
+        "policy": {},
+        "prediction": {},
+        "realisation": "https://github.com/miguelgrinberg/microblog @ a975ef6, no fault",
+        "target": {
+          "commit": "a975ef64864354867c88e0ed3a17ba7d17dca752",
+          "repo": "microblog",
+          "url": "https://github.com/miguelgrinberg/microblog"
+        }
+      },
+      {
+        "cell_id": "R-microblog-F2-semgrep",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on microblog",
+        "target": {
+          "commit": "a975ef64864354867c88e0ed3a17ba7d17dca752",
+          "repo": "microblog",
+          "url": "https://github.com/miguelgrinberg/microblog"
+        }
+      },
+      {
+        "cell_id": "R-microblog-F2-pip-audit",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on microblog",
+        "target": {
+          "commit": "a975ef64864354867c88e0ed3a17ba7d17dca752",
+          "repo": "microblog",
+          "url": "https://github.com/miguelgrinberg/microblog"
+        }
+      },
+      {
+        "cell_id": "R-microblog-F2-gitleaks",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on microblog",
+        "target": {
+          "commit": "a975ef64864354867c88e0ed3a17ba7d17dca752",
+          "repo": "microblog",
+          "url": "https://github.com/miguelgrinberg/microblog"
+        }
+      },
+      {
+        "cell_id": "R-microblog-F4-semgrep",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on microblog",
+        "target": {
+          "commit": "a975ef64864354867c88e0ed3a17ba7d17dca752",
+          "repo": "microblog",
+          "url": "https://github.com/miguelgrinberg/microblog"
+        }
+      },
+      {
+        "cell_id": "R-microblog-F4-pip-audit",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on microblog",
+        "target": {
+          "commit": "a975ef64864354867c88e0ed3a17ba7d17dca752",
+          "repo": "microblog",
+          "url": "https://github.com/miguelgrinberg/microblog"
+        }
+      },
+      {
+        "cell_id": "R-microblog-F4-gitleaks",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on microblog",
+        "target": {
+          "commit": "a975ef64864354867c88e0ed3a17ba7d17dca752",
+          "repo": "microblog",
+          "url": "https://github.com/miguelgrinberg/microblog"
+        }
+      },
+      {
+        "cell_id": "R-microblog-F7-semgrep",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on microblog",
+        "target": {
+          "commit": "a975ef64864354867c88e0ed3a17ba7d17dca752",
+          "repo": "microblog",
+          "url": "https://github.com/miguelgrinberg/microblog"
+        }
+      },
+      {
+        "cell_id": "R-microblog-F7-pip-audit",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on microblog",
+        "target": {
+          "commit": "a975ef64864354867c88e0ed3a17ba7d17dca752",
+          "repo": "microblog",
+          "url": "https://github.com/miguelgrinberg/microblog"
+        }
+      },
+      {
+        "cell_id": "R-microblog-F7-gitleaks",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on microblog",
+        "target": {
+          "commit": "a975ef64864354867c88e0ed3a17ba7d17dca752",
+          "repo": "microblog",
+          "url": "https://github.com/miguelgrinberg/microblog"
+        }
+      },
+      {
+        "cell_id": "R-microblog-api-base",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [],
+        "ground_truth": "OBSERVED",
+        "kind": "B",
+        "level": "R",
+        "notes": "observed: no ground truth for the unmodified project",
+        "policy": {},
+        "prediction": {},
+        "realisation": "https://github.com/miguelgrinberg/microblog-api @ e250d71, no fault",
+        "target": {
+          "commit": "e250d7115b47010ff0e7051d5868485fff4e32fb",
+          "repo": "microblog-api",
+          "url": "https://github.com/miguelgrinberg/microblog-api"
+        }
+      },
+      {
+        "cell_id": "R-microblog-api-F2-semgrep",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on microblog-api",
+        "target": {
+          "commit": "e250d7115b47010ff0e7051d5868485fff4e32fb",
+          "repo": "microblog-api",
+          "url": "https://github.com/miguelgrinberg/microblog-api"
+        }
+      },
+      {
+        "cell_id": "R-microblog-api-F2-pip-audit",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on microblog-api",
+        "target": {
+          "commit": "e250d7115b47010ff0e7051d5868485fff4e32fb",
+          "repo": "microblog-api",
+          "url": "https://github.com/miguelgrinberg/microblog-api"
+        }
+      },
+      {
+        "cell_id": "R-microblog-api-F2-gitleaks",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on microblog-api",
+        "target": {
+          "commit": "e250d7115b47010ff0e7051d5868485fff4e32fb",
+          "repo": "microblog-api",
+          "url": "https://github.com/miguelgrinberg/microblog-api"
+        }
+      },
+      {
+        "cell_id": "R-microblog-api-F4-semgrep",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on microblog-api",
+        "target": {
+          "commit": "e250d7115b47010ff0e7051d5868485fff4e32fb",
+          "repo": "microblog-api",
+          "url": "https://github.com/miguelgrinberg/microblog-api"
+        }
+      },
+      {
+        "cell_id": "R-microblog-api-F4-pip-audit",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on microblog-api",
+        "target": {
+          "commit": "e250d7115b47010ff0e7051d5868485fff4e32fb",
+          "repo": "microblog-api",
+          "url": "https://github.com/miguelgrinberg/microblog-api"
+        }
+      },
+      {
+        "cell_id": "R-microblog-api-F4-gitleaks",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on microblog-api",
+        "target": {
+          "commit": "e250d7115b47010ff0e7051d5868485fff4e32fb",
+          "repo": "microblog-api",
+          "url": "https://github.com/miguelgrinberg/microblog-api"
+        }
+      },
+      {
+        "cell_id": "R-microblog-api-F7-semgrep",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on microblog-api",
+        "target": {
+          "commit": "e250d7115b47010ff0e7051d5868485fff4e32fb",
+          "repo": "microblog-api",
+          "url": "https://github.com/miguelgrinberg/microblog-api"
+        }
+      },
+      {
+        "cell_id": "R-microblog-api-F7-pip-audit",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on microblog-api",
+        "target": {
+          "commit": "e250d7115b47010ff0e7051d5868485fff4e32fb",
+          "repo": "microblog-api",
+          "url": "https://github.com/miguelgrinberg/microblog-api"
+        }
+      },
+      {
+        "cell_id": "R-microblog-api-F7-gitleaks",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on microblog-api",
+        "target": {
+          "commit": "e250d7115b47010ff0e7051d5868485fff4e32fb",
+          "repo": "microblog-api",
+          "url": "https://github.com/miguelgrinberg/microblog-api"
+        }
+      },
+      {
+        "cell_id": "R-flasky-base",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [],
+        "ground_truth": "OBSERVED",
+        "kind": "B",
+        "level": "R",
+        "notes": "observed: no ground truth for the unmodified project",
+        "policy": {},
+        "prediction": {},
+        "realisation": "https://github.com/miguelgrinberg/flasky @ 3beedd6, no fault",
+        "target": {
+          "commit": "3beedd640b9146b0bd65c8c2ecf402b01798bc33",
+          "repo": "flasky",
+          "url": "https://github.com/miguelgrinberg/flasky"
+        }
+      },
+      {
+        "cell_id": "R-flasky-F2-semgrep",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on flasky",
+        "target": {
+          "commit": "3beedd640b9146b0bd65c8c2ecf402b01798bc33",
+          "repo": "flasky",
+          "url": "https://github.com/miguelgrinberg/flasky"
+        }
+      },
+      {
+        "cell_id": "R-flasky-F2-pip-audit",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on flasky",
+        "target": {
+          "commit": "3beedd640b9146b0bd65c8c2ecf402b01798bc33",
+          "repo": "flasky",
+          "url": "https://github.com/miguelgrinberg/flasky"
+        }
+      },
+      {
+        "cell_id": "R-flasky-F2-gitleaks",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on flasky",
+        "target": {
+          "commit": "3beedd640b9146b0bd65c8c2ecf402b01798bc33",
+          "repo": "flasky",
+          "url": "https://github.com/miguelgrinberg/flasky"
+        }
+      },
+      {
+        "cell_id": "R-flasky-F4-semgrep",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on flasky",
+        "target": {
+          "commit": "3beedd640b9146b0bd65c8c2ecf402b01798bc33",
+          "repo": "flasky",
+          "url": "https://github.com/miguelgrinberg/flasky"
+        }
+      },
+      {
+        "cell_id": "R-flasky-F4-pip-audit",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on flasky",
+        "target": {
+          "commit": "3beedd640b9146b0bd65c8c2ecf402b01798bc33",
+          "repo": "flasky",
+          "url": "https://github.com/miguelgrinberg/flasky"
+        }
+      },
+      {
+        "cell_id": "R-flasky-F4-gitleaks",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on flasky",
+        "target": {
+          "commit": "3beedd640b9146b0bd65c8c2ecf402b01798bc33",
+          "repo": "flasky",
+          "url": "https://github.com/miguelgrinberg/flasky"
+        }
+      },
+      {
+        "cell_id": "R-flasky-F7-semgrep",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on flasky",
+        "target": {
+          "commit": "3beedd640b9146b0bd65c8c2ecf402b01798bc33",
+          "repo": "flasky",
+          "url": "https://github.com/miguelgrinberg/flasky"
+        }
+      },
+      {
+        "cell_id": "R-flasky-F7-pip-audit",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on flasky",
+        "target": {
+          "commit": "3beedd640b9146b0bd65c8c2ecf402b01798bc33",
+          "repo": "flasky",
+          "url": "https://github.com/miguelgrinberg/flasky"
+        }
+      },
+      {
+        "cell_id": "R-flasky-F7-gitleaks",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on flasky",
+        "target": {
+          "commit": "3beedd640b9146b0bd65c8c2ecf402b01798bc33",
+          "repo": "flasky",
+          "url": "https://github.com/miguelgrinberg/flasky"
+        }
+      },
+      {
+        "cell_id": "R-flask-by-example-base",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [],
+        "ground_truth": "OBSERVED",
+        "kind": "B",
+        "level": "R",
+        "notes": "observed: no ground truth for the unmodified project",
+        "policy": {},
+        "prediction": {},
+        "realisation": "https://github.com/realpython/flask-by-example @ 532c0ea, no fault",
+        "target": {
+          "commit": "532c0ea8ed6fc8add43dd5ad74daa98065f723aa",
+          "repo": "flask-by-example",
+          "url": "https://github.com/realpython/flask-by-example"
+        }
+      },
+      {
+        "cell_id": "R-flask-by-example-F2-semgrep",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on flask-by-example",
+        "target": {
+          "commit": "532c0ea8ed6fc8add43dd5ad74daa98065f723aa",
+          "repo": "flask-by-example",
+          "url": "https://github.com/realpython/flask-by-example"
+        }
+      },
+      {
+        "cell_id": "R-flask-by-example-F2-pip-audit",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on flask-by-example",
+        "target": {
+          "commit": "532c0ea8ed6fc8add43dd5ad74daa98065f723aa",
+          "repo": "flask-by-example",
+          "url": "https://github.com/realpython/flask-by-example"
+        }
+      },
+      {
+        "cell_id": "R-flask-by-example-F2-gitleaks",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on flask-by-example",
+        "target": {
+          "commit": "532c0ea8ed6fc8add43dd5ad74daa98065f723aa",
+          "repo": "flask-by-example",
+          "url": "https://github.com/realpython/flask-by-example"
+        }
+      },
+      {
+        "cell_id": "R-flask-by-example-F4-semgrep",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on flask-by-example",
+        "target": {
+          "commit": "532c0ea8ed6fc8add43dd5ad74daa98065f723aa",
+          "repo": "flask-by-example",
+          "url": "https://github.com/realpython/flask-by-example"
+        }
+      },
+      {
+        "cell_id": "R-flask-by-example-F4-pip-audit",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on flask-by-example",
+        "target": {
+          "commit": "532c0ea8ed6fc8add43dd5ad74daa98065f723aa",
+          "repo": "flask-by-example",
+          "url": "https://github.com/realpython/flask-by-example"
+        }
+      },
+      {
+        "cell_id": "R-flask-by-example-F4-gitleaks",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on flask-by-example",
+        "target": {
+          "commit": "532c0ea8ed6fc8add43dd5ad74daa98065f723aa",
+          "repo": "flask-by-example",
+          "url": "https://github.com/realpython/flask-by-example"
+        }
+      },
+      {
+        "cell_id": "R-flask-by-example-F7-semgrep",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on flask-by-example",
+        "target": {
+          "commit": "532c0ea8ed6fc8add43dd5ad74daa98065f723aa",
+          "repo": "flask-by-example",
+          "url": "https://github.com/realpython/flask-by-example"
+        }
+      },
+      {
+        "cell_id": "R-flask-by-example-F7-pip-audit",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on flask-by-example",
+        "target": {
+          "commit": "532c0ea8ed6fc8add43dd5ad74daa98065f723aa",
+          "repo": "flask-by-example",
+          "url": "https://github.com/realpython/flask-by-example"
+        }
+      },
+      {
+        "cell_id": "R-flask-by-example-F7-gitleaks",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on flask-by-example",
+        "target": {
+          "commit": "532c0ea8ed6fc8add43dd5ad74daa98065f723aa",
+          "repo": "flask-by-example",
+          "url": "https://github.com/realpython/flask-by-example"
+        }
+      },
+      {
+        "cell_id": "R-discover-flask-base",
+        "expected_category": [],
+        "fault": "F0",
+        "faulted": [],
+        "finding_in": [],
+        "ground_truth": "OBSERVED",
+        "kind": "B",
+        "level": "R",
+        "notes": "observed: no ground truth for the unmodified project",
+        "policy": {},
+        "prediction": {},
+        "realisation": "https://github.com/realpython/discover-flask @ 00762e9, no fault",
+        "target": {
+          "commit": "00762e9ee9e5713cb61ca8734236d05d6e424da9",
+          "repo": "discover-flask",
+          "url": "https://github.com/realpython/discover-flask"
+        }
+      },
+      {
+        "cell_id": "R-discover-flask-F2-semgrep",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on discover-flask",
+        "target": {
+          "commit": "00762e9ee9e5713cb61ca8734236d05d6e424da9",
+          "repo": "discover-flask",
+          "url": "https://github.com/realpython/discover-flask"
+        }
+      },
+      {
+        "cell_id": "R-discover-flask-F2-pip-audit",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on discover-flask",
+        "target": {
+          "commit": "00762e9ee9e5713cb61ca8734236d05d6e424da9",
+          "repo": "discover-flask",
+          "url": "https://github.com/realpython/discover-flask"
+        }
+      },
+      {
+        "cell_id": "R-discover-flask-F2-gitleaks",
+        "expected_category": [
+          "NONZERO_EXIT"
+        ],
+        "fault": "F2",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:crash"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (crash) on discover-flask",
+        "target": {
+          "commit": "00762e9ee9e5713cb61ca8734236d05d6e424da9",
+          "repo": "discover-flask",
+          "url": "https://github.com/realpython/discover-flask"
+        }
+      },
+      {
+        "cell_id": "R-discover-flask-F4-semgrep",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on discover-flask",
+        "target": {
+          "commit": "00762e9ee9e5713cb61ca8734236d05d6e424da9",
+          "repo": "discover-flask",
+          "url": "https://github.com/realpython/discover-flask"
+        }
+      },
+      {
+        "cell_id": "R-discover-flask-F4-pip-audit",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on discover-flask",
+        "target": {
+          "commit": "00762e9ee9e5713cb61ca8734236d05d6e424da9",
+          "repo": "discover-flask",
+          "url": "https://github.com/realpython/discover-flask"
+        }
+      },
+      {
+        "cell_id": "R-discover-flask-F4-gitleaks",
+        "expected_category": [
+          "NO_OUTPUT"
+        ],
+        "fault": "F4",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:silent"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (silent) on discover-flask",
+        "target": {
+          "commit": "00762e9ee9e5713cb61ca8734236d05d6e424da9",
+          "repo": "discover-flask",
+          "url": "https://github.com/realpython/discover-flask"
+        }
+      },
+      {
+        "cell_id": "R-discover-flask-F7-semgrep",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "semgrep"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "semgrep": {
+            "executable": "@wrapper:semgrep:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on discover-flask",
+        "target": {
+          "commit": "00762e9ee9e5713cb61ca8734236d05d6e424da9",
+          "repo": "discover-flask",
+          "url": "https://github.com/realpython/discover-flask"
+        }
+      },
+      {
+        "cell_id": "R-discover-flask-F7-pip-audit",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "pip-audit"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "pip-audit": {
+            "executable": "@wrapper:pip-audit:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on discover-flask",
+        "target": {
+          "commit": "00762e9ee9e5713cb61ca8734236d05d6e424da9",
+          "repo": "discover-flask",
+          "url": "https://github.com/realpython/discover-flask"
+        }
+      },
+      {
+        "cell_id": "R-discover-flask-F7-gitleaks",
+        "expected_category": [
+          "INVALID_JSON"
+        ],
+        "fault": "F7",
+        "faulted": [
+          "gitleaks"
+        ],
+        "finding_in": [],
+        "ground_truth": "NOT_PASS",
+        "kind": "F",
+        "level": "R",
+        "notes": "",
+        "policy": {
+          "gitleaks": {
+            "executable": "@wrapper:gitleaks:truncate"
+          }
+        },
+        "prediction": {},
+        "realisation": "wrapper executable (truncate) on discover-flask",
+        "target": {
+          "commit": "00762e9ee9e5713cb61ca8734236d05d6e424da9",
+          "repo": "discover-flask",
+          "url": "https://github.com/realpython/discover-flask"
+        }
+      }
+    ]
+  },
+  "engine_version": "2.0.0.dev1",
+  "faults": {
+    "F1": {
+      "description": "executable missing",
+      "expected_categories": [
+        "TOOL_MISSING"
+      ]
+    },
+    "F10": {
+      "description": "exit status inconsistent with report",
+      "expected_categories": [
+        "INCONSISTENT_EXIT",
+        "NONZERO_EXIT"
+      ]
+    },
+    "F2": {
+      "description": "crash: unexpected non-zero exit, no report",
+      "expected_categories": [
+        "NONZERO_EXIT"
+      ]
+    },
+    "F3": {
+      "description": "timeout / hang",
+      "expected_categories": [
+        "TIMEOUT"
+      ]
+    },
+    "F4": {
+      "description": "missing report (exit 0, nothing written)",
+      "expected_categories": [
+        "NO_OUTPUT"
+      ]
+    },
+    "F5": {
+      "description": "empty report (zero bytes / whitespace)",
+      "expected_categories": [
+        "NO_OUTPUT"
+      ]
+    },
+    "F6": {
+      "description": "schema-invalid report ({})",
+      "expected_categories": [
+        "SCHEMA_INVALID"
+      ]
+    },
+    "F7": {
+      "description": "truncated JSON (cut at 50%)",
+      "expected_categories": [
+        "INVALID_JSON"
+      ]
+    },
+    "F8": {
+      "description": "no coverage (scanned nothing)",
+      "expected_categories": [
+        "NO_COVERAGE"
+      ]
+    },
+    "F9": {
+      "description": "partial coverage (some inputs skipped or failed)",
+      "expected_categories": [
+        "PARTIAL_COVERAGE"
+      ]
+    }
+  },
+  "ground_truth": {
+    "B": "observed, no ground truth",
+    "C": "PASS",
+    "F": "not PASS; under S3/S3P INCOMPLETE with an expected category",
+    "FK": "not PASS; the known finding is listed (FR-20)",
+    "K": "BLOCK (finding in the scanner named in finding_in)"
+  },
+  "level_arms": {
+    "L1": [
+      "S0",
+      "S1",
+      "S2",
+      "S3"
+    ],
+    "L2": [
+      "S0",
+      "S1",
+      "S2",
+      "S3",
+      "S3P"
+    ],
+    "R": [
+      "S0",
+      "S1",
+      "S2",
+      "S3",
+      "S3P"
+    ]
+  },
+  "levels": {
+    "L1": "simulated: recorded real outputs replayed with deterministic fault edits",
+    "L2": "real pinned binaries on synthetic projects; execution-level and real-induced faults",
+    "R": "real pinned binaries on five pinned public repositories; execution-level faults"
+  },
+  "metrics": "see analysis.py METRIC_DEFINITIONS (denominators stated there)",
+  "pip_audit_args": [
+    "--no-deps",
+    "--disable-pip"
+  ],
+  "protocol": "EXP-02 v1",
+  "real_repos": {
+    "discover-flask": {
+      "commit": "00762e9ee9e5713cb61ca8734236d05d6e424da9",
+      "url": "https://github.com/realpython/discover-flask"
+    },
+    "flask-by-example": {
+      "commit": "532c0ea8ed6fc8add43dd5ad74daa98065f723aa",
+      "url": "https://github.com/realpython/flask-by-example"
+    },
+    "flasky": {
+      "commit": "3beedd640b9146b0bd65c8c2ecf402b01798bc33",
+      "url": "https://github.com/miguelgrinberg/flasky"
+    },
+    "microblog": {
+      "commit": "a975ef64864354867c88e0ed3a17ba7d17dca752",
+      "url": "https://github.com/miguelgrinberg/microblog"
+    },
+    "microblog-api": {
+      "commit": "e250d7115b47010ff0e7051d5868485fff4e32fb",
+      "url": "https://github.com/miguelgrinberg/microblog-api"
+    }
+  },
+  "repetitions": {
+    "L1": 10,
+    "L2": 10,
+    "R": 10
+  },
+  "scanner_versions": {
+    "gitleaks": "8.30.1",
+    "pip-audit": "2.10.1",
+    "semgrep": "1.180.0"
+  },
+  "semgrep_rules": "rules:\n  - id: probe-eval\n    pattern: eval(...)\n    message: Use of eval (synthetic probe rule)\n    languages: [python]\n    severity: ERROR\n  - id: probe-pickle-loads\n    pattern: pickle.loads(...)\n    message: Unpickling data (synthetic probe rule)\n    languages: [python]\n    severity: ERROR\n"
+}

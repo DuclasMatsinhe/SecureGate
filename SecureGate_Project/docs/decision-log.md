@@ -161,3 +161,9 @@ DEC-002 to DEC-005 above were confirmed, not changed. Status: **accepted for dev
 - **What happened:** CI on `semester8-final` (run 44874973769) returned BLOCK: Gitleaks' `generic-api-key` rule matched the pinned commit hash of `miguelgrinberg/microblog-api` written after that name in `harness.py` (commit 5383c6b). Confirmed locally with the pinned Gitleaks 8.30.1. Not a credential.
 - **Decision:** reorder the tuples (commit before URL) so no new commit matches; list the historical fingerprint in `.gitleaksignore` with this explanation, as for DEC-011. History is not rewritten. The protocol is unchanged (same SHA-256).
 - **Note:** the gate blocking its own repository on a false positive is itself an observation for the paper (secret scanners' generic rules on commit hashes).
+
+## DEC-018: EXP-02 protocol frozen without the guide's approval (21 Nov 2026)
+- **Decision:** at the student's request, the EXP-02 protocol is frozen and run as final without waiting for the guide's approval, because the guide's next requirement is the research paper.
+- **What is frozen:** `protocol.json` (EXP-02 v1), SHA-256 `4716bbba6a3899cb2680b8455da6c171ae7e2f1c38ba97ff2f20cef4b2d30fed`, committed in `FROZEN.sha256` before the final run. It is byte-identical to the protocol of the candidate run 44875857860; no cell, expectation, repetition count or metric changed after the candidate results were seen.
+- **Disclosure:** the paper and the EXP-02 README state that the protocol was fixed by the authors before the final run and was not approved by an external party; the candidate run, which used the same protocol, is reported as a replication.
+- **If the guide later asks for changes:** they are made as a new protocol version (EXP-02 v2) with its own hash and run; this run stays as recorded.
