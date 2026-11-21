@@ -18,7 +18,7 @@ R=../exp02-results/EXP-02/candidate-run-44875857860
 ```bash
 python SecureGate_Project/experiments/EXP-02/harness.py protocol --out /tmp/protocol.json   # prints the SHA-256
 cat $R/protocol.sha256                                                                        # must be identical
-python SecureGate_Project/experiments/EXP-02/analysis.py --out /tmp/my-analysis $R/shards/*
+python SecureGate_Project/experiments/EXP-02/analysis.py --title "EXP-02 (candidate), workflow run 44875857860" --out /tmp/my-analysis $R/shards/*
 diff /tmp/my-analysis/summary.md $R/analysis/summary.md && echo "analysis reproduced"
 ```
 
