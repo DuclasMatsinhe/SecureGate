@@ -71,7 +71,7 @@ All in `SecureGate_Project/docs/`:
 | [requirements/engine-requirements-v1.md](SecureGate_Project/docs/requirements/engine-requirements-v1.md) | 44 requirements (FR-01–FR-35, FR-14a, FR-20a, NFR-01–NFR-07), change log for v1.1 and v1.2 |
 | [traceability-matrix.md](SecureGate_Project/docs/traceability-matrix.md) | Requirement → tests, generated from a test run |
 | [test-report.md](SecureGate_Project/docs/test-report.md) | Generated test results |
-| [decision-log.md](SecureGate_Project/docs/decision-log.md) | Design decisions DEC-001–DEC-017 |
+| [decision-log.md](SecureGate_Project/docs/decision-log.md) | Design decisions DEC-001–DEC-018 |
 | [completion-report.md](SecureGate_Project/docs/completion-report.md) | What was done, verified and left open in the Semester 8 completion work |
 | [reproducibility.md](SecureGate_Project/docs/reproducibility.md) | How to reproduce runs and experiments |
 | [limitations.md](SecureGate_Project/docs/limitations.md) | Known limits of the engine and the evidence |
