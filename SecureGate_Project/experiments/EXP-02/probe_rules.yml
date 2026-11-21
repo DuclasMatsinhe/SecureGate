@@ -1,0 +1,11 @@
+rules:
+  - id: probe-eval
+    pattern: eval(...)
+    message: Use of eval (synthetic probe rule)
+    languages: [python]
+    severity: ERROR
+  - id: probe-pickle-loads
+    pattern: pickle.loads(...)
+    message: Unpickling data (synthetic probe rule)
+    languages: [python]
+    severity: ERROR

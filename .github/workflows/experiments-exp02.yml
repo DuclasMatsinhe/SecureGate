@@ -89,6 +89,47 @@ jobs:
           python "$EXP/harness.py" run --level ${{ matrix.level }} --shard ${{ matrix.shard }} --reps "$reps" \
             --out "shards/$name" $final 2>&1 | tee "$RUNNER_TEMP/harness-$name.log"
 
+      - name: Probes (L1 shard only) - pip-audit on nested requirements, Python 2 files
+        if: matrix.level == 'L1'
+        run: |
+          set +e
+          d="shards/L1-1/probes"; mkdir -p "$d" && cd "$d"
+          git init -q flasky && git -C flasky fetch -q --depth 1 https://github.com/miguelgrinberg/flasky 3beedd640b9146b0bd65c8c2ecf402b01798bc33 && git -C flasky checkout -q FETCH_HEAD
+          git init -q dflask && git -C dflask fetch -q --depth 1 https://github.com/realpython/discover-flask 00762e9ee9e5713cb61ca8734236d05d6e424da9 && git -C dflask checkout -q FETCH_HEAD
+          probe() { name=$1; shift; (cd "$1" && shift && "$@") > "$name.out" 2> "$name.err"; echo "$name exit=$?" | tee -a exit_codes.txt; }
+          probe pa_flasky_nodeps flasky pip-audit -r requirements.txt --format json --no-deps --disable-pip
+          probe pa_flasky_heroku_nodeps flasky/requirements pip-audit -r heroku.txt --format json --no-deps --disable-pip
+          probe pa_flasky_default flasky timeout 600 pip-audit -r requirements.txt --format json
+          python - <<'EOF' > py_parse_dflask.txt
+          import ast, pathlib
+          for p in sorted(pathlib.Path("dflask").rglob("*.py")):
+              try:
+                  ast.parse(p.read_bytes())
+              except SyntaxError as e:
+                  print(f"{p}: {e.msg} (line {e.lineno})")
+          EOF
+          probe sg_dflask dflask semgrep --config "$GITHUB_WORKSPACE/$EXP/probe_rules.yml" --json --metrics=off --disable-version-check .
+          python - <<'EOF' > probe_summary.json
+          import json, glob
+          out = {}
+          for f in sorted(glob.glob("*.out")):
+              try:
+                  d = json.load(open(f))
+              except Exception as exc:
+                  out[f] = {"json": False, "error": str(exc)[:200]}
+                  continue
+              if "dependencies" in d:
+                  deps = d["dependencies"]
+                  out[f] = {"dependencies": len(deps), "skipped": sum(1 for x in deps if x.get("skip_reason")),
+                            "vulns": sum(len(x.get("vulns", [])) for x in deps)}
+              else:
+                  out[f] = {"results": len(d.get("results", [])), "errors": [e.get("type") for e in d.get("errors", [])],
+                            "scanned": len(d.get("paths", {}).get("scanned", []))}
+          print(json.dumps(out, indent=2))
+          EOF
+          rm -rf flasky dflask
+          cat probe_summary.json exit_codes.txt py_parse_dflask.txt
+
       - name: Validate manifests and check that no synthetic token is stored
         if: always() && steps.harness.outputs.name != ''
         run: |

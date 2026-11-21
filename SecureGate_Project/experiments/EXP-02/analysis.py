@@ -29,7 +29,8 @@ METRIC_DEFINITIONS = {
                "expected category / all faulted runs. Meaningful for S3 and S3P only.",
     "CC_cells": "Faulted cells whose modal run is INCOMPLETE with the expected category / all faulted cells.",
     "MAB_runs": "Misattributed BLOCK. Runs of kind F (fault, no finding anywhere) with verdict BLOCK / all kind-F runs: "
-                "the gate blames the code although only a tool failed.",
+                "the gate blames the code although only a tool failed. Not computed for level R, where the real "
+                "projects may hold genuine findings in the other scanners.",
     "FBR_runs": "False-block rate. Clean-control runs (kind C) with any verdict other than PASS / all kind-C runs.",
     "TBR_runs": "True-block rate. Known-finding runs (kind K) with verdict BLOCK / all kind-K runs.",
     "FPP_runs": "Finding preservation. Partial-failure runs (kind FK) whose verdict lists the known finding as a "
@@ -108,6 +109,7 @@ def level_metrics(rows, level):
     arms = sorted({r["arm"] for r in rs_level}, key=lambda a: (a.rstrip("P"), a))
     out = {"arms": arms, "per_arm": {}, "per_fault": {}, "paired_tests": [], "consistency": None, "cells": {}}
     cell_pass = {}
+    has_baseline = any(r["kind"] == "B" for r in rs_level)
     for arm in arms:
         rs = [r for r in rs_level if r["arm"] == arm]
         F = [r for r in rs if r["kind"] in FAULT_KINDS]
@@ -126,7 +128,8 @@ def level_metrics(rows, level):
             "SPR_runs": wilson(sum(r["verdict"] == "PASS" for r in F), len(F)),
             "CC_runs": wilson(sum(r["verdict"] == "INCOMPLETE" and _bool(r["category_correct"]) for r in F), len(F)),
             "CC_cells": wilson(sum(cc_cell.values()), len(cc_cell)),
-            "MAB_runs": wilson(sum(r["verdict"] == "BLOCK" for r in Fonly), len(Fonly)),
+            # Only where "no finding anywhere" holds by construction (synthetic levels, no baselines).
+            "MAB_runs": None if has_baseline else wilson(sum(r["verdict"] == "BLOCK" for r in Fonly), len(Fonly)),
             "FBR_runs": wilson(sum(r["verdict"] != "PASS" for r in C), len(C)),
             "TBR_runs": wilson(sum(r["verdict"] == "BLOCK" for r in K), len(K)),
             "FPP_runs": wilson(sum(_bool(r["findings_preserved"]) for r in FK), len(FK)),
