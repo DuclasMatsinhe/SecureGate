@@ -39,5 +39,5 @@ The gate's code is at the repository root (`security_engine/`, `tests/`, `tools/
 - Engine, CI integration and documentation: done and verified (164 tests; 44 requirements traced).
 - Literature review: preliminary review and formal database search completed (18 Nov 2026).
 - EXP-01 pilot: done and replicated (17 Nov 2026).
-- EXP-02 final study: candidate run done (21 Nov 2026, 7,160 runs); the protocol awaits the guide's approval, after which it is frozen and run as final.
-- Research paper: draft updated with the EXP-02 candidate results; venue to be decided with the guide.
+- EXP-02 final study: protocol frozen and run as final (21 Nov 2026, 7,160 runs), identical to the earlier candidate run; frozen without the guide's approval (DEC-018).
+- Research paper: complete draft with the final EXP-02 results; venue to be decided with the guide.

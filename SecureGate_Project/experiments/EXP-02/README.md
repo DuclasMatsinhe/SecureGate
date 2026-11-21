@@ -1,6 +1,6 @@
-# EXP-02: final fault-injection study — protocol v1 (draft for guide approval)
+# EXP-02: final fault-injection study — protocol v1 (frozen)
 
-**Status:** protocol drafted 21 Nov 2026; **not frozen**. A dry run checks every realisation before the freeze. After the guide approves, the SHA-256 of `protocol.json` is written to `FROZEN.sha256` and committed *before* the final runs; `harness.py run --final` refuses to start if the protocol differs. Decisions: DEC-014, DEC-015, DEC-016.
+**Status:** protocol frozen on 21 Nov 2026 (`FROZEN.sha256` = `4716bbba…30fed`) at the student's request without the guide's approval (DEC-018), and run as final (workflow run 44892918564). Decisions: DEC-014–DEC-018.
 
 | Field | Content |
 |---|---|
@@ -12,10 +12,10 @@
 | **6. Inputs** | **L1:** real outputs recorded in EXP-00 (`inputs/recorded/`). **L2:** 14 synthetic projects created at run time (3 clean; 6 with a known finding: `eval()`, `pickle.loads()`, `urllib3==1.26.5`, `jinja2==2.10`, a GitHub-token-shaped and an AWS-key-shaped string generated at run time). **R:** five public Python projects pinned to a commit, fetched read-only: miguelgrinberg/microblog `a975ef6`, miguelgrinberg/microblog-api `e250d71`, miguelgrinberg/flasky `3beedd6`, realpython/flask-by-example `532c0ea`, realpython/discover-flask `00762e9`. Semgrep uses two local probe rules kept outside the targets; pip-audit audits the pinned requirements as written (`--no-deps --disable-pip`, DEC-016). No real credentials |
 | **7. Procedure** | `harness.py protocol` writes every cell with its kind, fault, faulted scanner(s), realisation, expected categories, ground truth and any prediction. `harness.py run` executes each cell under every arm of its level, 10 repetitions each: **L1** 59 cells × 4 arms (S0–S3); **L2** 46 cells × 5 arms (S0–S3, S3P); **R** 50 cells × 5 arms. Faults: F1 missing executable path; F2–F7 and F10 by wrapper executables around the real tool (crash; hang past a 3 s timeout; no report; whitespace-only report; `{}`; report cut at 50%; exit code contradicting the report); F8–F10 also by real inputs (no Python files; not a git repository; empty requirements; a syntax error; a pinned requirement not on PyPI; an invalid Gitleaks config). Six partial-failure cells pair a faulted scanner with a known finding in another. On R, F2, F4 and F7 are applied to each scanner of each project, and each project's unmodified baseline is observed |
 | **8. Expected result** | In `protocol.json`. Ground truth: clean → PASS; known finding → BLOCK; any fault → not PASS, and under S3/S3P INCOMPLETE with an expected category; partial failure → the known finding is listed. Prediction for L2-F9-semgrep: PASS under S2 and S3 (Semgrep reports nothing), INCOMPLETE under S3P |
-| **9. Actual result** | Candidate run below (full protocol, before approval); final run after the freeze |
+| **9. Actual result** | Final run 44892918564 (below); identical in every verdict and category to the candidate run 44875857860 |
 | **10. Raw measurements** | Branch `semester8-exp02-results`, folder `EXP-02/<mode>-run-<id>/`: per shard `runs.csv`, `environment.json`, `harness.log`, schema check and `runs.tar.gz` (every manifest, policy, report and raw scanner output); `protocol.json` and its SHA-256; `analysis/` (metrics, summary, merged runs) |
 | **11. Analysis** | `analysis.py`, one command over all shards. Unit of analysis: the cell (designed, deterministic). Primary metric SPR_cells (faulted cells whose modal verdict is PASS); run-level rates reported alongside. Correct cause, misattributed BLOCK, false-block, true-block and finding-preservation rates; run-to-run consistency; per-fault-class tables; exact McNemar tests on cell-level silent passes between consecutive arms; Wilson 95% intervals throughout; overhead as medians. Definitions and denominators: `analysis.METRIC_DEFINITIONS`. The script reproduces the EXP-01 pilot numbers (unit test `tests/test_exp02.py`) |
-| **12. Conclusion** | After the runs |
+| **12. Conclusion** | Evidence checks remove almost all silent passes at negligible cost; S3 names the cause; the residual case (a Semgrep syntax error) needs the independent parse check, which costs one false INCOMPLETE on five real projects. H1–H4 supported; H5 partly (benefit shown, one false INCOMPLETE) |
 
 ## Changes from the EXP-01 pilot (why, and where recorded)
 
@@ -54,3 +54,9 @@ Workflow run 44875857860, commit `3a3c088`, protocol SHA-256 `4716bbba…30fed`;
 | R real, public projects | 10/45, 0/45, 0/45, 0/45, 0/45 | 45/45 | – | – | – |
 
 Exact McNemar on cell-level silent passes at L2: S0 vs S1 p = 0.013; S1 vs S2 p = 0.031; S2 vs S3 and S3 vs S3P p = 1.0. Misattributed BLOCK at L2 (fault-only runs): S0 140/310, S1 240/310, S2 300/310, S3 0/310. Evidence validation: median 0.41 ms per run at L2, 1.0 ms at R; S3P adds 0.3 ms and 16 ms. Real projects: under S0 a missing pip-audit report (F4) passed all five projects, four of which otherwise block on 61–189 vulnerability findings; flasky passes under S0/S1 with no fault injected (pip-audit audits 0 dependencies, see Dry runs); S3P turns the discover-flask baseline INCOMPLETE (Python 2 file).
+
+## Final run (21 Nov 2026)
+
+Workflow run 44892918564, commit `55c266c`, `--final` with the frozen protocol (`protocol_sha256` and `"final": true` in every shard's `environment.json`); 11/11 shards; results in `semester8-exp02-results`, folder `EXP-02/final-run-44892918564/`.
+
+All 7,160 runs gave the same verdict and the same categories as the candidate run, so every metric in the candidate table above is unchanged. Only timings differ: evidence validation median 0.42 ms per run at L2 (scanner execution 2.2 s) and 0.95 ms at R; with the parse check 0.75 ms and 13.9 ms; median wall time per arm 3.88–3.95 s at L2 and 4.40–4.41 s at R.
