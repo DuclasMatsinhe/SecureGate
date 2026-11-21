@@ -33,3 +33,12 @@
 ## Ethics
 
 All secrets are synthetic and generated at run time; no token is stored (each shard is checked for unredacted GitHub- and AWS-shaped strings before upload). The five public projects are only fetched and scanned read-only on GitHub-hosted runners; nothing is pushed to them; Gitleaks runs with `--redact`. Any real secret or vulnerability found in a public project is reported only in aggregate (category and count), never in detail, and the maintainers are informed if a live credential appears.
+
+## Dry runs (21 Nov 2026)
+
+Two dry runs at 1–2 repetitions (workflow runs 44874980611 and 44875418735, branch `semester8-exp02-results`, folders `EXP-02/dry-run-run-*`) ran all 11 shards and the analysis. Every realisation behaved as specified: the new pip-audit F9 realisation now gives PARTIAL_COVERAGE; F5 and F10 work with real binaries; clean controls passed (3/3) and known findings blocked (6/6, including `jinja2==2.10` and the AWS-key-shaped string); L2-F9-semgrep passed under S3 and was caught under S3P, as predicted. No protocol change was needed.
+
+Two observations on the real projects, checked by probes (`shards/L1-1/probes/` in the second dry run):
+
+- **pip-audit does not follow nested requirement files with `--no-deps`.** flasky's `requirements.txt` holds only `-r requirements/heroku.txt`. pip-audit 2.10.1 with `--no-deps --disable-pip` audited 0 dependencies, printed "No known vulnerabilities found" and exited 0; run on the nested file directly it found 4 vulnerabilities in its 3 pins (and still did not follow that file's own `-r prod.txt`). In default mode pip-audit failed instead (it could not build `dominate` on Python 3.13). S0 and S1 therefore PASS the flasky baseline; S2 and S3 report NO_COVERAGE. This is a naturally occurring silent pass, observed rather than injected; it will be reported to the pip-audit maintainers.
+- **Python 2 code and the parse check.** discover-flask's `manage.py` uses a Python 2 `print` statement. Semgrep lists the file as scanned and reports no error; the FR-14a parse check flags it, so the baseline becomes INCOMPLETE under S3P only. Whether that is a useful warning or a false INCOMPLETE is reported as an observed cost of S3P (H5).
