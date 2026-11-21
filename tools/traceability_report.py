@@ -27,7 +27,7 @@ REQ_DOC = ROOT / "SecureGate_Project" / "docs" / "requirements" / "engine-requir
 def requirements():
     reqs = {}
     for line in REQ_DOC.read_text(encoding="utf-8").splitlines():
-        m = re.match(r"^\| ((?:N?FR)-\d\d)(?: [A-Za-z ]+)? \| ([^|]+)\|", line)
+        m = re.match(r"^\| ((?:N?FR)-\d\d[a-z]?)(?: [A-Za-z ]+)? \| ([^|]+)\|", line)
         if m and m.group(1) not in reqs:
             text = m.group(2).strip()
             reqs[m.group(1)] = text if len(text) < 110 else text[:107] + "..."

@@ -66,6 +66,7 @@
 |---|---|---|---|---|
 | FR-19 | Produce one of three verdicts: **PASS** (all required scanners valid, no blocking finding); **BLOCK** (all required scanners valid, at least one blocking finding); **INCOMPLETE** (any required scanner invalid) | Must | Core design | One unit test per verdict |
 | FR-20 | INCOMPLETE takes precedence over BLOCK, and the verdict still lists every blocking finding from valid scanners | Must | Partial failure must not hide findings | Timeout + real finding → INCOMPLETE with the finding listed |
+| FR-20a | **(v1.2)** `on_incomplete` never relaxes a run that has a confirmed blocking finding from a valid scanner: with `warn`, such a run still exits 2 and carries a `FINDING_NOT_DOWNGRADED` note | Must | A real finding must always stop the job, whatever the policy says about incomplete evidence | Timeout + real finding + `on_incomplete = "warn"` → INCOMPLETE, exit 2, finding listed |
 | FR-21 | Every verdict carries reasons: a machine-readable code and a plain-language sentence (e.g. `SCHEMA_INVALID: Semgrep report has no 'results' key`) | Must | Transparency; job summary | Reasons present for every non-PASS verdict |
 | FR-22 | Read a versioned policy file (YAML; **v1.1: TOML**, DEC-002), validated against a schema. It holds: policy version; required scanners; minimum blocking severity per scanner; timeouts; `on_incomplete` (`block` default; `warn`, `review` optional); strategy (S0–S3); suppressions with justification and expiry date | Must | "Policy-driven"; experiments vary the strategy | Valid policy loads; each invalid field is rejected with a clear message |
 | FR-23 | Support the four handling strategies by policy only, with no other code path changes: S0 exit codes only; S1 + schema; S2 + presence, consistency and coverage (**v1.1: presence moves to S1**, DEC-006); S3 = S2 + INCOMPLETE routing. Under S0–S2, a detected fault yields BLOCK (fail-closed) | Must | Independent variable of the study | Same fault under S0–S3 gives the verdicts in the frozen protocol table |
@@ -183,6 +184,12 @@ Inputs still pending: the **live scanner check** (confirms FR-13 and FR-14 detai
 | NFR-07 | Execution, evidence-validation and decision time recorded separately | Overhead analysis (H4) | DEC-010 |
 | §6 D2 | Still open for the frozen protocol; development default `p/python`, experiments use local rules | Needs the EXP-01 probe and guide approval | DEC-009 |
 | §6 D5 | Gitleaks keeps `detect --source` (works on 8.30.1; recorded in every manifest) | Live check showed it works; `git`/`dir` subcommands can replace it later without changing evidence handling | EXP-00 |
+
+### v1.2 (21 Nov 2026, branch `semester8-final`)
+
+| Item | Change | Why | Record |
+|---|---|---|---|
+| FR-20a | New: `on_incomplete` cannot relax a run with a confirmed finding from a valid scanner | Closes the case where `warn` turned "real secret + timeout" into a passing job; FR-20 (INCOMPLETE first) is kept | DEC-014 |
 
 No requirement was removed. Every requirement maps to tests in `tests/traceability.py`; the generated matrix is `docs/traceability-matrix.md`.
 

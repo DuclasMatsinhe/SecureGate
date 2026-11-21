@@ -1,15 +1,15 @@
 # Test report
 
-Generated 2026-11-17 14:03 UTC by `tools/traceability_report.py` at commit `5304106` (branch `semester8-completion`).
+Generated 2026-11-21 06:05 UTC by `tools/traceability_report.py` at commit `5e6d39d` (branch `semester8-final`).
 
-- Test cases run: 155; passed: 155; failed: 0; skipped: 0; pytest exit code 0; time: 2.40 s
+- Test cases run: 156; passed: 156; failed: 0; skipped: 0; pytest exit code 0; time: 2.33 s
 - Command: `python tools/traceability_report.py SecureGate_Project/docs` (runs pytest on `tests/`)
 
 | Test file | What it covers | Passed | Failed | Skipped |
 |---|---|---|---|---|
 | `test_app.py` | Flask app health check (Semester 7) | 1 | 0 | 0 |
 | `test_completion.py` | Gap closures: records, rule sources, isolation, coverage, schema, redaction, timings, CLI/library equivalence | 43 | 0 | 0 |
-| `test_gate.py` | Engine v2: probes C0-C13c under S0/S3, policy, CLI, manifest, real subprocesses | 71 | 0 | 0 |
+| `test_gate.py` | Engine v2: probes C0-C13c under S0/S3, policy, CLI, manifest, real subprocesses | 72 | 0 | 0 |
 | `test_live_outputs.py` | Real scanner outputs recorded in EXP-00 (simulated replay of real data) | 14 | 0 | 0 |
 | `test_scanners.py` | Semester 7 scanner wrappers (unchanged) | 8 | 0 | 0 |
 | `test_security_engine.py` | Semester 7 engine (unchanged, NFR-06) | 12 | 0 | 0 |

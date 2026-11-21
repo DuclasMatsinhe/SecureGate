@@ -1,6 +1,6 @@
 # Requirement traceability matrix
 
-Generated 2026-11-17 14:03 UTC by `tools/traceability_report.py` at commit `5304106` (branch `semester8-completion`).
+Generated 2026-11-21 06:05 UTC by `tools/traceability_report.py` at commit `5e6d39d` (branch `semester8-final`).
 Source of the mapping: `tests/traceability.py` (enforced by `tests/test_traceability.py`).
 
 | Requirement | Summary | Verified by | Result |
@@ -25,6 +25,7 @@ Source of the mapping: `tests/traceability.py` (enforced by `tests/test_traceabi
 | FR-18 | Keep findings from a scanner with partial evidence (e.g. partial coverage) and mark them as coming from inc... | `test_gate.py::test_findings_from_invalid_evidence_are_kept_and_marked` | PASS |
 | FR-19 | Produce one of three verdicts: **PASS** (all required scanners valid, no blocking finding); **BLOCK** (all ... | `test_gate.py::test_probe_under_s3`<br>`test_gate.py::test_genuine_findings_block`<br>`test_gate.py::test_report_renders_each_verdict` | PASS |
 | FR-20 | INCOMPLETE takes precedence over BLOCK, and the verdict still lists every blocking finding from valid scann... | `test_gate.py::test_partial_failure_keeps_real_findings`<br>`test_completion.py::test_two_failures_one_real_finding` | PASS |
+| FR-20a | **(v1.2)** `on_incomplete` never relaxes a run that has a confirmed blocking finding from a valid scanner: ... | `test_gate.py::test_on_incomplete_warn_never_relaxes_a_confirmed_finding` | PASS |
 | FR-21 | Every verdict carries reasons: a machine-readable code and a plain-language sentence (e.g. `SCHEMA_INVALID:... | `test_gate.py::test_partial_failure_keeps_real_findings`<br>`test_completion.py::test_reasons_always_name_the_scanner_id`<br>`test_completion.py::test_mixed_failures_report_every_scanner` | PASS |
 | FR-22 | Read a versioned policy file (YAML; **v1.1: TOML**, DEC-002), validated against a schema. It holds: policy ... | `test_gate.py::test_invalid_policies_are_rejected`<br>`test_gate.py::test_default_policy_loads`<br>`test_gate.py::test_repository_policy_file_is_valid`<br>`test_gate.py::test_policy_hash_changes_with_policy`<br>`test_gate.py::test_threshold_per_scanner`<br>`test_gate.py::test_optional_scanner_failure_is_a_note`<br>`test_gate.py::test_on_incomplete_warn_does_not_fail_the_job` | PASS |
 | FR-23 | Support the four handling strategies by policy only, with no other code path changes: S0 exit codes only; S... | `test_gate.py::test_probe_under_s0_baseline`<br>`test_gate.py::test_strategies_detect_progressively_more_faults`<br>`test_completion.py::test_checks_applied_are_recorded_per_strategy`<br>`test_completion.py::test_only_s3_produces_incomplete` | PASS |
@@ -48,5 +49,5 @@ Source of the mapping: `tests/traceability.py` (enforced by `tests/test_traceabi
 | NFR-06 | The existing 21 tests pass. A test that asserts old *defective* behaviour (e.g. treating an error the same ... | `test_security_engine.py::test_security_gate_blocks_high_findings`<br>`test_security_engine.py::test_scanner_error_prevents_gate_from_passing`<br>`test_scanners.py::test_run_semgrep_success_with_findings` | PASS |
 | NFR-07 | Evidence validation time is measured and reported per run. H4 (< 5% overhead) is a hypothesis to test, **no... | `test_completion.py::test_timings_separate_execution_validation_and_decision` | PASS |
 
-**Summary:** PASS: 41, Verified outside unit tests: 1
+**Summary:** PASS: 42, Verified outside unit tests: 1
 

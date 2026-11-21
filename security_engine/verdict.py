@@ -3,7 +3,8 @@
 PASS        all required scanners produced valid evidence, no blocking finding
 BLOCK       valid evidence shows a finding at or above the policy threshold
 INCOMPLETE  a required scanner's evidence is invalid (strategy S3 only);
-            blocking findings from valid scanners are still listed
+            blocking findings from valid scanners are still listed (FR-20), and
+            on_incomplete=warn never turns such a run into exit 0 (FR-20a)
 
 Under strategies S0-S2 there is no INCOMPLETE state: invalid evidence
 fails closed as BLOCK, as typical gates do.
@@ -127,6 +128,13 @@ def decide(evidences: List[ev.Evidence], policy: Policy, today: Optional[date] =
     if invalid_required and strategy == "S3":
         verdict = INCOMPLETE
         exit_code = 0 if policy.on_incomplete == "warn" else EXIT_CODES[INCOMPLETE]
+        if blocking and exit_code == 0:
+            # FR-20a (DEC-014): a confirmed finding from a valid scanner always fails the job;
+            # on_incomplete may relax incomplete evidence, never a confirmed finding.
+            exit_code = EXIT_CODES[INCOMPLETE]
+            notes.append(Reason("FINDING_NOT_DOWNGRADED",
+                                f"{len(blocking)} confirmed finding(s) from valid scanners; "
+                                f"on_incomplete={policy.on_incomplete!r} does not relax this run"))
         if policy.on_incomplete == "review":
             notes.append(Reason("MANUAL_REVIEW", "Manual security review required before merging"))
     elif invalid_required or blocking or exit_signal:

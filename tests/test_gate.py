@@ -216,6 +216,21 @@ def test_on_incomplete_warn_does_not_fail_the_job(tmp_path):
     assert result.verdict.verdict == "INCOMPLETE" and result.verdict.exit_code == 0
 
 
+def test_on_incomplete_warn_never_relaxes_a_confirmed_finding(tmp_path):
+    # FR-20a: incomplete evidence may be relaxed to a warning, a confirmed finding may not.
+    pol = policy(on_incomplete="warn")
+    result = run(tmp_path, pol=pol,
+                 semgrep={"exit": 0, "stdout": semgrep_report([semgrep_result("ERROR")])},
+                 gitleaks={"launch_error": "TOOL_MISSING"})
+    assert result.verdict.verdict == "INCOMPLETE" and result.verdict.exit_code == 2
+    assert any(r.code == "BLOCKING_FINDING" for r in result.verdict.reasons)
+    assert any(n.code == "FINDING_NOT_DOWNGRADED" for n in result.verdict.notes)
+    # Without a finding, warn still relaxes incomplete evidence.
+    clean = run(tmp_path, pol=pol, gitleaks={"launch_error": "TOOL_MISSING"})
+    assert clean.verdict.verdict == "INCOMPLETE" and clean.verdict.exit_code == 0
+    assert not any(n.code == "FINDING_NOT_DOWNGRADED" for n in clean.verdict.notes)
+
+
 def test_optional_scanner_failure_is_a_note(tmp_path):
     pol = policy(required_scanners=["semgrep", "pip-audit"])
     result = run(tmp_path, pol=pol, gitleaks={"launch_error": "TOOL_MISSING"})

@@ -8,7 +8,7 @@ The policy is a TOML file (DEC-002). It is validated strictly: an unknown key, a
 |---|---|---|---|
 | `version` | string | `"1.0"` | Your policy's own version label (recorded in the manifest) |
 | `strategy` | `S0` `S1` `S2` `S3` | `S3` | How evidence is checked and what invalid evidence becomes (below) |
-| `on_incomplete` | `block` `warn` `review` | `block` | What INCOMPLETE does to the job: exit 2; exit 0 with a warning; exit 2 with a MANUAL_REVIEW note |
+| `on_incomplete` | `block` `warn` `review` | `block` | What INCOMPLETE does to the job: exit 2; exit 0 with a warning; exit 2 with a MANUAL_REVIEW note. A run that also has a confirmed blocking finding always exits 2, whatever this setting (FR-20a) |
 | `required_scanners` | list of `semgrep`, `pip-audit`, `gitleaks` | all three | A failure of a scanner not in the list is a note, not a reason |
 | `unknown_severity` | `LOW` `MEDIUM` `HIGH` `CRITICAL` | `HIGH` | Severity given to findings with an unrecognised severity (never ignored; a SEVERITY_MAPPED note is added) |
 | `[thresholds]` | `default = "HIGH"`, optional per scanner (`semgrep = "MEDIUM"`) | `HIGH` | Findings at or above the threshold block |

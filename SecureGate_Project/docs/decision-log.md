@@ -136,3 +136,10 @@ DEC-002 to DEC-005 above were confirmed, not changed. Status: **accepted for dev
 ## DEC-013: EXP-01 pilot design — *pending guide approval*
 - **Decision:** A pilot before the protocol freeze, at two levels kept in separate tables: L1 simulated (real EXP-00 outputs replayed with deterministic fault edits) and L2 real binaries (wrapper executables for F2–F7, real-induced faults for F8–F10). Expected categories are written in the harness before any run. Results are labelled "pilot" and added as new folders on `semester8-completion-results`.
 - **Revisit:** at the freeze: cell set, repetitions, T-clean dependency, and whether F9/F10 stay.
+
+## DEC-014: Verdict precedence under partial failure (21 Nov 2026)
+- **Question:** when one required scanner fails and another confirms a blocking finding, should S3 return BLOCK (finding first) or INCOMPLETE (evidence first)?
+- **Decision:** keep FR-20: INCOMPLETE (exit 2) takes precedence and lists every confirmed finding. Add FR-20a: `on_incomplete = "warn"` or `"review"` never relaxes such a run; it still exits 2, with a `FINDING_NOT_DOWNGRADED` note.
+- **Why:** the scan really is incomplete (the failed scanner may hide more findings), and the closest industry tool, AWS Automated Security Helper, also checks for incomplete scans before findings by default. Both labels stop the job under the default policy; the only unsafe combination was `warn` + a confirmed finding, which FR-20a removes.
+- **Effect on results:** none on EXP-01 (only `on_incomplete = "block"` was evaluated). The Review 1 deck showed "BLOCK precedence" as planned; that plan is replaced by this decision.
+

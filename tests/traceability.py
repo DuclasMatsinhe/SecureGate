@@ -52,6 +52,7 @@ REQUIREMENT_TESTS = {
               "test_gate.py::test_report_renders_each_verdict"],
     "FR-20": ["test_gate.py::test_partial_failure_keeps_real_findings",
               "test_completion.py::test_two_failures_one_real_finding"],
+    "FR-20a": ["test_gate.py::test_on_incomplete_warn_never_relaxes_a_confirmed_finding"],
     "FR-21": ["test_gate.py::test_partial_failure_keeps_real_findings",
               "test_completion.py::test_reasons_always_name_the_scanner_id",
               "test_completion.py::test_mixed_failures_report_every_scanner"],

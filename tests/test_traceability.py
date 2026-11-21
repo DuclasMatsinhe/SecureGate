@@ -21,7 +21,7 @@ REQUIREMENTS_DOC = ROOT / "SecureGate_Project" / "docs" / "requirements" / "engi
 
 def _requirement_ids():
     text = REQUIREMENTS_DOC.read_text(encoding="utf-8")
-    return sorted(set(re.findall(r"^\| ((?:N?FR)-\d\d)", text, flags=re.M)))
+    return sorted(set(re.findall(r"^\| ((?:N?FR)-\d\d[a-z]?)", text, flags=re.M)))
 
 
 def _collected_tests():
@@ -35,7 +35,7 @@ def _collected_tests():
 
 def test_every_requirement_is_traced():
     ids = _requirement_ids()
-    assert len(ids) == 42, ids  # FR-01..FR-35 and NFR-01..NFR-07
+    assert len(ids) == 43, ids  # FR-01..FR-35, FR-20a (v1.2) and NFR-01..NFR-07
     missing = [i for i in ids if not REQUIREMENT_TESTS.get(i) and i not in VERIFIED_OUTSIDE_UNIT_TESTS]
     assert not missing, f"requirements without tests or justification: {missing}"
 
