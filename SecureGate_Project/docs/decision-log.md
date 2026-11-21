@@ -156,3 +156,8 @@ DEC-002 to DEC-005 above were confirmed, not changed. Status: **accepted for dev
 - **Why real projects:** the synthetic projects are minimal; R tests whether the fault detection and the parse check behave the same on realistic code, dependency sets and histories, and records how the unmodified projects are judged (observed, no ground truth).
 - **Ethics:** public projects are fetched read-only on GitHub-hosted runners; Gitleaks runs with `--redact`; real findings are reported in aggregate only. This extends the Review 1 statement "own repositories only".
 - **Revisit:** if the dry run shows a realisation does not behave as specified (e.g. pip-audit does not skip, a clean control has a new vulnerability), the cell is changed and the change recorded here **before** the freeze.
+
+## DEC-017: Gitleaks false positive in the EXP-02 harness (21 Nov 2026)
+- **What happened:** CI on `semester8-final` (run 44874973769) returned BLOCK: Gitleaks' `generic-api-key` rule matched the pinned commit hash of `miguelgrinberg/microblog-api` written after that name in `harness.py` (commit 5383c6b). Confirmed locally with the pinned Gitleaks 8.30.1. Not a credential.
+- **Decision:** reorder the tuples (commit before URL) so no new commit matches; list the historical fingerprint in `.gitleaksignore` with this explanation, as for DEC-011. History is not rewritten. The protocol is unchanged (same SHA-256).
+- **Note:** the gate blocking its own repository on a false positive is itself an observation for the paper (secret scanners' generic rules on commit hashes).

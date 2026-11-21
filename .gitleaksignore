@@ -5,3 +5,9 @@
 # Not a credential. The line was rewritten in the next commit so new scans no longer match it, but the
 # commit stays in history (history is never rewritten), so the fingerprint is listed here. See DEC-011.
 41c10e7ee7113044cdd9f9d4760c9b3223742b7b:tests/test_completion.py:generic-api-key:185
+#
+# False positive (DEC-017): the pinned commit of the public repository miguelgrinberg/microblog-api in
+# SecureGate_Project/experiments/EXP-02/harness.py, commit 5383c6b. Gitleaks' generic-api-key rule read the
+# 40-hex commit after the name "microblog-api" as a key. The line was reordered in the next commit; the old
+# commit stays in history (never rewritten), so its fingerprint is listed here.
+5383c6b49ee2f5745643d42d544082b4f152c0de:SecureGate_Project/experiments/EXP-02/harness.py:generic-api-key:77

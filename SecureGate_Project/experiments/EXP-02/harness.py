@@ -72,12 +72,14 @@ FAULTS = {
 }
 
 # Pinned public repositories for level R (read-only; fully pinned requirements.txt at the root).
+# Commit first, then URL: a 40-hex commit placed right after a name ending in "api" reads as a
+# generic API key to Gitleaks (false positive in commit 5383c6b, listed in .gitleaksignore).
 REAL_REPOS = {
-    "microblog": ("https://github.com/miguelgrinberg/microblog", "a975ef64864354867c88e0ed3a17ba7d17dca752"),
-    "microblog-api": ("https://github.com/miguelgrinberg/microblog-api", "e250d7115b47010ff0e7051d5868485fff4e32fb"),
-    "flasky": ("https://github.com/miguelgrinberg/flasky", "3beedd640b9146b0bd65c8c2ecf402b01798bc33"),
-    "flask-by-example": ("https://github.com/realpython/flask-by-example", "532c0ea8ed6fc8add43dd5ad74daa98065f723aa"),
-    "discover-flask": ("https://github.com/realpython/discover-flask", "00762e9ee9e5713cb61ca8734236d05d6e424da9"),
+    "microblog": ("a975ef64864354867c88e0ed3a17ba7d17dca752", "https://github.com/miguelgrinberg/microblog"),
+    "microblog-api": ("e250d7115b47010ff0e7051d5868485fff4e32fb", "https://github.com/miguelgrinberg/microblog-api"),
+    "flasky": ("3beedd640b9146b0bd65c8c2ecf402b01798bc33", "https://github.com/miguelgrinberg/flasky"),
+    "flask-by-example": ("532c0ea8ed6fc8add43dd5ad74daa98065f723aa", "https://github.com/realpython/flask-by-example"),
+    "discover-flask": ("00762e9ee9e5713cb61ca8734236d05d6e424da9", "https://github.com/realpython/discover-flask"),
 }
 R_FAULTS = ("F2", "F4", "F7")  # one execution fault and two report faults per scanner and repository
 
@@ -376,7 +378,7 @@ def l2_cells():
 
 def r_cells():
     cells = []
-    for name, (url, commit) in REAL_REPOS.items():
+    for name, (commit, url) in REAL_REPOS.items():
         target = {"repo": name, "url": url, "commit": commit}
         cells.append(_cell(f"R-{name}-base", "R", "B", realisation=f"{url} @ {commit[:7]}, no fault", target=target,
                            notes="observed: no ground truth for the unmodified project"))
@@ -593,7 +595,7 @@ def protocol_dict():
         "ground_truth": {"C": "PASS", "K": "BLOCK (finding in the scanner named in finding_in)",
                          "F": "not PASS; under S3/S3P INCOMPLETE with an expected category",
                          "FK": "not PASS; the known finding is listed (FR-20)", "B": "observed, no ground truth"},
-        "real_repos": {k: {"url": u, "commit": c} for k, (u, c) in REAL_REPOS.items()},
+        "real_repos": {k: {"url": u, "commit": c} for k, (c, u) in REAL_REPOS.items()},
         "metrics": "see analysis.py METRIC_DEFINITIONS (denominators stated there)",
         "cells": cells,
     }
