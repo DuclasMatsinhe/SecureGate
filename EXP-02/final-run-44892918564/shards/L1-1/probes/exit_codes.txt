@@ -1,0 +1,4 @@
+pa_flasky_nodeps exit=0
+pa_flasky_heroku_nodeps exit=1
+pa_flasky_default exit=1
+sg_dflask exit=0

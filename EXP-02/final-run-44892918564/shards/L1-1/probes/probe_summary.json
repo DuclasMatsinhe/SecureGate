@@ -1,0 +1,21 @@
+{
+  "pa_flasky_default.out": {
+    "json": false,
+    "error": "Expecting value: line 1 column 1 (char 0)"
+  },
+  "pa_flasky_heroku_nodeps.out": {
+    "dependencies": 3,
+    "skipped": 0,
+    "vulns": 4
+  },
+  "pa_flasky_nodeps.out": {
+    "dependencies": 0,
+    "skipped": 0,
+    "vulns": 0
+  },
+  "sg_dflask.out": {
+    "results": 0,
+    "errors": [],
+    "scanned": 18
+  }
+}
