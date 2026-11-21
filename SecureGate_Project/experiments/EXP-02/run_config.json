@@ -1,0 +1,5 @@
+{
+  "mode": "dry-run",
+  "reps": {"L1": 2, "L2": 1, "R": 1},
+  "note": "Dry run: checks every realisation, baseline and the workflow with few repetitions. The final study uses mode 'final' and the repetitions in protocol.json (10 per level)."
+}

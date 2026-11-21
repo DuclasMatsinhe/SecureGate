@@ -1,0 +1,179 @@
+# EXP-02 (final study): runs the harness at L1 (simulated), L2 (real binaries, synthetic projects) and
+# R (real binaries, pinned public projects), split into parallel shards, then analyses all shards together.
+# Runs only when the semester8-exp02-run branch is pushed (or by manual dispatch). The mode and
+# repetitions come from SecureGate_Project/experiments/EXP-02/run_config.json on that branch:
+# "dry-run" checks the set-up with few repetitions; "final" refuses to start unless the protocol
+# matches FROZEN.sha256. Results are added as a new folder on semester8-exp02-results; nothing is
+# overwritten and nothing is force-pushed.
+name: experiments-exp02
+
+on:
+  push:
+    branches: [semester8-exp02-run]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: exp02
+  cancel-in-progress: false
+
+env:
+  PYTHON_VERSION: "3.13"
+  SEMGREP_VERSION: "1.180.0"
+  PIP_AUDIT_VERSION: "2.10.1"
+  GITLEAKS_VERSION: "8.30.1"
+  GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+  EXP: SecureGate_Project/experiments/EXP-02
+  RESULTS_BRANCH: semester8-exp02-results
+
+jobs:
+  run:
+    name: ${{ matrix.level }} shard ${{ matrix.shard }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { level: L1, shard: "1/1" }
+          - { level: L2, shard: "1/5" }
+          - { level: L2, shard: "2/5" }
+          - { level: L2, shard: "3/5" }
+          - { level: L2, shard: "4/5" }
+          - { level: L2, shard: "5/5" }
+          - { level: R, shard: "1/5" }
+          - { level: R, shard: "2/5" }
+          - { level: R, shard: "3/5" }
+          - { level: R, shard: "4/5" }
+          - { level: R, shard: "5/5" }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned scanners and test dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet -r requirements-dev.txt
+          python -m venv "$RUNNER_TEMP/scanners"
+          "$RUNNER_TEMP/scanners/bin/pip" install --quiet "semgrep==${SEMGREP_VERSION}" "pip-audit==${PIP_AUDIT_VERSION}"
+          curl -sSfL -o "$RUNNER_TEMP/gitleaks.tgz" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  $RUNNER_TEMP/gitleaks.tgz" | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/bin" && tar -xzf "$RUNNER_TEMP/gitleaks.tgz" -C "$RUNNER_TEMP/bin" gitleaks
+          for t in semgrep pysemgrep pip-audit; do
+            if [ -e "$RUNNER_TEMP/scanners/bin/$t" ]; then ln -s "$RUNNER_TEMP/scanners/bin/$t" "$RUNNER_TEMP/bin/$t"; fi
+          done
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+
+      - name: Unit tests
+        run: python -m pytest -q
+
+      - name: Run harness shard
+        id: harness
+        run: |
+          set -euo pipefail
+          mode=$(python -c "import json;print(json.load(open('$EXP/run_config.json'))['mode'])")
+          reps=$(python -c "import json;print(json.load(open('$EXP/run_config.json'))['reps']['${{ matrix.level }}'])")
+          name="${{ matrix.level }}-$(echo '${{ matrix.shard }}' | cut -d/ -f1)"
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          final=""; [ "$mode" = "final" ] && final="--final"
+          python "$EXP/harness.py" run --level ${{ matrix.level }} --shard ${{ matrix.shard }} --reps "$reps" \
+            --out "shards/$name" $final 2>&1 | tee "$RUNNER_TEMP/harness-$name.log"
+
+      - name: Validate manifests and check that no synthetic token is stored
+        if: always() && steps.harness.outputs.name != ''
+        run: |
+          set -euo pipefail
+          d="shards/${{ steps.harness.outputs.name }}"
+          mkdir -p "$d" && cp "$RUNNER_TEMP/harness-${{ steps.harness.outputs.name }}.log" "$d/harness.log" || true
+          python - "$d" <<'EOF' | tee "$d/schema_validation.txt"
+          import json, glob, sys, jsonschema
+          schema = json.load(open("security_engine/schemas/run_manifest.schema.json"))
+          files = glob.glob(f"{sys.argv[1]}/runs/**/run_manifest.json", recursive=True)
+          for f in files:
+              jsonschema.validate(json.load(open(f)), schema)
+          print(f"{len(files)} manifests conform to the run-manifest schema")
+          EOF
+          if grep -rEl 'ghp_[A-Za-z0-9]{36}|AKIA[A-Z0-9]{16}' "$d"; then echo "unredacted token found"; exit 1; fi
+          if [ -d "$d/runs" ]; then tar -czf "$d/runs.tar.gz" -C "$d" runs && rm -rf "$d/runs"; fi
+
+      - name: Upload shard
+        if: always() && steps.harness.outputs.name != ''
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: exp02-shard-${{ steps.harness.outputs.name }}
+          path: shards/
+          retention-days: 90
+
+  collect:
+    needs: run
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write   # only to add results to the separate results branch
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Download shards
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          pattern: exp02-shard-*
+          path: downloaded
+          merge-multiple: true
+
+      - name: Analyse all shards together
+        run: |
+          set -euo pipefail
+          mode=$(python -c "import json;print(json.load(open('$EXP/run_config.json'))['mode'])")
+          mkdir -p results/shards && { [ -d downloaded ] && cp -r downloaded/. results/shards/ || true; }
+          shards=$(find results/shards -name runs.csv -printf '%h\n' | sort)
+          python "$EXP/harness.py" protocol --out results/protocol.json > results/protocol.sha256
+          if [ -n "$shards" ]; then
+            python "$EXP/analysis.py" --title "EXP-02 ($mode), workflow run $GITHUB_RUN_ID" --out results/analysis $shards
+          fi
+          {
+            echo "EXP-02 $mode. Workflow run $GITHUB_RUN_ID, commit $GITHUB_SHA, $(date -u +%FT%TZ)."
+            echo "Protocol SHA-256: $(cat results/protocol.sha256)"
+            echo "Shards with results: $(echo "$shards" | wc -w) of 11."
+            echo "L1 = simulated; L2 = real binaries on synthetic projects; R = real binaries on pinned public projects."
+          } > results/README.md
+          for f in results/shards/*/errors.txt; do [ -e "$f" ] && { echo "== $f"; cat "$f"; } >> results/README.md; done
+          cat results/README.md >> "$GITHUB_STEP_SUMMARY"
+          [ -f results/analysis/summary.md ] && cat results/analysis/summary.md >> "$GITHUB_STEP_SUMMARY" || true
+          echo "mode=$mode" >> "$GITHUB_ENV"
+
+      - name: Add results to the results branch (new folder, no force push)
+        run: |
+          set -euo pipefail
+          dest="EXP-02/${mode}-run-${GITHUB_RUN_ID}"
+          mv results /tmp/results
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin "$RESULTS_BRANCH" >/dev/null; then
+            git fetch -q origin "$RESULTS_BRANCH" && git checkout -q -B "$RESULTS_BRANCH" FETCH_HEAD
+          else
+            git checkout -q --orphan "$RESULTS_BRANCH" && git rm -rfq . && git clean -fdxq
+          fi
+          test ! -e "$dest" || { echo "$dest already exists"; exit 1; }
+          mkdir -p "$dest" && cp -r /tmp/results/. "$dest/"
+          git add "$dest"
+          git commit -q -m "EXP-02 $mode results, run $GITHUB_RUN_ID [skip ci]"
+          git push -q origin "$RESULTS_BRANCH"
