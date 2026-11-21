@@ -1,8 +1,8 @@
 # Test report
 
-Generated 2026-11-21 06:19 UTC by `tools/traceability_report.py` at commit `2fbe68e` (branch `semester8-final`).
+Generated 2026-11-21 09:41 UTC by `tools/traceability_report.py` at commit `11049de` (branch `semester8-final`).
 
-- Test cases run: 164; passed: 164; failed: 0; skipped: 0; pytest exit code 0; time: 2.23 s
+- Test cases run: 164; passed: 164; failed: 0; skipped: 0; pytest exit code 0; time: 2.59 s
 - Command: `python tools/traceability_report.py SecureGate_Project/docs` (runs pytest on `tests/`)
 
 | Test file | What it covers | Passed | Failed | Skipped |

@@ -1,4 +1,4 @@
-﻿from flask import request
+from flask import request
 
 def get_user():
     user_id = request.args.get("id")

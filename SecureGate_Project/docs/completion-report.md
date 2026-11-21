@@ -1,5 +1,7 @@
 # SecureGate completion report (Semester 8 development plan)
 
+> **Update, 21 Nov 2026 (branch `semester8-final`):** requirements v1.2 add FR-14a (optional parse check) and FR-20a (confirmed findings are never relaxed), giving 44 requirements and 164 tests; decisions DEC-014–DEC-017; the EXP-02 final study has a candidate run (see `experiments/EXP-02/README.md`). The figures below describe the state on 17 Nov 2026.
+
 **Date:** 17 Nov 2026 · **Branch:** `semester8-completion` (from `semester8-engine` at `52c2c3b`) · **Author of all commits:** Duclas Matsinhe
 
 Everything below was executed and checked. Where something was not done or not verified, it says so.

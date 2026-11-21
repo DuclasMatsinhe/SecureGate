@@ -30,7 +30,7 @@ def requirements():
         m = re.match(r"^\| ((?:N?FR)-\d\d[a-z]?)(?: [A-Za-z ]+)? \| ([^|]+)\|", line)
         if m and m.group(1) not in reqs:
             text = m.group(2).strip()
-            reqs[m.group(1)] = text if len(text) < 110 else text[:107] + "..."
+            reqs[m.group(1)] = text if len(text) < 110 else text[:107].rsplit(" ", 1)[0].rstrip(",;:(") + " …"
     return reqs
 
 

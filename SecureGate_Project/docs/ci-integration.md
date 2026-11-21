@@ -6,7 +6,7 @@
 
 ```mermaid
 flowchart LR
-  T[Tests<br/>pytest, 155 tests] --> G[SecureGate<br/>pinned scanners,<br/>CLI exit code decides] --> D[Docker build]
+  T[Tests<br/>pytest, 164 tests] --> G[SecureGate<br/>pinned scanners,<br/>CLI exit code decides] --> D[Docker build]
   G -. always .-> A[(Artifact: manifest,<br/>report, raw outputs)]
 ```
 

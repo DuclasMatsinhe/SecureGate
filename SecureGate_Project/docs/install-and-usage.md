@@ -61,7 +61,7 @@ EOF
 ## Tests
 
 ```bash
-python -m pytest -q                                      # 155 tests
+python -m pytest -q                                      # 164 tests
 python tools/traceability_report.py SecureGate_Project/docs   # runs the tests, regenerates matrix + test report
 ```
 
