@@ -37,6 +37,7 @@ DEFAULTS: dict = {
             "config": "p/python",
             "executable": "",
             "extra_args": [],
+            "parse_check": False,
         },
         "pip-audit": {
             "enabled": True,
@@ -58,7 +59,7 @@ DEFAULTS: dict = {
 }
 
 SCANNER_KEYS = {
-    "semgrep": {"enabled", "timeout", "config", "executable", "extra_args"},
+    "semgrep": {"enabled", "timeout", "config", "executable", "extra_args", "parse_check"},
     "pip-audit": {"enabled", "timeout", "requirements", "executable", "extra_args"},
     "gitleaks": {"enabled", "timeout", "leak_exit_code", "config", "executable", "extra_args"},
 }
@@ -187,6 +188,8 @@ def _validate(raw: dict, source: str) -> Policy:
     configs = semgrep_config if isinstance(semgrep_config, list) else [semgrep_config]
     if not configs or not all(isinstance(c, str) and c.strip() for c in configs):
         raise PolicyError("scanners.semgrep.config must name a rule pack or rules file, or a list of them")
+    if not isinstance(scanners["semgrep"]["parse_check"], bool):
+        raise PolicyError("scanners.semgrep.parse_check must be true or false")
     if any(c.strip() == "auto" for c in configs):
         raise PolicyError("scanners.semgrep.config must be pinned; 'auto' changes rules between runs")
     if not isinstance(scanners["pip-audit"]["requirements"], str) or not scanners["pip-audit"]["requirements"]:

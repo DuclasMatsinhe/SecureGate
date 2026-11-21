@@ -15,6 +15,7 @@ Each adapter knows three things about its tool:
 
 from __future__ import annotations
 
+import ast
 import json
 import os
 import re
@@ -91,6 +92,10 @@ class Adapter:
         """Return (category or None, coverage numbers, message)."""
         return None, {}, None
 
+    def independent_coverage(self, data, target: str, cfg: dict) -> Tuple[Optional[str], dict, Optional[str]]:
+        """Optional check that does not rely on the scanner's own report (FR-14a). Default: none."""
+        return None, {}, None
+
 
 class SemgrepAdapter(Adapter):
     key = "semgrep"
@@ -153,6 +158,41 @@ class SemgrepAdapter(Adapter):
             kinds = sorted({str(e.get("type", "error")) if isinstance(e, dict) else "error" for e in errors})
             return (ev.PARTIAL_COVERAGE, numbers,
                     f"Semgrep reported {len(errors)} error(s) during the scan ({', '.join(kinds)[:200]})")
+        return None, numbers, None
+
+
+    def independent_coverage(self, data, target, cfg):
+        """FR-14a parse check: Python files Semgrep lists as scanned but CPython cannot parse.
+
+        Semgrep's parser recovers from syntax errors without reporting them (EXP-00 SG04,
+        EXP-01 L2-F9-semgrep), so a broken file can be listed as scanned. Only files named in
+        Semgrep's own paths.scanned are checked, so Semgrep's ignore rules are respected.
+        """
+        if not cfg.get("parse_check"):
+            return None, {}, None
+        paths = data.get("paths") if isinstance(data, dict) else None
+        scanned = paths.get("scanned") if isinstance(paths, dict) else None
+        if not isinstance(scanned, list):
+            return None, {}, None
+        root = Path(target).resolve()
+        checked, broken = 0, []
+        for rel in scanned:
+            if not isinstance(rel, str) or not rel.endswith(".py"):
+                continue
+            path = (root / rel).resolve()
+            if root not in path.parents or not path.is_file():
+                continue
+            checked += 1
+            try:
+                ast.parse(path.read_bytes(), filename=rel)
+            except (SyntaxError, ValueError):
+                broken.append(rel)
+        numbers = {"python_files_parse_checked": checked, "python_files_unparsable": len(broken)}
+        if broken:
+            names = ", ".join(broken[:5])
+            return (ev.PARTIAL_COVERAGE, numbers,
+                    f"{len(broken)} Python file(s) listed by Semgrep as scanned cannot be parsed ({names}); "
+                    f"Semgrep reported no error, so their analysis may be incomplete")
         return None, numbers, None
 
 
@@ -378,7 +418,7 @@ def normalise(found: List[SecurityFinding], display_name: str, unknown_severity:
 
 
 def evaluate(adapter: Adapter, record: ExecutionRecord, raw: Optional[str], strategy: str,
-             cfg: dict, required: bool, unknown_severity: str) -> ev.Evidence:
+             cfg: dict, required: bool, unknown_severity: str, target: Optional[str] = None) -> ev.Evidence:
     """Turn one execution into validated evidence according to the strategy."""
     evidence = ev.Evidence(scanner=adapter.key, display_name=adapter.display_name,
                            required=required, execution=record, config_id=adapter.config_id(cfg),
@@ -429,6 +469,15 @@ def evaluate(adapter: Adapter, record: ExecutionRecord, raw: Optional[str], stra
         evidence.coverage = numbers
         if category:
             evidence.add_problem(category, message)
+        if target is not None:
+            extra_category, extra_numbers, extra_message = adapter.independent_coverage(data, target, cfg)
+            evidence.coverage.update(extra_numbers)
+            if extra_category:
+                evidence.add_problem(extra_category, extra_message)
+                if "parse_check" not in evidence.checks_applied:
+                    evidence.checks_applied.append("parse_check")
+            elif extra_numbers and "parse_check" not in evidence.checks_applied:
+                evidence.checks_applied.append("parse_check")
     elif data is not None and schema_message is None:
         evidence.coverage = adapter.coverage(data, record)[1]
 

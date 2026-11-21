@@ -66,7 +66,7 @@ The strategy decides which of these checks run (S0: execution and exit code; S1:
 
 ```
 securegate-out/
-  run_manifest.json     schema 1.1: run id, engine version, timings, target commit, policy (+sha256),
+  run_manifest.json     schema 1.2: run id, engine version, timings, target commit, policy (+sha256),
                         per scanner: version, command, exit code, stderr tail, rule sources, checks applied,
                         evidence status and category, coverage, validation time; findings; verdict and reasons
   report.md             human-readable report (also appended to the GitHub job summary)

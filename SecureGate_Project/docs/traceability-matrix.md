@@ -1,6 +1,6 @@
 # Requirement traceability matrix
 
-Generated 2026-11-21 06:05 UTC by `tools/traceability_report.py` at commit `5e6d39d` (branch `semester8-final`).
+Generated 2026-11-21 06:09 UTC by `tools/traceability_report.py` at commit `88b0f4c` (branch `semester8-final`).
 Source of the mapping: `tests/traceability.py` (enforced by `tests/test_traceability.py`).
 
 | Requirement | Summary | Verified by | Result |
@@ -19,6 +19,7 @@ Source of the mapping: `tests/traceability.py` (enforced by `tests/test_traceabi
 | FR-12 | Check each tool's report against a minimal schema: required keys and types (Semgrep `results`, `errors`, `p... | `test_gate.py::test_probe_under_s3`<br>`test_live_outputs.py::test_real_semgrep_output_passes_schema_and_blocks_on_finding` | PASS |
 | FR-13 | Check that the exit code is consistent with the tool's documented meaning and the report content (e.g. exit... | `test_gate.py::test_probe_under_s3`<br>`test_gate.py::test_pip_audit_exit_code_contradicting_report`<br>`test_live_outputs.py::test_real_gitleaks_config_error_with_default_exit_code_is_ambiguous` | PASS |
 | FR-14 | Check coverage: Semgrep `errors[]` and `paths.scanned`/`skipped`; pip-audit `skip_reason`. No files scanned... | `test_gate.py::test_probe_under_s3`<br>`test_completion.py::test_semgrep_failed_file_analysis_is_partial_coverage`<br>`test_completion.py::test_semgrep_deliberate_skips_are_recorded_not_failed`<br>`test_live_outputs.py::test_real_semgrep_scanning_no_files_is_no_coverage`<br>`test_live_outputs.py::test_real_gitleaks_non_repository_silent_pass_is_caught` | PASS |
+| FR-14a | **(v1.2)** Optional Semgrep parse check (`scanners.semgrep.parse_check`, default off; strategies S2/S3 only... | `test_gate.py::test_parse_check_flags_unparsable_file_semgrep_lists_as_scanned`<br>`test_gate.py::test_parse_check_is_off_by_default_and_needs_coverage_checks`<br>`test_gate.py::test_parse_check_passes_valid_files_and_ignores_paths_outside_target`<br>`test_gate.py::test_parse_check_policy_value_must_be_boolean` | PASS |
 | FR-15 | Assign each scanner exactly one evidence status (`VALID` or `INVALID`) and, if invalid, one primary failure... | `test_gate.py::test_probe_under_s3`<br>`test_completion.py::test_mixed_failures_report_every_scanner` | PASS |
 | FR-16 | Normalise findings to one model: tool, rule ID, severity, file, line, title | `test_scanners.py::test_parse_semgrep_results`<br>`test_scanners.py::test_parse_pip_audit_results`<br>`test_scanners.py::test_parse_gitleaks_results` | PASS |
 | FR-17 | Unknown or unmapped severity values must not be ignored silently. Map them by a policy default (initially H... | `test_gate.py::test_unknown_severity_is_mapped_and_reported`<br>`test_gate.py::test_probe_under_s3` | PASS |
@@ -49,5 +50,5 @@ Source of the mapping: `tests/traceability.py` (enforced by `tests/test_traceabi
 | NFR-06 | The existing 21 tests pass. A test that asserts old *defective* behaviour (e.g. treating an error the same ... | `test_security_engine.py::test_security_gate_blocks_high_findings`<br>`test_security_engine.py::test_scanner_error_prevents_gate_from_passing`<br>`test_scanners.py::test_run_semgrep_success_with_findings` | PASS |
 | NFR-07 | Evidence validation time is measured and reported per run. H4 (< 5% overhead) is a hypothesis to test, **no... | `test_completion.py::test_timings_separate_execution_validation_and_decision` | PASS |
 
-**Summary:** PASS: 42, Verified outside unit tests: 1
+**Summary:** PASS: 43, Verified outside unit tests: 1
 

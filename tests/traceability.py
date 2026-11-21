@@ -1,4 +1,4 @@
-"""Requirement -> test traceability (engine requirements v1.1).
+"""Requirement -> test traceability (engine requirements v1.2).
 
 Every requirement in SecureGate_Project/docs/requirements/engine-requirements-v1.md
 must map to at least one test here, or to a written justification in
@@ -42,6 +42,10 @@ REQUIREMENT_TESTS = {
               "test_completion.py::test_semgrep_deliberate_skips_are_recorded_not_failed",
               "test_live_outputs.py::test_real_semgrep_scanning_no_files_is_no_coverage",
               "test_live_outputs.py::test_real_gitleaks_non_repository_silent_pass_is_caught"],
+    "FR-14a": ["test_gate.py::test_parse_check_flags_unparsable_file_semgrep_lists_as_scanned",
+               "test_gate.py::test_parse_check_is_off_by_default_and_needs_coverage_checks",
+               "test_gate.py::test_parse_check_passes_valid_files_and_ignores_paths_outside_target",
+               "test_gate.py::test_parse_check_policy_value_must_be_boolean"],
     "FR-15": ["test_gate.py::test_probe_under_s3", "test_completion.py::test_mixed_failures_report_every_scanner"],
     "FR-16": ["test_scanners.py::test_parse_semgrep_results", "test_scanners.py::test_parse_pip_audit_results",
               "test_scanners.py::test_parse_gitleaks_results"],

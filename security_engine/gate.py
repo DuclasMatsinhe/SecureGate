@@ -54,7 +54,7 @@ class SecureGate:
             raw = adapter.collect(record, raw_dir)
             validation_start = time.perf_counter()
             evidence = evaluate(adapter, record, raw, self.policy.strategy, cfg, required,
-                                self.policy.unknown_severity)
+                                self.policy.unknown_severity, target=target)
             evidence.validation_s = time.perf_counter() - validation_start
             evidence.rule_sources = adapter.rule_sources(cfg, target)
             if not record.launch_error:

@@ -35,7 +35,7 @@ def _collected_tests():
 
 def test_every_requirement_is_traced():
     ids = _requirement_ids()
-    assert len(ids) == 43, ids  # FR-01..FR-35, FR-20a (v1.2) and NFR-01..NFR-07
+    assert len(ids) == 44, ids  # FR-01..FR-35, FR-14a and FR-20a (v1.2), NFR-01..NFR-07
     missing = [i for i in ids if not REQUIREMENT_TESTS.get(i) and i not in VERIFIED_OUTSIDE_UNIT_TESTS]
     assert not missing, f"requirements without tests or justification: {missing}"
 

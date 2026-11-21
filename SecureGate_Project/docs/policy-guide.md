@@ -30,6 +30,8 @@ timeout = 600                       # seconds; the process group is killed when 
 config = "p/python"                 # or a list: ["p/python", "p/github-actions"], or a local rules file
 # executable = "/opt/semgrep/bin/semgrep"   # optional; otherwise found on PATH
 # extra_args = []                           # optional extra arguments (list of strings)
+# parse_check = false   # FR-14a: S2/S3 also parse every .py file Semgrep lists as scanned;
+#                       # unparsable files give PARTIAL_COVERAGE (Semgrep does not report them)
 
 [scanners.pip-audit]
 timeout = 300

@@ -55,6 +55,7 @@
 | FR-12 | Check each tool's report against a minimal schema: required keys and types (Semgrep `results`, `errors`, `paths`; pip-audit `dependencies` list; Gitleaks top-level list) | Must | F6; C1, C5 | `{}` → `SCHEMA_INVALID` for Semgrep and pip-audit |
 | FR-13 | Check that the exit code is consistent with the tool's documented meaning and the report content (e.g. exit 1 from Gitleaks with an empty findings list) | Must | F10; C9 | Gitleaks exit 1 + `[]` → `INCONSISTENT_EXIT` (exact rule confirmed by the live check) |
 | FR-14 | Check coverage: Semgrep `errors[]` and `paths.scanned`/`skipped`; pip-audit `skip_reason`. No files scanned → `NO_COVERAGE`; some skipped → `PARTIAL_COVERAGE` | Must | F8, F9; C2, C6; E81, E82 | Semgrep parse error → `NO_COVERAGE` or `PARTIAL_COVERAGE`; pip-audit skip → `PARTIAL_COVERAGE` |
+| FR-14a | **(v1.2)** Optional Semgrep parse check (`scanners.semgrep.parse_check`, default off; strategies S2/S3 only): every `.py` file that Semgrep lists in `paths.scanned` is parsed with CPython; a file that cannot be parsed gives PARTIAL_COVERAGE | Could | Semgrep recovers from syntax errors without reporting them (EXP-00 SG04, EXP-01 L2-F9-semgrep), so a broken file can count as scanned | Broken file listed as scanned + `parse_check = true` → PARTIAL_COVERAGE; off by default → no change |
 | FR-15 | Assign each scanner exactly one evidence status (`VALID` or `INVALID`) and, if invalid, one primary failure category from the taxonomy (§4), plus details | Must | Diagnosability; INCOMPLETE accuracy metric | Every fault in the catalogue maps to its expected category |
 | FR-16 | Normalise findings to one model: tool, rule ID, severity, file, line, title | Must | Aggregation | Existing adapter tests, updated |
 | FR-17 | Unknown or unmapped severity values must not be ignored silently. Map them by a policy default (initially HIGH) and record that this happened | Must | C13a/b | EXPERIMENT and INVENTORY findings → mapped and reported, not dropped |
@@ -190,6 +191,8 @@ Inputs still pending: the **live scanner check** (confirms FR-13 and FR-14 detai
 | Item | Change | Why | Record |
 |---|---|---|---|
 | FR-20a | New: `on_incomplete` cannot relax a run with a confirmed finding from a valid scanner | Closes the case where `warn` turned "real secret + timeout" into a passing job; FR-20 (INCOMPLETE first) is kept | DEC-014 |
+| FR-14a | New, optional: Semgrep parse check | Targets the only residual silent pass in EXP-01; off by default so S0–S3 keep their EXP-01 meaning | DEC-015 |
+| FR-27 | Manifest schema 1.2: `checks_applied` may include `parse_check` | Records when the optional check ran | DEC-015 |
 
 No requirement was removed. Every requirement maps to tests in `tests/traceability.py`; the generated matrix is `docs/traceability-matrix.md`.
 

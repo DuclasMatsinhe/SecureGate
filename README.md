@@ -74,7 +74,7 @@ python -m security_engine.cli --strategy S0       # experiments: exit-code-only 
 python -m security_engine.cli --legacy            # the unchanged Semester 7 engine
 ```
 
-Each run writes `securegate-out/run_manifest.json` (schema 1.1: versions, commands, rule sources, policy hash, timings, evidence status, verdict and reasons), `report.md` and the raw outputs of that run in `raw/<run_id>/`.
+Each run writes `securegate-out/run_manifest.json` (schema 1.2: versions, commands, rule sources, policy hash, timings, evidence status, verdict and reasons), `report.md` and the raw outputs of that run in `raw/<run_id>/`.
 
 **CI:** `.github/workflows/ci-security.yml` runs Tests → SecureGate → Docker build. The gate's exit code decides the job, so BLOCK, INCOMPLETE and policy errors stop the pipeline before the image is built.
 

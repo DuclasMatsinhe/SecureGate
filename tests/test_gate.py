@@ -1,3 +1,4 @@
+from pathlib import Path
 """Tests for the evidence-aware gate (requirements v1, FR-01 to FR-35)."""
 
 import json
@@ -325,3 +326,56 @@ def test_cli_appends_github_job_summary(tmp_path, monkeypatch):
     monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
     cli.main(["--out", str(tmp_path / "o")], runner=FakeRunner())
     assert "SecureGate verdict: PASS" in summary.read_text()
+
+
+# ---------------------------------------------------------------- FR-14a parse check (v1.2)
+def _broken_target(tmp_path):
+    target = tmp_path / "target"
+    target.mkdir()
+    (target / "app.py").write_text("def add(a, b):\n    return a + b\n")
+    (target / "broken.py").write_text("def broken(:\n    return 1\n")
+    return target
+
+
+def _run_target(target, out, strategy="S3", parse_check=True):
+    pol = policy(strategy, scanners={"gitleaks": {"leak_exit_code": LEAK_CODE},
+                                     "semgrep": {"parse_check": parse_check}})
+    runner = FakeRunner(semgrep={"exit": 0, "stdout": semgrep_report(scanned=("app.py", "broken.py"))})
+    return SecureGate(pol, runner=runner, today=date(2026, 11, 17)).run(target=str(target), out_dir=str(out))
+
+
+def test_parse_check_flags_unparsable_file_semgrep_lists_as_scanned(tmp_path):
+    target = _broken_target(tmp_path)
+    result = _run_target(target, tmp_path / "out")
+    semgrep = next(e for e in result.evidences if e.scanner == "semgrep")
+    assert semgrep.category == "PARTIAL_COVERAGE" and "broken.py" in semgrep.problems[0].message
+    assert semgrep.coverage["python_files_unparsable"] == 1 and "parse_check" in semgrep.checks_applied
+    assert result.verdict.verdict == "INCOMPLETE"
+    import jsonschema
+    schema = json.loads((Path(__file__).resolve().parents[1] / "security_engine" / "schemas"
+                         / "run_manifest.schema.json").read_text())
+    jsonschema.validate(json.loads(result.manifest_path.read_text()), schema)
+
+
+def test_parse_check_is_off_by_default_and_needs_coverage_checks(tmp_path):
+    target = _broken_target(tmp_path)
+    assert _run_target(target, tmp_path / "a", parse_check=False).verdict.verdict == "PASS"
+    assert _run_target(target, tmp_path / "b", strategy="S1").verdict.verdict == "PASS"
+
+
+def test_parse_check_passes_valid_files_and_ignores_paths_outside_target(tmp_path):
+    target = tmp_path / "target"
+    target.mkdir()
+    (target / "app.py").write_text("x = 1\n")
+    (tmp_path / "outside.py").write_text("def broken(:\n")
+    pol = policy(scanners={"gitleaks": {"leak_exit_code": LEAK_CODE}, "semgrep": {"parse_check": True}})
+    runner = FakeRunner(semgrep={"exit": 0, "stdout": semgrep_report(scanned=("app.py", "../outside.py"))})
+    result = SecureGate(pol, runner=runner, today=date(2026, 11, 17)).run(target=str(target),
+                                                                           out_dir=str(tmp_path / "out"))
+    semgrep = next(e for e in result.evidences if e.scanner == "semgrep")
+    assert result.verdict.verdict == "PASS" and semgrep.coverage["python_files_parse_checked"] == 1
+
+
+def test_parse_check_policy_value_must_be_boolean():
+    with pytest.raises(PolicyError, match="parse_check"):
+        policy_from_dict({"scanners": {"semgrep": {"parse_check": "yes"}}})

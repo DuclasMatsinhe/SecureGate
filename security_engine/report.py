@@ -10,7 +10,7 @@ from typing import List, Optional
 from . import evidence as ev
 from .verdict import Verdict
 
-MANIFEST_SCHEMA_VERSION = "1.1"
+MANIFEST_SCHEMA_VERSION = "1.2"
 MAX_FINDINGS_IN_REPORT = 20
 
 # Common credential shapes, redacted from any free text we store (FR-29).

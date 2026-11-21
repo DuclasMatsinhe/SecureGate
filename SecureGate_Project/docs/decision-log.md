@@ -143,3 +143,9 @@ DEC-002 to DEC-005 above were confirmed, not changed. Status: **accepted for dev
 - **Why:** the scan really is incomplete (the failed scanner may hide more findings), and the closest industry tool, AWS Automated Security Helper, also checks for incomplete scans before findings by default. Both labels stop the job under the default policy; the only unsafe combination was `warn` + a confirmed finding, which FR-20a removes.
 - **Effect on results:** none on EXP-01 (only `on_incomplete = "block"` was evaluated). The Review 1 deck showed "BLOCK precedence" as planned; that plan is replaced by this decision.
 
+## DEC-015: Optional Semgrep parse check (21 Nov 2026)
+- **Problem:** the only silent pass left under S3 in EXP-01 (L2-F9-semgrep): Semgrep 1.180.0 lists a file with a syntax error in `paths.scanned`, reports "Parsed lines ~100%" and no error, so no check that reads Semgrep's report can see it.
+- **Decision:** add `scanners.semgrep.parse_check` (FR-14a), default `false`. When on, and the strategy includes coverage checks (S2/S3), each `.py` file in Semgrep's own `paths.scanned` is parsed with CPython (`ast.parse`); unparsable files give PARTIAL_COVERAGE. Only files Semgrep lists are checked, so Semgrep's ignore rules are respected, and paths outside the target are ignored.
+- **Why optional:** it is an independent check, not scanner evidence, and CPython's grammar may differ from the target project's Python version (e.g. Python 2 files). Keeping it off by default leaves S0–S3 exactly as in EXP-01; EXP-02 measures it as an extra arm ("S3+P") so its benefit and its false-INCOMPLETE cost on real repositories are both reported.
+- **Manifest:** schema 1.2 (`checks_applied` may include `parse_check`; coverage numbers `python_files_parse_checked`, `python_files_unparsable`).
+
