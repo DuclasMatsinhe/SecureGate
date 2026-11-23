@@ -24,9 +24,9 @@ timeout = 600
 # One rule pack or a list. "auto" is rejected because its rules change between runs.
 # Live check (17 Nov 2026): p/python found nothing in this repository; "auto" also scanned the
 # GitHub workflow files (12 pinned-action warnings) but added Python 3.6 compatibility noise.
-# EXP-01 probe: p/github-actions raises PartialParsing on ${{ }} inside run: lines, which would make
-# this gate INCOMPLETE on its own workflow, so p/python stays (DEC-009; D2 still open for the frozen protocol).
-config = "p/python"
+# p/github-actions also checks the workflow files. The EXP-01 probe found PartialParsing on expressions
+# inside run: lines; the workflows now pass those values through env: (tests/test_action.py), D2 / DEC-009.
+config = ["p/python", "p/github-actions"]
 
 [scanners.pip-audit]
 timeout = 300
