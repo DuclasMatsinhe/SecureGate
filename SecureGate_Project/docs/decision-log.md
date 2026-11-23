@@ -185,3 +185,7 @@ DEC-002 to DEC-005 above were confirmed, not changed. Status: **accepted for dev
 
 ## DEC-009 update: D2 closed (23 Nov 2026)
 - Workflows now pass every `${{ }}` value through `env:` instead of expanding it in `run:` scripts, enforced by `tests/test_action.py`. With that, `p/github-actions` no longer raises PartialParsing: validation branch `semester8-ci-validate-d2` (run 45119728760) gave PASS with Semgrep evidence VALID. The CI policy uses `["p/python", "p/github-actions"]`. The experiments are unaffected (they use the committed local rule file).
+
+## DEC-019 update: pre-registration archived and checked (23 Nov 2026)
+- Published on Zenodo as doi:10.5281/zenodo.24456056 before the EXP-03 final run (run 45122960084). The record's MD5s match the files built from the repository: `PREREGISTRATION.md` 1238ec61f94da9e70fc14841b99c6168, `SecureGate-EXP-03-preregistration.tar.gz` 031abe8fe36964337289efe9a894f256 (checked by the student on the record page).
+- The guide, Dharmendrasinh Zala, accepted being listed as co-author of the Zenodo record. The archived file's status line ("the guide has not yet reviewed it") describes the state when it was written and is not changed; archived files are never edited.
