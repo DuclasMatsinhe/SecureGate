@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use SecureGate or its experiment data, please cite it as below."
+title: "SecureGate: Evidence-Aware Security Gating for CI/CD Pipelines Using SAST, SCA and Secret Scanning"
+type: software
+authors:
+  - family-names: Matsinhe
+    given-names: Duclas Argentina Francisco
+    affiliation: "Marwadi University, Rajkot, India"
+  - family-names: Zala
+    given-names: Dharmendrasinh
+    affiliation: "Marwadi University, Rajkot, India"
+repository-code: "https://github.com/DuclasMatsinhe/SecureGate"
+date-released: "2026-11-21"
+version: "exp02-final"
+keywords:
+  - DevSecOps
+  - CI/CD
+  - security gates
+  - static analysis
+  - software composition analysis
+  - secret detection
+  - fault injection
+  - GitHub Actions
+abstract: >-
+  SecureGate is an evidence-aware security gate for GitHub Actions that validates the evidence of Semgrep,
+  pip-audit and Gitleaks before deciding PASS, BLOCK or INCOMPLETE. This release contains the gate, the EXP-02
+  fault-injection harness, the frozen protocol (SHA-256 4716bbba6a3899cb2680b8455da6c171ae7e2f1c38ba97ff2f20cef4b2d30fed)
+  and the analysis script; raw results of the final run (GitHub Actions run 44892918564) are on the branch
+  semester8-exp02-results.

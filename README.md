@@ -56,7 +56,7 @@ Each run writes `securegate-out/run_manifest.json` (schema 1.2: tool versions, c
 | [EXP-01](SecureGate_Project/experiments/EXP-01-pilot/README.md) | Pilot: S0–S3 × fault classes F1–F10, 844 runs, run twice | Done, 17 Nov 2026 |
 | [EXP-02](SecureGate_Project/experiments/EXP-02/README.md) | Final study: 7,160 runs at three levels (simulated; real scanners on synthetic projects; real scanners on five public projects) | Final run 21 Nov 2026 (frozen protocol), replicated by the candidate run |
 
-To check the results yourself, follow [EXP-02/VERIFY.md](SecureGate_Project/experiments/EXP-02/VERIFY.md). Raw results are on the branch `semester8-exp02-results`.
+To check the results yourself, run `bash SecureGate_Project/experiments/EXP-02/reproduce.sh` or follow [EXP-02/VERIFY.md](SecureGate_Project/experiments/EXP-02/VERIFY.md). Raw results are on the branch `semester8-exp02-results`.
 
 ## Documentation
 

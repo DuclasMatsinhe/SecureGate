@@ -60,3 +60,11 @@ Exact McNemar on cell-level silent passes at L2: S0 vs S1 p = 0.013; S1 vs S2 p 
 Workflow run 44892918564, commit `55c266c`, `--final` with the frozen protocol (`protocol_sha256` and `"final": true` in every shard's `environment.json`); 11/11 shards; results in `semester8-exp02-results`, folder `EXP-02/final-run-44892918564/`.
 
 All 7,160 runs gave the same verdict and the same categories as the candidate run, so every metric in the candidate table above is unchanged. Only timings differ: evidence validation median 0.42 ms per run at L2 (scanner execution 2.2 s) and 0.95 ms at R; with the parse check 0.75 ms and 13.9 ms; median wall time per arm 3.88–3.95 s at L2 and 4.40–4.41 s at R.
+
+## Review record
+
+The protocol was frozen without external review (DEC-018). A reviewer who checks it afterwards records the result here; a requested change creates a new protocol version (EXP-02 v2) with its own freeze and run, and this run stays as recorded.
+
+| Date | Reviewer | Scope reviewed | Outcome |
+|---|---|---|---|
+| | | `protocol.json` (SHA-256 `4716bbba…30fed`), this README, `analysis.py` metric definitions | |

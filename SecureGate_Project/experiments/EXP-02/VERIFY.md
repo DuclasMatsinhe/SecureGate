@@ -10,15 +10,24 @@ pip install -r requirements-dev.txt
 python -m pytest -q                      # 164 tests, includes the pilot-reproduction test
 git fetch origin semester8-exp02-results
 git worktree add ../exp02-results FETCH_HEAD
-R=../exp02-results/EXP-02/candidate-run-44875857860
+R=../exp02-results/EXP-02/final-run-44892918564
 ```
+
+## Quickest: one command
+
+```bash
+bash SecureGate_Project/experiments/EXP-02/reproduce.sh             # checks 1-4 below, about 1 minute, no scanners
+bash SecureGate_Project/experiments/EXP-02/reproduce.sh --scanners  # also one real-scanner shard of L2 and R (section 4 first)
+```
+
+It prints PASS or FAIL for each check: the protocol is the frozen one; every published shard ran it in final mode; the published numbers follow from the raw runs; a fresh L1 run gives the same 2,360 verdicts; and, with `--scanners`, fresh real-scanner runs give the same verdicts. The checks below are the same steps, by hand.
 
 ## 1. Same protocol, same numbers from the raw data (2 minutes, no scanners)
 
 ```bash
 python SecureGate_Project/experiments/EXP-02/harness.py protocol --out /tmp/protocol.json   # prints the SHA-256
 cat $R/protocol.sha256                                                                        # must be identical
-python SecureGate_Project/experiments/EXP-02/analysis.py --title "EXP-02 (candidate), workflow run 44875857860" --out /tmp/my-analysis $R/shards/*
+python SecureGate_Project/experiments/EXP-02/analysis.py --title "EXP-02 (final), workflow run 44892918564" --out /tmp/my-analysis $R/shards/*
 diff /tmp/my-analysis/summary.md $R/analysis/summary.md && echo "analysis reproduced"
 ```
 
