@@ -160,4 +160,6 @@ jobs:
           persist-credentials: false
 
       - name: Build image
-        run: docker build -t securegate-app:${{ github.sha }} .
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: docker build -t "securegate-app:${IMAGE_TAG}" .

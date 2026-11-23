@@ -69,10 +69,12 @@ jobs:
 
       - name: Run harness shard
         id: harness
+        env:
+          SHARD: ${{ matrix.shard }}
         run: |
           set -euo pipefail
           mode=$(python -c "import json;print(json.load(open('$EXP/run_config.json'))['mode'])")
-          i=$(echo '${{ matrix.shard }}' | cut -d/ -f1)
+          i=$(echo "$SHARD" | cut -d/ -f1)
           if [ "$mode" = "smoke" ]; then
             [ "$i" = "1" ] || { echo "smoke mode: only shard 1 runs"; exit 0; }
             args="--smoke --reps 2"
@@ -83,15 +85,17 @@ jobs:
           fi
           name="H-$i"
           echo "name=$name" >> "$GITHUB_OUTPUT"
-          python "$EXP/heldout.py" run --shard ${{ matrix.shard }} --out "shards/$name" $args 2>&1 \
+          python "$EXP/heldout.py" run --shard "$SHARD" --out "shards/$name" $args 2>&1 \
             | tee "$RUNNER_TEMP/harness-$name.log"
 
       - name: Validate manifests and check that no synthetic token is stored
         if: always() && steps.harness.outputs.name != ''
+        env:
+          SHARD_NAME: ${{ steps.harness.outputs.name }}
         run: |
           set -euo pipefail
-          d="shards/${{ steps.harness.outputs.name }}"
-          mkdir -p "$d" && cp "$RUNNER_TEMP/harness-${{ steps.harness.outputs.name }}.log" "$d/harness.log" || true
+          d="shards/$SHARD_NAME"
+          mkdir -p "$d" && cp "$RUNNER_TEMP/harness-$SHARD_NAME.log" "$d/harness.log" || true
           python - "$d" <<'EOF' | tee "$d/schema_validation.txt"
           import json, glob, sys, jsonschema
           schema = json.load(open("security_engine/schemas/run_manifest.schema.json"))

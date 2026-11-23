@@ -79,14 +79,17 @@ jobs:
 
       - name: Run harness shard
         id: harness
+        env:
+          LEVEL: ${{ matrix.level }}
+          SHARD: ${{ matrix.shard }}
         run: |
           set -euo pipefail
           mode=$(python -c "import json;print(json.load(open('$EXP/run_config.json'))['mode'])")
-          reps=$(python -c "import json;print(json.load(open('$EXP/run_config.json'))['reps']['${{ matrix.level }}'])")
-          name="${{ matrix.level }}-$(echo '${{ matrix.shard }}' | cut -d/ -f1)"
+          reps=$(python -c "import json;print(json.load(open('$EXP/run_config.json'))['reps']['$LEVEL'])")
+          name="$LEVEL-$(echo "$SHARD" | cut -d/ -f1)"
           echo "name=$name" >> "$GITHUB_OUTPUT"
           final=""; [ "$mode" = "final" ] && final="--final"
-          python "$EXP/harness.py" run --level ${{ matrix.level }} --shard ${{ matrix.shard }} --reps "$reps" \
+          python "$EXP/harness.py" run --level "$LEVEL" --shard "$SHARD" --reps "$reps" \
             --out "shards/$name" $final 2>&1 | tee "$RUNNER_TEMP/harness-$name.log"
 
       - name: Probes (L1 shard only) - pip-audit on nested requirements, Python 2 files
@@ -132,10 +135,12 @@ jobs:
 
       - name: Validate manifests and check that no synthetic token is stored
         if: always() && steps.harness.outputs.name != ''
+        env:
+          SHARD_NAME: ${{ steps.harness.outputs.name }}
         run: |
           set -euo pipefail
-          d="shards/${{ steps.harness.outputs.name }}"
-          mkdir -p "$d" && cp "$RUNNER_TEMP/harness-${{ steps.harness.outputs.name }}.log" "$d/harness.log" || true
+          d="shards/$SHARD_NAME"
+          mkdir -p "$d" && cp "$RUNNER_TEMP/harness-$SHARD_NAME.log" "$d/harness.log" || true
           python - "$d" <<'EOF' | tee "$d/schema_validation.txt"
           import json, glob, sys, jsonschema
           schema = json.load(open("security_engine/schemas/run_manifest.schema.json"))
