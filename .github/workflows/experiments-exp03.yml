@@ -1,0 +1,175 @@
+# EXP-03 (pre-registered held-out confirmation): runs SecureGate_Project/experiments/EXP-03/heldout.py
+# with the EXP-02 harness on eight public projects never run before (one project per shard), then
+# checks the predictions in PREREGISTRATION.md. Runs only when the semester8-exp03-run branch is
+# pushed (or by manual dispatch). The mode comes from EXP-03/run_config.json on that branch:
+# "smoke" runs one EXP-02 project in shard 1 only, to check the set-up without touching any held-out
+# project; "final" refuses to start unless the protocol matches EXP-03/FROZEN.sha256. Results are
+# added as a new folder under EXP-03/ on semester8-exp02-results; nothing is overwritten or force-pushed.
+name: experiments-exp03
+
+on:
+  push:
+    branches: [semester8-exp03-run]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: exp03
+  cancel-in-progress: false
+
+env:
+  PYTHON_VERSION: "3.13"
+  SEMGREP_VERSION: "1.180.0"
+  PIP_AUDIT_VERSION: "2.10.1"
+  GITLEAKS_VERSION: "8.30.1"
+  GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+  EXP: SecureGate_Project/experiments/EXP-03
+  EXP02: SecureGate_Project/experiments/EXP-02
+  RESULTS_BRANCH: semester8-exp02-results
+
+jobs:
+  run:
+    name: H shard ${{ matrix.shard }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ["1/8", "2/8", "3/8", "4/8", "5/8", "6/8", "7/8", "8/8"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned scanners and test dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet -r requirements-dev.txt
+          python -m venv "$RUNNER_TEMP/scanners"
+          "$RUNNER_TEMP/scanners/bin/pip" install --quiet "semgrep==${SEMGREP_VERSION}" "pip-audit==${PIP_AUDIT_VERSION}"
+          curl -sSfL -o "$RUNNER_TEMP/gitleaks.tgz" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  $RUNNER_TEMP/gitleaks.tgz" | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/bin" && tar -xzf "$RUNNER_TEMP/gitleaks.tgz" -C "$RUNNER_TEMP/bin" gitleaks
+          for t in semgrep pysemgrep pip-audit; do
+            if [ -e "$RUNNER_TEMP/scanners/bin/$t" ]; then ln -s "$RUNNER_TEMP/scanners/bin/$t" "$RUNNER_TEMP/bin/$t"; fi
+          done
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+
+      - name: Unit tests
+        run: python -m pytest -q
+
+      - name: Run harness shard
+        id: harness
+        run: |
+          set -euo pipefail
+          mode=$(python -c "import json;print(json.load(open('$EXP/run_config.json'))['mode'])")
+          i=$(echo '${{ matrix.shard }}' | cut -d/ -f1)
+          if [ "$mode" = "smoke" ]; then
+            [ "$i" = "1" ] || { echo "smoke mode: only shard 1 runs"; exit 0; }
+            args="--smoke --reps 2"
+          elif [ "$mode" = "final" ]; then
+            args="--final --reps 10"
+          else
+            echo "unknown mode $mode"; exit 1
+          fi
+          name="H-$i"
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          python "$EXP/heldout.py" run --shard ${{ matrix.shard }} --out "shards/$name" $args 2>&1 \
+            | tee "$RUNNER_TEMP/harness-$name.log"
+
+      - name: Validate manifests and check that no synthetic token is stored
+        if: always() && steps.harness.outputs.name != ''
+        run: |
+          set -euo pipefail
+          d="shards/${{ steps.harness.outputs.name }}"
+          mkdir -p "$d" && cp "$RUNNER_TEMP/harness-${{ steps.harness.outputs.name }}.log" "$d/harness.log" || true
+          python - "$d" <<'EOF' | tee "$d/schema_validation.txt"
+          import json, glob, sys, jsonschema
+          schema = json.load(open("security_engine/schemas/run_manifest.schema.json"))
+          files = glob.glob(f"{sys.argv[1]}/runs/**/run_manifest.json", recursive=True)
+          for f in files:
+              jsonschema.validate(json.load(open(f)), schema)
+          print(f"{len(files)} manifests conform to the run-manifest schema")
+          EOF
+          if grep -rEl 'ghp_[A-Za-z0-9]{36}|AKIA[A-Z0-9]{16}' "$d"; then echo "unredacted token found"; exit 1; fi
+          if [ -d "$d/runs" ]; then tar -czf "$d/runs.tar.gz" -C "$d" runs && rm -rf "$d/runs"; fi
+
+      - name: Upload shard
+        if: always() && steps.harness.outputs.name != ''
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: exp03-shard-${{ steps.harness.outputs.name }}
+          path: shards/
+          retention-days: 90
+
+  collect:
+    needs: run
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write   # only to add results to the separate results branch
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Download shards
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          pattern: exp03-shard-*
+          path: downloaded
+          merge-multiple: true
+
+      - name: Analyse all shards together and check the predictions
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet -r requirements-dev.txt
+          mode=$(python -c "import json;print(json.load(open('$EXP/run_config.json'))['mode'])")
+          mkdir -p results/shards && { [ -d downloaded ] && cp -r downloaded/. results/shards/ || true; }
+          shards=$(find results/shards -name runs.csv -printf '%h\n' | sort)
+          python "$EXP/heldout.py" protocol --out results/protocol.json > results/protocol.sha256
+          if [ -n "$shards" ]; then
+            python "$EXP02/analysis.py" --title "EXP-03 ($mode), workflow run $GITHUB_RUN_ID" --out results/analysis $shards
+            python "$EXP/check_predictions.py" results --out results/analysis --level H
+          fi
+          {
+            echo "EXP-03 $mode. Workflow run $GITHUB_RUN_ID, commit $GITHUB_SHA, $(date -u +%FT%TZ)."
+            echo "Protocol SHA-256: $(cat results/protocol.sha256)"
+            echo "Shards with results: $(echo "$shards" | wc -w)."
+            [ "$mode" = "smoke" ] && echo "SMOKE RUN on an EXP-02 project: checks the set-up only; not EXP-03 results."
+            echo "H = real pinned binaries on held-out public projects (PREREGISTRATION.md)."
+          } > results/README.md
+          for f in results/shards/*/errors.txt; do [ -e "$f" ] && { echo "== $f"; cat "$f"; } >> results/README.md; done
+          cat results/README.md >> "$GITHUB_STEP_SUMMARY"
+          [ -f results/analysis/predictions.md ] && cat results/analysis/predictions.md >> "$GITHUB_STEP_SUMMARY" || true
+          echo "mode=$mode" >> "$GITHUB_ENV"
+
+      - name: Add results to the results branch (new folder, no force push)
+        run: |
+          set -euo pipefail
+          dest="EXP-03/${mode}-run-${GITHUB_RUN_ID}"
+          mv results /tmp/results
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch -q origin "$RESULTS_BRANCH" && git checkout -q -B "$RESULTS_BRANCH" FETCH_HEAD
+          test ! -e "$dest" || { echo "$dest already exists"; exit 1; }
+          mkdir -p "$dest" && cp -r /tmp/results/. "$dest/"
+          git add "$dest"
+          git commit -q -m "EXP-03 $mode results, run $GITHUB_RUN_ID [skip ci]"
+          git push -q origin "$RESULTS_BRANCH"

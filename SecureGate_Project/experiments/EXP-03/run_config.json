@@ -1,0 +1,4 @@
+{
+  "mode": "smoke",
+  "note": "smoke: shard 1 runs one EXP-02 project (microblog) with 2 repetitions to check the set-up; no held-out project is touched. final: the frozen protocol, 8 shards (one held-out project each), 10 repetitions, run once."
+}
