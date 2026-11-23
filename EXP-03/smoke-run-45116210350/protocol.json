@@ -1,0 +1,2205 @@
+{
+  "arms": {
+    "S0": {
+      "parse_check": false,
+      "strategy": "S0"
+    },
+    "S1": {
+      "parse_check": false,
+      "strategy": "S1"
+    },
+    "S2": {
+      "parse_check": false,
+      "strategy": "S2"
+    },
+    "S3": {
+      "parse_check": false,
+      "strategy": "S3"
+    },
+    "S3P": {
+      "parse_check": true,
+      "strategy": "S3"
+    }
+  },
+  "cells": [
+    {
+      "cell_id": "H-cookiecutter-flask-base",
+      "expected_category": [],
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [],
+      "ground_truth": "OBSERVED",
+      "kind": "B",
+      "level": "H",
+      "notes": "observed: no ground truth for the unmodified project",
+      "policy": {},
+      "prediction": {},
+      "realisation": "https://github.com/cookiecutter-flask/cookiecutter-flask @ e5666c2, no fault",
+      "target": {
+        "commit": "e5666c23a633b5b6fcb0dc2cfda2441d7f885727",
+        "repo": "cookiecutter-flask",
+        "url": "https://github.com/cookiecutter-flask/cookiecutter-flask"
+      }
+    },
+    {
+      "cell_id": "H-cookiecutter-flask-F2-semgrep",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on cookiecutter-flask",
+      "target": {
+        "commit": "e5666c23a633b5b6fcb0dc2cfda2441d7f885727",
+        "repo": "cookiecutter-flask",
+        "url": "https://github.com/cookiecutter-flask/cookiecutter-flask"
+      }
+    },
+    {
+      "cell_id": "H-cookiecutter-flask-F2-pip-audit",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on cookiecutter-flask",
+      "target": {
+        "commit": "e5666c23a633b5b6fcb0dc2cfda2441d7f885727",
+        "repo": "cookiecutter-flask",
+        "url": "https://github.com/cookiecutter-flask/cookiecutter-flask"
+      }
+    },
+    {
+      "cell_id": "H-cookiecutter-flask-F2-gitleaks",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on cookiecutter-flask",
+      "target": {
+        "commit": "e5666c23a633b5b6fcb0dc2cfda2441d7f885727",
+        "repo": "cookiecutter-flask",
+        "url": "https://github.com/cookiecutter-flask/cookiecutter-flask"
+      }
+    },
+    {
+      "cell_id": "H-cookiecutter-flask-F4-semgrep",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on cookiecutter-flask",
+      "target": {
+        "commit": "e5666c23a633b5b6fcb0dc2cfda2441d7f885727",
+        "repo": "cookiecutter-flask",
+        "url": "https://github.com/cookiecutter-flask/cookiecutter-flask"
+      }
+    },
+    {
+      "cell_id": "H-cookiecutter-flask-F4-pip-audit",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on cookiecutter-flask",
+      "target": {
+        "commit": "e5666c23a633b5b6fcb0dc2cfda2441d7f885727",
+        "repo": "cookiecutter-flask",
+        "url": "https://github.com/cookiecutter-flask/cookiecutter-flask"
+      }
+    },
+    {
+      "cell_id": "H-cookiecutter-flask-F4-gitleaks",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on cookiecutter-flask",
+      "target": {
+        "commit": "e5666c23a633b5b6fcb0dc2cfda2441d7f885727",
+        "repo": "cookiecutter-flask",
+        "url": "https://github.com/cookiecutter-flask/cookiecutter-flask"
+      }
+    },
+    {
+      "cell_id": "H-cookiecutter-flask-F7-semgrep",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on cookiecutter-flask",
+      "target": {
+        "commit": "e5666c23a633b5b6fcb0dc2cfda2441d7f885727",
+        "repo": "cookiecutter-flask",
+        "url": "https://github.com/cookiecutter-flask/cookiecutter-flask"
+      }
+    },
+    {
+      "cell_id": "H-cookiecutter-flask-F7-pip-audit",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on cookiecutter-flask",
+      "target": {
+        "commit": "e5666c23a633b5b6fcb0dc2cfda2441d7f885727",
+        "repo": "cookiecutter-flask",
+        "url": "https://github.com/cookiecutter-flask/cookiecutter-flask"
+      }
+    },
+    {
+      "cell_id": "H-cookiecutter-flask-F7-gitleaks",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on cookiecutter-flask",
+      "target": {
+        "commit": "e5666c23a633b5b6fcb0dc2cfda2441d7f885727",
+        "repo": "cookiecutter-flask",
+        "url": "https://github.com/cookiecutter-flask/cookiecutter-flask"
+      }
+    },
+    {
+      "cell_id": "H-nyaa-base",
+      "expected_category": [],
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [],
+      "ground_truth": "OBSERVED",
+      "kind": "B",
+      "level": "H",
+      "notes": "observed: no ground truth for the unmodified project",
+      "policy": {},
+      "prediction": {},
+      "realisation": "https://github.com/nyaadevs/nyaa @ 4fe0ff5, no fault",
+      "target": {
+        "commit": "4fe0ff5b1aa7ec7c9bb2667d97e10ce2a318c676",
+        "repo": "nyaa",
+        "url": "https://github.com/nyaadevs/nyaa"
+      }
+    },
+    {
+      "cell_id": "H-nyaa-F2-semgrep",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on nyaa",
+      "target": {
+        "commit": "4fe0ff5b1aa7ec7c9bb2667d97e10ce2a318c676",
+        "repo": "nyaa",
+        "url": "https://github.com/nyaadevs/nyaa"
+      }
+    },
+    {
+      "cell_id": "H-nyaa-F2-pip-audit",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on nyaa",
+      "target": {
+        "commit": "4fe0ff5b1aa7ec7c9bb2667d97e10ce2a318c676",
+        "repo": "nyaa",
+        "url": "https://github.com/nyaadevs/nyaa"
+      }
+    },
+    {
+      "cell_id": "H-nyaa-F2-gitleaks",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on nyaa",
+      "target": {
+        "commit": "4fe0ff5b1aa7ec7c9bb2667d97e10ce2a318c676",
+        "repo": "nyaa",
+        "url": "https://github.com/nyaadevs/nyaa"
+      }
+    },
+    {
+      "cell_id": "H-nyaa-F4-semgrep",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on nyaa",
+      "target": {
+        "commit": "4fe0ff5b1aa7ec7c9bb2667d97e10ce2a318c676",
+        "repo": "nyaa",
+        "url": "https://github.com/nyaadevs/nyaa"
+      }
+    },
+    {
+      "cell_id": "H-nyaa-F4-pip-audit",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on nyaa",
+      "target": {
+        "commit": "4fe0ff5b1aa7ec7c9bb2667d97e10ce2a318c676",
+        "repo": "nyaa",
+        "url": "https://github.com/nyaadevs/nyaa"
+      }
+    },
+    {
+      "cell_id": "H-nyaa-F4-gitleaks",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on nyaa",
+      "target": {
+        "commit": "4fe0ff5b1aa7ec7c9bb2667d97e10ce2a318c676",
+        "repo": "nyaa",
+        "url": "https://github.com/nyaadevs/nyaa"
+      }
+    },
+    {
+      "cell_id": "H-nyaa-F7-semgrep",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on nyaa",
+      "target": {
+        "commit": "4fe0ff5b1aa7ec7c9bb2667d97e10ce2a318c676",
+        "repo": "nyaa",
+        "url": "https://github.com/nyaadevs/nyaa"
+      }
+    },
+    {
+      "cell_id": "H-nyaa-F7-pip-audit",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on nyaa",
+      "target": {
+        "commit": "4fe0ff5b1aa7ec7c9bb2667d97e10ce2a318c676",
+        "repo": "nyaa",
+        "url": "https://github.com/nyaadevs/nyaa"
+      }
+    },
+    {
+      "cell_id": "H-nyaa-F7-gitleaks",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on nyaa",
+      "target": {
+        "commit": "4fe0ff5b1aa7ec7c9bb2667d97e10ce2a318c676",
+        "repo": "nyaa",
+        "url": "https://github.com/nyaadevs/nyaa"
+      }
+    },
+    {
+      "cell_id": "H-flask-ask-base",
+      "expected_category": [],
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [],
+      "ground_truth": "OBSERVED",
+      "kind": "B",
+      "level": "H",
+      "notes": "observed: no ground truth for the unmodified project",
+      "policy": {},
+      "prediction": {},
+      "realisation": "https://github.com/johnwheeler/flask-ask @ a93488b, no fault",
+      "target": {
+        "commit": "a93488b700479a3b2d80eb54d0f6585caae15ef3",
+        "repo": "flask-ask",
+        "url": "https://github.com/johnwheeler/flask-ask"
+      }
+    },
+    {
+      "cell_id": "H-flask-ask-F2-semgrep",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on flask-ask",
+      "target": {
+        "commit": "a93488b700479a3b2d80eb54d0f6585caae15ef3",
+        "repo": "flask-ask",
+        "url": "https://github.com/johnwheeler/flask-ask"
+      }
+    },
+    {
+      "cell_id": "H-flask-ask-F2-pip-audit",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on flask-ask",
+      "target": {
+        "commit": "a93488b700479a3b2d80eb54d0f6585caae15ef3",
+        "repo": "flask-ask",
+        "url": "https://github.com/johnwheeler/flask-ask"
+      }
+    },
+    {
+      "cell_id": "H-flask-ask-F2-gitleaks",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on flask-ask",
+      "target": {
+        "commit": "a93488b700479a3b2d80eb54d0f6585caae15ef3",
+        "repo": "flask-ask",
+        "url": "https://github.com/johnwheeler/flask-ask"
+      }
+    },
+    {
+      "cell_id": "H-flask-ask-F4-semgrep",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on flask-ask",
+      "target": {
+        "commit": "a93488b700479a3b2d80eb54d0f6585caae15ef3",
+        "repo": "flask-ask",
+        "url": "https://github.com/johnwheeler/flask-ask"
+      }
+    },
+    {
+      "cell_id": "H-flask-ask-F4-pip-audit",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on flask-ask",
+      "target": {
+        "commit": "a93488b700479a3b2d80eb54d0f6585caae15ef3",
+        "repo": "flask-ask",
+        "url": "https://github.com/johnwheeler/flask-ask"
+      }
+    },
+    {
+      "cell_id": "H-flask-ask-F4-gitleaks",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on flask-ask",
+      "target": {
+        "commit": "a93488b700479a3b2d80eb54d0f6585caae15ef3",
+        "repo": "flask-ask",
+        "url": "https://github.com/johnwheeler/flask-ask"
+      }
+    },
+    {
+      "cell_id": "H-flask-ask-F7-semgrep",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on flask-ask",
+      "target": {
+        "commit": "a93488b700479a3b2d80eb54d0f6585caae15ef3",
+        "repo": "flask-ask",
+        "url": "https://github.com/johnwheeler/flask-ask"
+      }
+    },
+    {
+      "cell_id": "H-flask-ask-F7-pip-audit",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on flask-ask",
+      "target": {
+        "commit": "a93488b700479a3b2d80eb54d0f6585caae15ef3",
+        "repo": "flask-ask",
+        "url": "https://github.com/johnwheeler/flask-ask"
+      }
+    },
+    {
+      "cell_id": "H-flask-ask-F7-gitleaks",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on flask-ask",
+      "target": {
+        "commit": "a93488b700479a3b2d80eb54d0f6585caae15ef3",
+        "repo": "flask-ask",
+        "url": "https://github.com/johnwheeler/flask-ask"
+      }
+    },
+    {
+      "cell_id": "H-traefik-manager-base",
+      "expected_category": [],
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [],
+      "ground_truth": "OBSERVED",
+      "kind": "B",
+      "level": "H",
+      "notes": "observed: no ground truth for the unmodified project",
+      "policy": {},
+      "prediction": {},
+      "realisation": "https://github.com/chr0nzz/traefik-manager @ 29eb945, no fault",
+      "target": {
+        "commit": "29eb9456a92614175856470737da2a3daf96ae09",
+        "repo": "traefik-manager",
+        "url": "https://github.com/chr0nzz/traefik-manager"
+      }
+    },
+    {
+      "cell_id": "H-traefik-manager-F2-semgrep",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on traefik-manager",
+      "target": {
+        "commit": "29eb9456a92614175856470737da2a3daf96ae09",
+        "repo": "traefik-manager",
+        "url": "https://github.com/chr0nzz/traefik-manager"
+      }
+    },
+    {
+      "cell_id": "H-traefik-manager-F2-pip-audit",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on traefik-manager",
+      "target": {
+        "commit": "29eb9456a92614175856470737da2a3daf96ae09",
+        "repo": "traefik-manager",
+        "url": "https://github.com/chr0nzz/traefik-manager"
+      }
+    },
+    {
+      "cell_id": "H-traefik-manager-F2-gitleaks",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on traefik-manager",
+      "target": {
+        "commit": "29eb9456a92614175856470737da2a3daf96ae09",
+        "repo": "traefik-manager",
+        "url": "https://github.com/chr0nzz/traefik-manager"
+      }
+    },
+    {
+      "cell_id": "H-traefik-manager-F4-semgrep",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on traefik-manager",
+      "target": {
+        "commit": "29eb9456a92614175856470737da2a3daf96ae09",
+        "repo": "traefik-manager",
+        "url": "https://github.com/chr0nzz/traefik-manager"
+      }
+    },
+    {
+      "cell_id": "H-traefik-manager-F4-pip-audit",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on traefik-manager",
+      "target": {
+        "commit": "29eb9456a92614175856470737da2a3daf96ae09",
+        "repo": "traefik-manager",
+        "url": "https://github.com/chr0nzz/traefik-manager"
+      }
+    },
+    {
+      "cell_id": "H-traefik-manager-F4-gitleaks",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on traefik-manager",
+      "target": {
+        "commit": "29eb9456a92614175856470737da2a3daf96ae09",
+        "repo": "traefik-manager",
+        "url": "https://github.com/chr0nzz/traefik-manager"
+      }
+    },
+    {
+      "cell_id": "H-traefik-manager-F7-semgrep",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on traefik-manager",
+      "target": {
+        "commit": "29eb9456a92614175856470737da2a3daf96ae09",
+        "repo": "traefik-manager",
+        "url": "https://github.com/chr0nzz/traefik-manager"
+      }
+    },
+    {
+      "cell_id": "H-traefik-manager-F7-pip-audit",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on traefik-manager",
+      "target": {
+        "commit": "29eb9456a92614175856470737da2a3daf96ae09",
+        "repo": "traefik-manager",
+        "url": "https://github.com/chr0nzz/traefik-manager"
+      }
+    },
+    {
+      "cell_id": "H-traefik-manager-F7-gitleaks",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on traefik-manager",
+      "target": {
+        "commit": "29eb9456a92614175856470737da2a3daf96ae09",
+        "repo": "traefik-manager",
+        "url": "https://github.com/chr0nzz/traefik-manager"
+      }
+    },
+    {
+      "cell_id": "H-flask-jwt-extended-base",
+      "expected_category": [],
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [],
+      "ground_truth": "OBSERVED",
+      "kind": "B",
+      "level": "H",
+      "notes": "observed: no ground truth for the unmodified project",
+      "policy": {},
+      "prediction": {},
+      "realisation": "https://github.com/vimalloc/flask-jwt-extended @ ba708e8, no fault",
+      "target": {
+        "commit": "ba708e89ac50ce69577c537ca7132e8d4dd3fc18",
+        "repo": "flask-jwt-extended",
+        "url": "https://github.com/vimalloc/flask-jwt-extended"
+      }
+    },
+    {
+      "cell_id": "H-flask-jwt-extended-F2-semgrep",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on flask-jwt-extended",
+      "target": {
+        "commit": "ba708e89ac50ce69577c537ca7132e8d4dd3fc18",
+        "repo": "flask-jwt-extended",
+        "url": "https://github.com/vimalloc/flask-jwt-extended"
+      }
+    },
+    {
+      "cell_id": "H-flask-jwt-extended-F2-pip-audit",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on flask-jwt-extended",
+      "target": {
+        "commit": "ba708e89ac50ce69577c537ca7132e8d4dd3fc18",
+        "repo": "flask-jwt-extended",
+        "url": "https://github.com/vimalloc/flask-jwt-extended"
+      }
+    },
+    {
+      "cell_id": "H-flask-jwt-extended-F2-gitleaks",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on flask-jwt-extended",
+      "target": {
+        "commit": "ba708e89ac50ce69577c537ca7132e8d4dd3fc18",
+        "repo": "flask-jwt-extended",
+        "url": "https://github.com/vimalloc/flask-jwt-extended"
+      }
+    },
+    {
+      "cell_id": "H-flask-jwt-extended-F4-semgrep",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on flask-jwt-extended",
+      "target": {
+        "commit": "ba708e89ac50ce69577c537ca7132e8d4dd3fc18",
+        "repo": "flask-jwt-extended",
+        "url": "https://github.com/vimalloc/flask-jwt-extended"
+      }
+    },
+    {
+      "cell_id": "H-flask-jwt-extended-F4-pip-audit",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on flask-jwt-extended",
+      "target": {
+        "commit": "ba708e89ac50ce69577c537ca7132e8d4dd3fc18",
+        "repo": "flask-jwt-extended",
+        "url": "https://github.com/vimalloc/flask-jwt-extended"
+      }
+    },
+    {
+      "cell_id": "H-flask-jwt-extended-F4-gitleaks",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on flask-jwt-extended",
+      "target": {
+        "commit": "ba708e89ac50ce69577c537ca7132e8d4dd3fc18",
+        "repo": "flask-jwt-extended",
+        "url": "https://github.com/vimalloc/flask-jwt-extended"
+      }
+    },
+    {
+      "cell_id": "H-flask-jwt-extended-F7-semgrep",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on flask-jwt-extended",
+      "target": {
+        "commit": "ba708e89ac50ce69577c537ca7132e8d4dd3fc18",
+        "repo": "flask-jwt-extended",
+        "url": "https://github.com/vimalloc/flask-jwt-extended"
+      }
+    },
+    {
+      "cell_id": "H-flask-jwt-extended-F7-pip-audit",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on flask-jwt-extended",
+      "target": {
+        "commit": "ba708e89ac50ce69577c537ca7132e8d4dd3fc18",
+        "repo": "flask-jwt-extended",
+        "url": "https://github.com/vimalloc/flask-jwt-extended"
+      }
+    },
+    {
+      "cell_id": "H-flask-jwt-extended-F7-gitleaks",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on flask-jwt-extended",
+      "target": {
+        "commit": "ba708e89ac50ce69577c537ca7132e8d4dd3fc18",
+        "repo": "flask-jwt-extended",
+        "url": "https://github.com/vimalloc/flask-jwt-extended"
+      }
+    },
+    {
+      "cell_id": "H-git-webhook-base",
+      "expected_category": [],
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [],
+      "ground_truth": "OBSERVED",
+      "kind": "B",
+      "level": "H",
+      "notes": "observed: no ground truth for the unmodified project",
+      "policy": {},
+      "prediction": {},
+      "realisation": "https://github.com/NetEaseGame/git-webhook @ 4c57f1b, no fault",
+      "target": {
+        "commit": "4c57f1bfdb4b87183ef4adea30e90dce86fde2fa",
+        "repo": "git-webhook",
+        "url": "https://github.com/NetEaseGame/git-webhook"
+      }
+    },
+    {
+      "cell_id": "H-git-webhook-F2-semgrep",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on git-webhook",
+      "target": {
+        "commit": "4c57f1bfdb4b87183ef4adea30e90dce86fde2fa",
+        "repo": "git-webhook",
+        "url": "https://github.com/NetEaseGame/git-webhook"
+      }
+    },
+    {
+      "cell_id": "H-git-webhook-F2-pip-audit",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on git-webhook",
+      "target": {
+        "commit": "4c57f1bfdb4b87183ef4adea30e90dce86fde2fa",
+        "repo": "git-webhook",
+        "url": "https://github.com/NetEaseGame/git-webhook"
+      }
+    },
+    {
+      "cell_id": "H-git-webhook-F2-gitleaks",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on git-webhook",
+      "target": {
+        "commit": "4c57f1bfdb4b87183ef4adea30e90dce86fde2fa",
+        "repo": "git-webhook",
+        "url": "https://github.com/NetEaseGame/git-webhook"
+      }
+    },
+    {
+      "cell_id": "H-git-webhook-F4-semgrep",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on git-webhook",
+      "target": {
+        "commit": "4c57f1bfdb4b87183ef4adea30e90dce86fde2fa",
+        "repo": "git-webhook",
+        "url": "https://github.com/NetEaseGame/git-webhook"
+      }
+    },
+    {
+      "cell_id": "H-git-webhook-F4-pip-audit",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on git-webhook",
+      "target": {
+        "commit": "4c57f1bfdb4b87183ef4adea30e90dce86fde2fa",
+        "repo": "git-webhook",
+        "url": "https://github.com/NetEaseGame/git-webhook"
+      }
+    },
+    {
+      "cell_id": "H-git-webhook-F4-gitleaks",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on git-webhook",
+      "target": {
+        "commit": "4c57f1bfdb4b87183ef4adea30e90dce86fde2fa",
+        "repo": "git-webhook",
+        "url": "https://github.com/NetEaseGame/git-webhook"
+      }
+    },
+    {
+      "cell_id": "H-git-webhook-F7-semgrep",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on git-webhook",
+      "target": {
+        "commit": "4c57f1bfdb4b87183ef4adea30e90dce86fde2fa",
+        "repo": "git-webhook",
+        "url": "https://github.com/NetEaseGame/git-webhook"
+      }
+    },
+    {
+      "cell_id": "H-git-webhook-F7-pip-audit",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on git-webhook",
+      "target": {
+        "commit": "4c57f1bfdb4b87183ef4adea30e90dce86fde2fa",
+        "repo": "git-webhook",
+        "url": "https://github.com/NetEaseGame/git-webhook"
+      }
+    },
+    {
+      "cell_id": "H-git-webhook-F7-gitleaks",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on git-webhook",
+      "target": {
+        "commit": "4c57f1bfdb4b87183ef4adea30e90dce86fde2fa",
+        "repo": "git-webhook",
+        "url": "https://github.com/NetEaseGame/git-webhook"
+      }
+    },
+    {
+      "cell_id": "H-rq-dashboard-base",
+      "expected_category": [],
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [],
+      "ground_truth": "OBSERVED",
+      "kind": "B",
+      "level": "H",
+      "notes": "observed: no ground truth for the unmodified project",
+      "policy": {},
+      "prediction": {},
+      "realisation": "https://github.com/Parallels/rq-dashboard @ 384def1, no fault",
+      "target": {
+        "commit": "384def1a3c06263f2b2de901d0a26960fffb3f38",
+        "repo": "rq-dashboard",
+        "url": "https://github.com/Parallels/rq-dashboard"
+      }
+    },
+    {
+      "cell_id": "H-rq-dashboard-F2-semgrep",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on rq-dashboard",
+      "target": {
+        "commit": "384def1a3c06263f2b2de901d0a26960fffb3f38",
+        "repo": "rq-dashboard",
+        "url": "https://github.com/Parallels/rq-dashboard"
+      }
+    },
+    {
+      "cell_id": "H-rq-dashboard-F2-pip-audit",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on rq-dashboard",
+      "target": {
+        "commit": "384def1a3c06263f2b2de901d0a26960fffb3f38",
+        "repo": "rq-dashboard",
+        "url": "https://github.com/Parallels/rq-dashboard"
+      }
+    },
+    {
+      "cell_id": "H-rq-dashboard-F2-gitleaks",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on rq-dashboard",
+      "target": {
+        "commit": "384def1a3c06263f2b2de901d0a26960fffb3f38",
+        "repo": "rq-dashboard",
+        "url": "https://github.com/Parallels/rq-dashboard"
+      }
+    },
+    {
+      "cell_id": "H-rq-dashboard-F4-semgrep",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on rq-dashboard",
+      "target": {
+        "commit": "384def1a3c06263f2b2de901d0a26960fffb3f38",
+        "repo": "rq-dashboard",
+        "url": "https://github.com/Parallels/rq-dashboard"
+      }
+    },
+    {
+      "cell_id": "H-rq-dashboard-F4-pip-audit",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on rq-dashboard",
+      "target": {
+        "commit": "384def1a3c06263f2b2de901d0a26960fffb3f38",
+        "repo": "rq-dashboard",
+        "url": "https://github.com/Parallels/rq-dashboard"
+      }
+    },
+    {
+      "cell_id": "H-rq-dashboard-F4-gitleaks",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on rq-dashboard",
+      "target": {
+        "commit": "384def1a3c06263f2b2de901d0a26960fffb3f38",
+        "repo": "rq-dashboard",
+        "url": "https://github.com/Parallels/rq-dashboard"
+      }
+    },
+    {
+      "cell_id": "H-rq-dashboard-F7-semgrep",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on rq-dashboard",
+      "target": {
+        "commit": "384def1a3c06263f2b2de901d0a26960fffb3f38",
+        "repo": "rq-dashboard",
+        "url": "https://github.com/Parallels/rq-dashboard"
+      }
+    },
+    {
+      "cell_id": "H-rq-dashboard-F7-pip-audit",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on rq-dashboard",
+      "target": {
+        "commit": "384def1a3c06263f2b2de901d0a26960fffb3f38",
+        "repo": "rq-dashboard",
+        "url": "https://github.com/Parallels/rq-dashboard"
+      }
+    },
+    {
+      "cell_id": "H-rq-dashboard-F7-gitleaks",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on rq-dashboard",
+      "target": {
+        "commit": "384def1a3c06263f2b2de901d0a26960fffb3f38",
+        "repo": "rq-dashboard",
+        "url": "https://github.com/Parallels/rq-dashboard"
+      }
+    },
+    {
+      "cell_id": "H-flask-oauthlib-base",
+      "expected_category": [],
+      "fault": "F0",
+      "faulted": [],
+      "finding_in": [],
+      "ground_truth": "OBSERVED",
+      "kind": "B",
+      "level": "H",
+      "notes": "observed: no ground truth for the unmodified project",
+      "policy": {},
+      "prediction": {},
+      "realisation": "https://github.com/lepture/flask-oauthlib @ 260a1d5, no fault",
+      "target": {
+        "commit": "260a1d5e608ea6149e4f9e89c592eb1519943098",
+        "repo": "flask-oauthlib",
+        "url": "https://github.com/lepture/flask-oauthlib"
+      }
+    },
+    {
+      "cell_id": "H-flask-oauthlib-F2-semgrep",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on flask-oauthlib",
+      "target": {
+        "commit": "260a1d5e608ea6149e4f9e89c592eb1519943098",
+        "repo": "flask-oauthlib",
+        "url": "https://github.com/lepture/flask-oauthlib"
+      }
+    },
+    {
+      "cell_id": "H-flask-oauthlib-F2-pip-audit",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on flask-oauthlib",
+      "target": {
+        "commit": "260a1d5e608ea6149e4f9e89c592eb1519943098",
+        "repo": "flask-oauthlib",
+        "url": "https://github.com/lepture/flask-oauthlib"
+      }
+    },
+    {
+      "cell_id": "H-flask-oauthlib-F2-gitleaks",
+      "expected_category": [
+        "NONZERO_EXIT"
+      ],
+      "fault": "F2",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:crash"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (crash) on flask-oauthlib",
+      "target": {
+        "commit": "260a1d5e608ea6149e4f9e89c592eb1519943098",
+        "repo": "flask-oauthlib",
+        "url": "https://github.com/lepture/flask-oauthlib"
+      }
+    },
+    {
+      "cell_id": "H-flask-oauthlib-F4-semgrep",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on flask-oauthlib",
+      "target": {
+        "commit": "260a1d5e608ea6149e4f9e89c592eb1519943098",
+        "repo": "flask-oauthlib",
+        "url": "https://github.com/lepture/flask-oauthlib"
+      }
+    },
+    {
+      "cell_id": "H-flask-oauthlib-F4-pip-audit",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on flask-oauthlib",
+      "target": {
+        "commit": "260a1d5e608ea6149e4f9e89c592eb1519943098",
+        "repo": "flask-oauthlib",
+        "url": "https://github.com/lepture/flask-oauthlib"
+      }
+    },
+    {
+      "cell_id": "H-flask-oauthlib-F4-gitleaks",
+      "expected_category": [
+        "NO_OUTPUT"
+      ],
+      "fault": "F4",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:silent"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (silent) on flask-oauthlib",
+      "target": {
+        "commit": "260a1d5e608ea6149e4f9e89c592eb1519943098",
+        "repo": "flask-oauthlib",
+        "url": "https://github.com/lepture/flask-oauthlib"
+      }
+    },
+    {
+      "cell_id": "H-flask-oauthlib-F7-semgrep",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "semgrep"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "semgrep": {
+          "executable": "@wrapper:semgrep:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on flask-oauthlib",
+      "target": {
+        "commit": "260a1d5e608ea6149e4f9e89c592eb1519943098",
+        "repo": "flask-oauthlib",
+        "url": "https://github.com/lepture/flask-oauthlib"
+      }
+    },
+    {
+      "cell_id": "H-flask-oauthlib-F7-pip-audit",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "pip-audit"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "pip-audit": {
+          "executable": "@wrapper:pip-audit:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on flask-oauthlib",
+      "target": {
+        "commit": "260a1d5e608ea6149e4f9e89c592eb1519943098",
+        "repo": "flask-oauthlib",
+        "url": "https://github.com/lepture/flask-oauthlib"
+      }
+    },
+    {
+      "cell_id": "H-flask-oauthlib-F7-gitleaks",
+      "expected_category": [
+        "INVALID_JSON"
+      ],
+      "fault": "F7",
+      "faulted": [
+        "gitleaks"
+      ],
+      "finding_in": [],
+      "ground_truth": "NOT_PASS",
+      "kind": "F",
+      "level": "H",
+      "notes": "",
+      "policy": {
+        "gitleaks": {
+          "executable": "@wrapper:gitleaks:truncate"
+        }
+      },
+      "prediction": {},
+      "realisation": "wrapper executable (truncate) on flask-oauthlib",
+      "target": {
+        "commit": "260a1d5e608ea6149e4f9e89c592eb1519943098",
+        "repo": "flask-oauthlib",
+        "url": "https://github.com/lepture/flask-oauthlib"
+      }
+    }
+  ],
+  "engine_version": "2.0.0.dev1",
+  "faults": {
+    "F2": {
+      "description": "crash: unexpected non-zero exit, no report",
+      "expected_categories": [
+        "NONZERO_EXIT"
+      ]
+    },
+    "F4": {
+      "description": "missing report (exit 0, nothing written)",
+      "expected_categories": [
+        "NO_OUTPUT"
+      ]
+    },
+    "F7": {
+      "description": "truncated JSON (cut at 50%)",
+      "expected_categories": [
+        "INVALID_JSON"
+      ]
+    }
+  },
+  "heldout_repos": {
+    "cookiecutter-flask": {
+      "commit": "e5666c23a633b5b6fcb0dc2cfda2441d7f885727",
+      "url": "https://github.com/cookiecutter-flask/cookiecutter-flask"
+    },
+    "flask-ask": {
+      "commit": "a93488b700479a3b2d80eb54d0f6585caae15ef3",
+      "url": "https://github.com/johnwheeler/flask-ask"
+    },
+    "flask-jwt-extended": {
+      "commit": "ba708e89ac50ce69577c537ca7132e8d4dd3fc18",
+      "url": "https://github.com/vimalloc/flask-jwt-extended"
+    },
+    "flask-oauthlib": {
+      "commit": "260a1d5e608ea6149e4f9e89c592eb1519943098",
+      "url": "https://github.com/lepture/flask-oauthlib"
+    },
+    "git-webhook": {
+      "commit": "4c57f1bfdb4b87183ef4adea30e90dce86fde2fa",
+      "url": "https://github.com/NetEaseGame/git-webhook"
+    },
+    "nyaa": {
+      "commit": "4fe0ff5b1aa7ec7c9bb2667d97e10ce2a318c676",
+      "url": "https://github.com/nyaadevs/nyaa"
+    },
+    "rq-dashboard": {
+      "commit": "384def1a3c06263f2b2de901d0a26960fffb3f38",
+      "url": "https://github.com/Parallels/rq-dashboard"
+    },
+    "traefik-manager": {
+      "commit": "29eb9456a92614175856470737da2a3daf96ae09",
+      "url": "https://github.com/chr0nzz/traefik-manager"
+    }
+  },
+  "level": {
+    "H": "real pinned binaries on eight held-out public repositories; execution-level faults"
+  },
+  "metrics": "EXP-02 analysis.py METRIC_DEFINITIONS; predictions P1-P6 in PREREGISTRATION.md",
+  "pip_audit_args": [
+    "--no-deps",
+    "--disable-pip"
+  ],
+  "preregistration_sha256": "5a793b60db17b414f9fb58e95668dd3f65364f53411341bc2fb4a075ed9b4345",
+  "protocol": "EXP-03 v1",
+  "purpose": "held-out confirmation of EXP-02 level R; predictions in PREREGISTRATION.md",
+  "repetitions": 10,
+  "reuses": {
+    "exp02_protocol_sha256": "4716bbba6a3899cb2680b8455da6c171ae7e2f1c38ba97ff2f20cef4b2d30fed",
+    "harness": "SecureGate_Project/experiments/EXP-02/harness.py",
+    "harness_sha256": "cb506ddbec2ccb64e8e7303cd6004743ffcb5b4eee537c24558f74b2669f5135"
+  },
+  "scanner_versions": {
+    "gitleaks": "8.30.1",
+    "pip-audit": "2.10.1",
+    "semgrep": "1.180.0"
+  },
+  "selection": {
+    "candidates_sha256": "23c32e91347bcbccbd3ad9f31a09c3c2baa2d903c3ff82be45bbf71a66dde168",
+    "log_sha256": "02c74780174f6c8f24976f521135459e696aa5ffdcca7fe039db97bbfaf3ec93",
+    "rule": "PREREGISTRATION.md section 2"
+  },
+  "semgrep_rules_sha256": "d7ac4efa9a3231795a2b0a3c2b43cbda687ccaa6ecc8a64a8b9ab64971668a10"
+}

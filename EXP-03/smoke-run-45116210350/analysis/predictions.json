@@ -1,0 +1,68 @@
+{
+  "level": "H",
+  "runs": 100,
+  "fault_cells": 9,
+  "baseline_cells": 1,
+  "predictions": {
+    "P1": {
+      "claim": "no fault cell passes under S3 or S3P",
+      "observed": {
+        "S3": "0/9",
+        "S3P": "0/9"
+      },
+      "cells": {
+        "S3": [],
+        "S3P": []
+      },
+      "confirmed": true
+    },
+    "P2": {
+      "claim": "no fault cell passes under S1 or S2",
+      "observed": {
+        "S1": "0/9",
+        "S2": "0/9"
+      },
+      "cells": {
+        "S1": [],
+        "S2": []
+      },
+      "confirmed": true
+    },
+    "P3": {
+      "claim": "S0 outcome of every fault cell follows from the unmodified exit codes",
+      "observed": "9/9 cells as predicted; 1 predicted silent passes",
+      "mismatches": [],
+      "confirmed": true
+    },
+    "P4": {
+      "claim": "S3 names an expected cause in >= 95% of fault cells",
+      "observed": "9/9 (100.0%)",
+      "cells_wrong": [],
+      "confirmed": true
+    },
+    "P5": {
+      "claim": ">= 99% of cell-arm pairs fully consistent",
+      "observed": "50/50 (100.0%)",
+      "inconsistent": [],
+      "confirmed": true
+    },
+    "P6": {
+      "claim": "median validation time below 50 ms (S3) and 1000 ms (S3P) per gate run",
+      "observed": {
+        "S3": "0.72 ms",
+        "S3P": "13.38 ms"
+      },
+      "confirmed": true
+    }
+  },
+  "exploratory_baselines": {
+    "H-microblog-base": {
+      "S0": "BLOCK",
+      "S1": "BLOCK",
+      "S2": "BLOCK",
+      "S3": "BLOCK",
+      "S3P": "BLOCK"
+    }
+  },
+  "exploratory_s0_silent": "1/9"
+}

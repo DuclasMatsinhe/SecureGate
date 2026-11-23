@@ -1,0 +1,1117 @@
+{
+  "definitions": {
+    "SPR_cells": "Silent-pass rate (primary). Faulted cells (kind F or FK) whose modal verdict over repetitions is PASS / all faulted cells of the level.",
+    "SPR_runs": "Faulted runs with verdict PASS / all faulted runs (kind F or FK).",
+    "CC_runs": "Correct cause. Faulted runs with verdict INCOMPLETE and every faulted scanner labelled with an expected category / all faulted runs. Meaningful for S3 and S3P only.",
+    "CC_cells": "Faulted cells whose modal run is INCOMPLETE with the expected category / all faulted cells.",
+    "MAB_runs": "Misattributed BLOCK. Runs of kind F (fault, no finding anywhere) with verdict BLOCK / all kind-F runs: the gate blames the code although only a tool failed. Not computed for level R, where the real projects may hold genuine findings in the other scanners.",
+    "FBR_runs": "False-block rate. Clean-control runs (kind C) with any verdict other than PASS / all kind-C runs.",
+    "TBR_runs": "True-block rate. Known-finding runs (kind K) with verdict BLOCK / all kind-K runs.",
+    "FPP_runs": "Finding preservation. Partial-failure runs (kind FK) whose verdict lists the known finding as a BLOCKING_FINDING reason / all kind-FK runs.",
+    "consistency": "(cell, arm) pairs whose repetitions all gave the same verdict / all (cell, arm) pairs.",
+    "overhead": "Medians over clean, known-finding and baseline runs: evidence-validation time, its share of the engine's run time, and wall time per run.",
+    "paired_tests": "Exact two-sided McNemar test on cell-level silent passes between two arms (discordant cells only)."
+  },
+  "runs": 100,
+  "levels": {
+    "H": {
+      "arms": [
+        "S0",
+        "S1",
+        "S2",
+        "S3",
+        "S3P"
+      ],
+      "per_arm": {
+        "S0": {
+          "SPR_cells": {
+            "k": 1,
+            "n": 9,
+            "rate": 0.1111,
+            "ci95": [
+              0.0199,
+              0.435
+            ]
+          },
+          "SPR_runs": {
+            "k": 2,
+            "n": 18,
+            "rate": 0.1111,
+            "ci95": [
+              0.031,
+              0.328
+            ]
+          },
+          "CC_runs": {
+            "k": 0,
+            "n": 18,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.1759
+            ]
+          },
+          "CC_cells": {
+            "k": 0,
+            "n": 9,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.2992
+            ]
+          },
+          "MAB_runs": null,
+          "FBR_runs": null,
+          "TBR_runs": null,
+          "FPP_runs": null,
+          "verdicts_on_faults": {
+            "PASS": 2,
+            "BLOCK": 16,
+            "INCOMPLETE": 0
+          },
+          "silent_pass_cells": [
+            "H-microblog-F4-pip-audit"
+          ],
+          "overhead": {
+            "evidence_validation_s": {
+              "n": 2,
+              "median": 0.000845,
+              "iqr": [
+                0.000819,
+                0.000871
+              ]
+            },
+            "validation_share_of_run": {
+              "n": 2,
+              "median": 0.000215,
+              "iqr": [
+                0.000167,
+                0.000263
+              ]
+            },
+            "wall_s": {
+              "n": 2,
+              "median": 4.08775,
+              "iqr": [
+                3.071725,
+                5.103775
+              ]
+            },
+            "duration_s": {
+              "n": 2,
+              "median": 4.032,
+              "iqr": [
+                3.0165,
+                5.0475
+              ]
+            }
+          }
+        },
+        "S1": {
+          "SPR_cells": {
+            "k": 0,
+            "n": 9,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.2992
+            ]
+          },
+          "SPR_runs": {
+            "k": 0,
+            "n": 18,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.1759
+            ]
+          },
+          "CC_runs": {
+            "k": 0,
+            "n": 18,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.1759
+            ]
+          },
+          "CC_cells": {
+            "k": 0,
+            "n": 9,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.2992
+            ]
+          },
+          "MAB_runs": null,
+          "FBR_runs": null,
+          "TBR_runs": null,
+          "FPP_runs": null,
+          "verdicts_on_faults": {
+            "PASS": 0,
+            "BLOCK": 18,
+            "INCOMPLETE": 0
+          },
+          "silent_pass_cells": [],
+          "overhead": {
+            "evidence_validation_s": {
+              "n": 2,
+              "median": 0.00088,
+              "iqr": [
+                0.00087,
+                0.00089
+              ]
+            },
+            "validation_share_of_run": {
+              "n": 2,
+              "median": 0.000263,
+              "iqr": [
+                0.00026,
+                0.000266
+              ]
+            },
+            "wall_s": {
+              "n": 2,
+              "median": 3.40015,
+              "iqr": [
+                3.399025,
+                3.401275
+              ]
+            },
+            "duration_s": {
+              "n": 2,
+              "median": 3.343,
+              "iqr": [
+                3.3415,
+                3.3445
+              ]
+            }
+          }
+        },
+        "S2": {
+          "SPR_cells": {
+            "k": 0,
+            "n": 9,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.2992
+            ]
+          },
+          "SPR_runs": {
+            "k": 0,
+            "n": 18,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.1759
+            ]
+          },
+          "CC_runs": {
+            "k": 0,
+            "n": 18,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.1759
+            ]
+          },
+          "CC_cells": {
+            "k": 0,
+            "n": 9,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.2992
+            ]
+          },
+          "MAB_runs": null,
+          "FBR_runs": null,
+          "TBR_runs": null,
+          "FPP_runs": null,
+          "verdicts_on_faults": {
+            "PASS": 0,
+            "BLOCK": 18,
+            "INCOMPLETE": 0
+          },
+          "silent_pass_cells": [],
+          "overhead": {
+            "evidence_validation_s": {
+              "n": 2,
+              "median": 0.000869,
+              "iqr": [
+                0.000859,
+                0.000878
+              ]
+            },
+            "validation_share_of_run": {
+              "n": 2,
+              "median": 0.00026,
+              "iqr": [
+                0.000258,
+                0.000263
+              ]
+            },
+            "wall_s": {
+              "n": 2,
+              "median": 3.39695,
+              "iqr": [
+                3.391625,
+                3.402275
+              ]
+            },
+            "duration_s": {
+              "n": 2,
+              "median": 3.3395,
+              "iqr": [
+                3.33425,
+                3.34475
+              ]
+            }
+          }
+        },
+        "S3": {
+          "SPR_cells": {
+            "k": 0,
+            "n": 9,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.2992
+            ]
+          },
+          "SPR_runs": {
+            "k": 0,
+            "n": 18,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.1759
+            ]
+          },
+          "CC_runs": {
+            "k": 18,
+            "n": 18,
+            "rate": 1.0,
+            "ci95": [
+              0.8241,
+              1.0
+            ]
+          },
+          "CC_cells": {
+            "k": 9,
+            "n": 9,
+            "rate": 1.0,
+            "ci95": [
+              0.7008,
+              1.0
+            ]
+          },
+          "MAB_runs": null,
+          "FBR_runs": null,
+          "TBR_runs": null,
+          "FPP_runs": null,
+          "verdicts_on_faults": {
+            "PASS": 0,
+            "BLOCK": 0,
+            "INCOMPLETE": 18
+          },
+          "silent_pass_cells": [],
+          "overhead": {
+            "evidence_validation_s": {
+              "n": 2,
+              "median": 0.000907,
+              "iqr": [
+                0.000889,
+                0.000925
+              ]
+            },
+            "validation_share_of_run": {
+              "n": 2,
+              "median": 0.000269,
+              "iqr": [
+                0.000265,
+                0.000274
+              ]
+            },
+            "wall_s": {
+              "n": 2,
+              "median": 3.42635,
+              "iqr": [
+                3.414425,
+                3.438275
+              ]
+            },
+            "duration_s": {
+              "n": 2,
+              "median": 3.369,
+              "iqr": [
+                3.357,
+                3.381
+              ]
+            }
+          }
+        },
+        "S3P": {
+          "SPR_cells": {
+            "k": 0,
+            "n": 9,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.2992
+            ]
+          },
+          "SPR_runs": {
+            "k": 0,
+            "n": 18,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.1759
+            ]
+          },
+          "CC_runs": {
+            "k": 18,
+            "n": 18,
+            "rate": 1.0,
+            "ci95": [
+              0.8241,
+              1.0
+            ]
+          },
+          "CC_cells": {
+            "k": 9,
+            "n": 9,
+            "rate": 1.0,
+            "ci95": [
+              0.7008,
+              1.0
+            ]
+          },
+          "MAB_runs": null,
+          "FBR_runs": null,
+          "TBR_runs": null,
+          "FPP_runs": null,
+          "verdicts_on_faults": {
+            "PASS": 0,
+            "BLOCK": 0,
+            "INCOMPLETE": 18
+          },
+          "silent_pass_cells": [],
+          "overhead": {
+            "evidence_validation_s": {
+              "n": 2,
+              "median": 0.013926,
+              "iqr": [
+                0.013905,
+                0.013947
+              ]
+            },
+            "validation_share_of_run": {
+              "n": 2,
+              "median": 0.004185,
+              "iqr": [
+                0.004153,
+                0.004216
+              ]
+            },
+            "wall_s": {
+              "n": 2,
+              "median": 3.38425,
+              "iqr": [
+                3.353425,
+                3.415075
+              ]
+            },
+            "duration_s": {
+              "n": 2,
+              "median": 3.328,
+              "iqr": [
+                3.298,
+                3.358
+              ]
+            }
+          }
+        }
+      },
+      "per_fault": {
+        "F2": {
+          "S0": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          },
+          "S1": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          },
+          "S2": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          },
+          "S3": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          },
+          "S3P": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          }
+        },
+        "F4": {
+          "S0": {
+            "k": 1,
+            "n": 3,
+            "rate": 0.3333,
+            "ci95": [
+              0.0615,
+              0.7923
+            ]
+          },
+          "S1": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          },
+          "S2": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          },
+          "S3": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          },
+          "S3P": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          }
+        },
+        "F7": {
+          "S0": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          },
+          "S1": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          },
+          "S2": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          },
+          "S3": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          },
+          "S3P": {
+            "k": 0,
+            "n": 3,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.5615
+            ]
+          }
+        }
+      },
+      "paired_tests": [
+        {
+          "arms": [
+            "S0",
+            "S1"
+          ],
+          "cells": 9,
+          "silent_only_first": 1,
+          "silent_only_second": 0,
+          "p_exact": 1.0
+        },
+        {
+          "arms": [
+            "S1",
+            "S2"
+          ],
+          "cells": 9,
+          "silent_only_first": 0,
+          "silent_only_second": 0,
+          "p_exact": 1.0
+        },
+        {
+          "arms": [
+            "S2",
+            "S3"
+          ],
+          "cells": 9,
+          "silent_only_first": 0,
+          "silent_only_second": 0,
+          "p_exact": 1.0
+        },
+        {
+          "arms": [
+            "S3",
+            "S3P"
+          ],
+          "cells": 9,
+          "silent_only_first": 0,
+          "silent_only_second": 0,
+          "p_exact": 1.0
+        }
+      ],
+      "consistency": {
+        "k": 50,
+        "n": 50,
+        "rate": 1.0,
+        "ci95": [
+          0.9286,
+          1.0
+        ]
+      },
+      "cells": {
+        "H-microblog-F2-gitleaks": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 2
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 2
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 2
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 2
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 2
+              }
+            }
+          }
+        },
+        "H-microblog-F2-pip-audit": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 2
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 2
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 2
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 2
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 2
+              }
+            }
+          }
+        },
+        "H-microblog-F2-semgrep": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            }
+          }
+        },
+        "H-microblog-F4-gitleaks": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 2
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 2
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 2
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 2
+              }
+            }
+          }
+        },
+        "H-microblog-F4-pip-audit": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "PASS": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 2
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 2
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 2
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 2
+              }
+            }
+          }
+        },
+        "H-microblog-F4-semgrep": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            }
+          }
+        },
+        "H-microblog-F7-gitleaks": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 2
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 2
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 2
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 2
+              }
+            }
+          }
+        },
+        "H-microblog-F7-pip-audit": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 2
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 2
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 2
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 2
+              }
+            }
+          }
+        },
+        "H-microblog-F7-semgrep": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 2
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            }
+          }
+        },
+        "H-microblog-base": {
+          "kind": "B",
+          "fault": "F0",
+          "faulted": "",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "BLOCK": 2
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 2
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
