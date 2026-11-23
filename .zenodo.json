@@ -2,12 +2,33 @@
   "title": "SecureGate: Evidence-Aware Security Gating for CI/CD Pipelines Using SAST, SCA and Secret Scanning (EXP-02 final)",
   "upload_type": "software",
   "creators": [
-    {"name": "Matsinhe, Duclas Argentina Francisco", "affiliation": "Marwadi University"},
-    {"name": "Zala, Dharmendrasinh", "affiliation": "Marwadi University"}
+    {
+      "name": "Matsinhe, Duclas Argentina Francisco",
+      "affiliation": "Marwadi University"
+    },
+    {
+      "name": "Zala, Dharmendrasinh",
+      "affiliation": "Marwadi University"
+    }
   ],
   "description": "Evidence-aware security gate for GitHub Actions (Semgrep, pip-audit, Gitleaks) with the EXP-02 controlled fault-injection study: frozen protocol (SHA-256 4716bbba6a3899cb2680b8455da6c171ae7e2f1c38ba97ff2f20cef4b2d30fed), harness, analysis script and reproduction script. Final run: GitHub Actions run 44892918564, 7,160 runs. Raw per-run results are on the branch semester8-exp02-results; see SecureGate_Project/experiments/EXP-02/VERIFY.md.",
-  "keywords": ["DevSecOps", "CI/CD", "security gates", "SAST", "SCA", "secret detection", "fault injection", "GitHub Actions"],
+  "keywords": [
+    "DevSecOps",
+    "CI/CD",
+    "security gates",
+    "SAST",
+    "SCA",
+    "secret detection",
+    "fault injection",
+    "GitHub Actions"
+  ],
   "related_identifiers": [
-    {"identifier": "https://github.com/DuclasMatsinhe/SecureGate/tree/semester8-exp02-results", "relation": "isSupplementedBy", "scheme": "url"}
-  ]
+    {
+      "identifier": "https://github.com/DuclasMatsinhe/SecureGate/tree/semester8-exp02-results",
+      "relation": "isSupplementedBy",
+      "scheme": "url"
+    }
+  ],
+  "license": "mit",
+  "notes": "Code: MIT licence. Experiment results, documentation and figures: CC BY 4.0 (see LICENSE-DATA.md)."
 }

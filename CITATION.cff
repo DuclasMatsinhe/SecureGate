@@ -9,6 +9,7 @@ authors:
   - family-names: Zala
     given-names: Dharmendrasinh
     affiliation: "Marwadi University, Rajkot, India"
+license: MIT
 repository-code: "https://github.com/DuclasMatsinhe/SecureGate"
 date-released: "2026-11-21"
 version: "exp02-final"

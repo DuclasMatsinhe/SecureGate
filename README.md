@@ -122,3 +122,7 @@ Gitleaks  ─────┘          ↓
 ```
 
 The Semester 8 audit of this baseline found its main gap: a missing scanner report was read as an empty list of findings, and the gate recorded no scanner health, so a failed scanner could look like a clean scan. SecureGate's evidence checks and the INCOMPLETE verdict address exactly that.
+
+## Licence and citation
+
+Code: [MIT](LICENSE). Experiment results, documentation and figures: [CC BY 4.0](LICENSE-DATA.md). To cite this work, use [CITATION.cff](CITATION.cff) (GitHub shows a "Cite this repository" button).
