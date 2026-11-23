@@ -1,5 +1,7 @@
 # SecureGate completion report (Semester 8 development plan)
 
+> **Update, 23 Nov 2026:** the product is now a reusable GitHub Action (`action.yml`, DEC-020) with a self-test of every decision path; D2 is closed (workflow expressions passed through `env:`, `p/github-actions` added to the CI policy); EXP-03 (pre-registered held-out confirmation) is frozen and smoke-tested; 171 tests pass. `limitations.md` was rewritten for the EXP-02 final results.
+>
 > **Update, 21 Nov 2026 (branch `semester8-final`):** requirements v1.2 add FR-14a (optional parse check) and FR-20a (confirmed findings are never relaxed), giving 44 requirements and 164 tests; decisions DEC-014–DEC-018; the EXP-02 final study has a candidate run (see `experiments/EXP-02/README.md`). The figures below describe the state on 17 Nov 2026.
 
 **Date:** 17 Nov 2026 · **Branch:** `semester8-completion` (from `semester8-engine` at `52c2c3b`) · **Author of all commits:** Duclas Matsinhe

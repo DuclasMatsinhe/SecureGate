@@ -11,10 +11,10 @@ Build an evidence-aware security gate for CI/CD pipelines, and measure by contro
 
 The project has two outcomes:
 
-1. **Product:** SecureGate, a security gate for GitHub Actions that checks the evidence of Semgrep, pip-audit and Gitleaks before deciding PASS, BLOCK or INCOMPLETE.
+1. **Product:** SecureGate, a reusable GitHub Action that any repository can add: it checks the evidence of Semgrep, pip-audit and Gitleaks before deciding PASS, BLOCK or INCOMPLETE.
 2. **Research paper:** a controlled comparison of four evidence-handling strategies (S0–S3) under ten injected scanner fault classes.
 
-The original plan also included a public web platform. The current work concentrates on the gate and its evaluation; whether the web platform stays in scope is still to be confirmed with the guide.
+The original charter asked for a publicly deployed web platform (GitHub sign-in, connect a repository, view findings, configure policies, scan history). On 23 Nov 2026 the student chose to deliver these through GitHub itself, as a reusable Action, instead of a hosted web application (DEC-020); this still has to be confirmed with the guide.
 
 ## Development principle
 
@@ -34,10 +34,12 @@ Every major feature has a documented rationale, implementation evidence, tests a
 
 The gate's code is at the repository root (`security_engine/`, `tests/`, `tools/`); see the main README.
 
-## Current status (21 Nov 2026)
+## Current status (23 Nov 2026)
 
-- Engine, CI integration and documentation: done and verified (164 tests; 44 requirements traced).
+- Engine, CI integration and documentation: done and verified (171 tests; 44 requirements traced).
+- Reusable GitHub Action: done; self-test covers every decision path, including use by reference from GitHub (run 45119833564).
 - Literature review: preliminary review and formal database search completed (18 Nov 2026).
 - EXP-01 pilot: done and replicated (17 Nov 2026).
 - EXP-02 final study: protocol frozen and run as final (21 Nov 2026, 7,160 runs), identical to the earlier candidate run; frozen without the guide's approval (DEC-018).
+- EXP-03 held-out confirmation: pre-registered and frozen, smoke run passed; final run after the pre-registration is archived on Zenodo.
 - Research paper: complete draft with the final EXP-02 results; venue to be decided with the guide.

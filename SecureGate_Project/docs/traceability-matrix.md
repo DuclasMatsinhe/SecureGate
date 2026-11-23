@@ -1,6 +1,6 @@
 # Requirement traceability matrix
 
-Generated 2026-11-21 09:41 UTC by `tools/traceability_report.py` at commit `11049de` (branch `semester8-final`).
+Generated 2026-11-23 05:50 UTC by `tools/traceability_report.py` at commit `f49f817` (branch `semester8-final`).
 Source of the mapping: `tests/traceability.py` (enforced by `tests/test_traceability.py`).
 
 | Requirement | Summary | Verified by | Result |

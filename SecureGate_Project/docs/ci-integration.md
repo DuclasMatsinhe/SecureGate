@@ -22,7 +22,8 @@ BLOCK and INCOMPLETE can never pass silently: the "Enforce gate verdict" step ex
 
 - `permissions: contents: read` for the whole workflow; no secrets are used.
 - `persist-credentials: false` on every checkout.
-- Every action pinned to a full commit SHA (checkout v7.0.1, setup-python v7.1.0, upload-artifact v7.0.2).
+- Every action pinned to a full commit SHA (checkout v7.0.1, setup-python v7.1.0, upload-artifact v7.0.2); `tests/test_action.py` fails if one is not.
+- No `${{ }}` expression is expanded inside a `run:` script; values are passed through `env:` (also enforced by `tests/test_action.py`). This closed D2: the policy now uses `p/python` and `p/github-actions`, validated on `semester8-ci-validate-d2` (run [45119728760](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/45119728760): PASS, Semgrep evidence VALID).
 - Scanner versions pinned; the Gitleaks binary verified with `sha256sum -c` before use.
 - Scanners run from a separate virtual environment, so they cannot change the application's dependencies.
 - Full history checkout (`fetch-depth: 0`) so Gitleaks scans history, not only the last commit.
@@ -50,3 +51,22 @@ Run [44089985683](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/4408
 ## 5. Making it a required check
 
 To stop merges, mark the **SecureGate** job as a required status check in the branch protection of `main`. That is a repository-settings change and was not made; it needs the owner's approval.
+
+## 6. The reusable Action
+
+`action.yml` packages the same gate for other repositories (see the main README for the usage snippet). It is a composite action: it installs the pinned scanners in their own virtual environment, verifies the Gitleaks binary, runs `security_engine.cli` from the Action's own folder against the caller's checkout, writes the report to the job summary, uploads the manifest, and ends the step with the gate's exit code (or only sets the outputs when `fail-job: false`).
+
+The self-test workflow `action-selftest.yml` builds synthetic projects with `tools/make_fixture.py` and checks the decision of each case:
+
+| Case | Expected | Run [45119833564](https://github.com/DuclasMatsinhe/SecureGate/actions/runs/45119833564) |
+|---|---|---|
+| clean project | PASS, exit 0 | PASS, exit 0 |
+| SAST finding (`eval`) | BLOCK, exit 1 | BLOCK, exit 1 |
+| SCA finding (old urllib3) | BLOCK, exit 1 | BLOCK, exit 1 |
+| secret finding (synthetic token) | BLOCK, exit 1; no token in the evidence | BLOCK, exit 1; none found |
+| Semgrep missing | INCOMPLETE, exit 2 | INCOMPLETE, exit 2, `TOOL_MISSING` |
+| pip-audit missing + SAST finding | INCOMPLETE, exit 2, finding listed | INCOMPLETE, exit 2 |
+| invalid policy (`strategy = "S9"`) | exit 3, no verdict | exit 3 |
+| Action used by reference (`DuclasMatsinhe/SecureGate@semester8-final`) on a SAST finding | step fails with BLOCK | failed, BLOCK, exit 1 |
+
+The first self-test run (45119706809) failed in every non-PASS case: composite-action shells start with `bash -e`, so the gate's non-zero exit ended the step before the decision was recorded. Fixed in the next commit; this is why the self-test exists.

@@ -109,6 +109,9 @@ def main(out_dir):
         "test_completion.py": "Gap closures: records, rule sources, isolation, coverage, schema, redaction, timings, "
                               "CLI/library equivalence",
         "test_traceability.py": "Traceability completeness and static guarantees (no shell, non-root Docker)",
+        "test_exp02.py": "EXP-02 protocol determinism, L1 shard run, analysis reproduces the pilot",
+        "test_exp03.py": "EXP-03 held-out protocol: complete, frozen, reuses the EXP-02 harness unchanged",
+        "test_action.py": "Reusable GitHub Action metadata; actions pinned to SHAs; no expressions in run scripts",
     }
     for f in files:
         report.append(f"| `{f}` | {about.get(f, '')} | {per_file[(f, 'passed')]} | {per_file[(f, 'failed')]} | "

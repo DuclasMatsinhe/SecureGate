@@ -48,7 +48,28 @@ Each run writes `securegate-out/run_manifest.json` (schema 1.2: tool versions, c
 
 **CI:** `.github/workflows/ci-security.yml` runs Tests → SecureGate → Docker build. The gate's exit code decides the job, so BLOCK, INCOMPLETE and policy errors stop the pipeline before the image is built.
 
-**Tests:** `python -m pytest -q` (164 tests; the Semester 7 tests are unchanged).
+**Tests:** `python -m pytest -q` (171 tests; the Semester 7 tests are unchanged).
+
+## Use it in your repository
+
+SecureGate is a reusable GitHub Action (`action.yml`). Add it to any workflow on a Linux x64 runner:
+
+```yaml
+permissions:
+  contents: read
+jobs:
+  securegate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0              # full history, so Gitleaks scans every commit
+          persist-credentials: false
+      - uses: DuclasMatsinhe/SecureGate@<commit SHA or release tag>
+        # optional: with: { policy: securegate.toml, target: ., fail-job: "true" }
+```
+
+The Action installs the pinned scanners (Semgrep 1.180.0, pip-audit 2.10.1, Gitleaks 8.30.1, the last checked by SHA-256), applies the repository's `securegate.toml` (or the built-in defaults: strategy S3, block on INCOMPLETE), writes the report to the job summary and keeps the run manifest as an artifact. The step fails on BLOCK, INCOMPLETE or an invalid policy; its outputs `verdict`, `exit-code`, `manifest` and `report` can be used by later steps. Every path (PASS; BLOCK on a SAST, SCA and secret finding; INCOMPLETE; invalid policy; use by reference from GitHub) is tested in `.github/workflows/action-selftest.yml`. Policy options: [policy guide](SecureGate_Project/docs/policy-guide.md).
 
 ## Experiments
 
@@ -57,6 +78,7 @@ Each run writes `securegate-out/run_manifest.json` (schema 1.2: tool versions, c
 | [EXP-00](SecureGate_Project/experiments/EXP-00-live-scanner-check/README.md) | Live check of how the real scanners fail | Done, 17 Nov 2026 |
 | [EXP-01](SecureGate_Project/experiments/EXP-01-pilot/README.md) | Pilot: S0–S3 × fault classes F1–F10, 844 runs, run twice | Done, 17 Nov 2026 |
 | [EXP-02](SecureGate_Project/experiments/EXP-02/README.md) | Final study: 7,160 runs at three levels (simulated; real scanners on synthetic projects; real scanners on five public projects) | Final run 21 Nov 2026 (frozen protocol), replicated by the candidate run |
+| [EXP-03](SecureGate_Project/experiments/EXP-03/README.md) | Pre-registered held-out confirmation: the real-project level on eight public projects never run before, six predictions written first | Protocol frozen and smoke-tested 23 Nov 2026; final run after the pre-registration is archived |
 
 To check the results yourself, run `bash SecureGate_Project/experiments/EXP-02/reproduce.sh` or follow [EXP-02/VERIFY.md](SecureGate_Project/experiments/EXP-02/VERIFY.md). Raw results are on the branch `semester8-exp02-results`.
 

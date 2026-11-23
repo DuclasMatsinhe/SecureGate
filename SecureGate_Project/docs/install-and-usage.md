@@ -12,12 +12,16 @@
 | pip-audit | 2.10.1 | `pip install pip-audit==2.10.1` |
 | Gitleaks | 8.30.1 | Release binary `gitleaks_8.30.1_linux_x64.tar.gz`, SHA-256 `551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb` |
 
-## Install
+## In GitHub Actions (no installation)
+
+Add the reusable Action to a workflow; it installs the pinned scanners itself (Linux x64 runners). See "Use it in your repository" in the main README and `action.yml` for the inputs (`policy`, `target`, `output-dir`, `install-scanners`, `python-version`, `upload-evidence`, `artifact-name`, `fail-job`) and outputs (`verdict`, `exit-code`, `manifest`, `report`).
+
+## Install (local runs)
 
 ```bash
 git clone https://github.com/DuclasMatsinhe/SecureGate.git
 cd SecureGate
-git checkout semester8-completion
+git checkout semester8-final
 python -m pip install -r requirements-dev.txt          # app + tests (Flask, pytest, jsonschema)
 
 python -m venv .scanners                               # scanners kept apart from the app

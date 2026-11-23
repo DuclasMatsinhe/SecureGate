@@ -174,3 +174,13 @@ DEC-002 to DEC-005 above were confirmed, not changed. Status: **accepted for dev
 - **Selection:** one recorded GitHub search, a fixed exclusion rule (fully pinned root `requirements.txt`, 10–300 `.py` files, not used before), first eight in search order. The rule was coded and applied in one step and written down afterwards; only requirements files and file counts were inspected, no scanner ran on any candidate.
 - **Freeze:** the EXP-03 protocol embeds the SHA-256 of the pre-registration, the selection files and the EXP-02 harness; `FROZEN.sha256` records it and the final run refuses any other. The EXP-02 freeze (DEC-018) is unaffected.
 - **Disclosure:** pre-registered by the student, not by an external registry review; the Zenodo archive dates it. A refuted prediction is reported as refuted.
+
+## DEC-020: The product is delivered as a reusable GitHub Action (23 Nov 2026) — *student's choice; guide confirmation pending*
+- **Gap:** the charter's product criteria ask for a publicly deployed platform where an external user signs in with GitHub, connects a repository, views findings, configures policies, gets PASS/BLOCK and sees scan history. Only the Semester 7 health-check app existed.
+- **Options:** (a) a hosted web application with GitHub OAuth, a database and hosting (about 1.5–2 weeks); (b) a reusable GitHub Action (about 3–4 days); (c) both, the web app later.
+- **Decision:** (b), chosen by the student to keep the paper on schedule. How each criterion is met: sign-in and repository access are GitHub's own; connecting a repository = adding the Action to a workflow; policies = the repository's `securegate.toml`; PASS/BLOCK/INCOMPLETE = the step result and the `verdict` output; findings = the job summary and the manifest artifact; history = the repository's Actions runs and artifacts (30-day retention).
+- **Not provided:** a separate dashboard, cross-repository view or user database; a GitHub Marketplace listing (needs a release by the owner). Recorded in `limitations.md` (items 10–13).
+- **Verification:** `action-selftest.yml` (run 45119833564) covers PASS, BLOCK (SAST, SCA, secret), INCOMPLETE (two cases), invalid policy and use by reference from GitHub.
+
+## DEC-009 update: D2 closed (23 Nov 2026)
+- Workflows now pass every `${{ }}` value through `env:` instead of expanding it in `run:` scripts, enforced by `tests/test_action.py`. With that, `p/github-actions` no longer raises PartialParsing: validation branch `semester8-ci-validate-d2` (run 45119728760) gave PASS with Semgrep evidence VALID. The CI policy uses `["p/python", "p/github-actions"]`. The experiments are unaffected (they use the committed local rule file).
