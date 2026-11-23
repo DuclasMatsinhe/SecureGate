@@ -1,0 +1,123 @@
+# Tests the SecureGate Action (action.yml) the way other repositories use it.
+# Each case builds a synthetic project (tools/make_fixture.py), runs the Action with fail-job: false,
+# and checks that the decision is the expected one. The "remote" case fetches the Action from GitHub
+# by reference, exactly as an external repository would.
+name: action-selftest
+
+on:
+  push:
+    branches: ["semester8-*"]
+    paths:
+      - action.yml
+      - security_engine/**
+      - tools/make_fixture.py
+      - .github/workflows/action-selftest.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  local:
+    name: ${{ matrix.case }} (expect ${{ matrix.expect }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { case: clean, fixture: t-clean, missing: "", expect: PASS }
+          - { case: sast-finding, fixture: t-sast-eval, missing: "", expect: BLOCK }
+          - { case: sca-finding, fixture: t-sca-urllib3, missing: "", expect: BLOCK }
+          - { case: secret-finding, fixture: t-secret-github, missing: "", expect: BLOCK }
+          - { case: missing-semgrep, fixture: t-clean, missing: semgrep, expect: INCOMPLETE }
+          - { case: missing-pip-audit-with-finding, fixture: t-sast-eval, missing: pip-audit, expect: INCOMPLETE }
+          - { case: invalid-policy, fixture: t-clean, missing: "", expect: INVALID }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build the test project
+        env:
+          FIXTURE: ${{ matrix.fixture }}
+          MISSING: ${{ matrix.missing }}
+          CASE: ${{ matrix.case }}
+        run: |
+          set -euo pipefail
+          args=("$FIXTURE" "$RUNNER_TEMP/fx")
+          if [ -n "$MISSING" ]; then args+=(--missing "$MISSING"); fi
+          python3 tools/make_fixture.py "${args[@]}"
+          if [ "$CASE" = "invalid-policy" ]; then sed -i 's/^strategy = .*/strategy = "S9"/' "$RUNNER_TEMP/fx/policy.toml"; fi
+          echo "SG_FIXTURE=$RUNNER_TEMP/fx/$FIXTURE" >> "$GITHUB_ENV"
+          echo "SG_POLICY_FILE=$RUNNER_TEMP/fx/policy.toml" >> "$GITHUB_ENV"
+
+      - name: Run the SecureGate Action
+        id: sg
+        uses: ./
+        with:
+          target: ${{ env.SG_FIXTURE }}
+          policy: ${{ env.SG_POLICY_FILE }}
+          fail-job: "false"
+          artifact-name: securegate-evidence-${{ matrix.case }}
+
+      - name: Check the decision
+        env:
+          EXPECT: ${{ matrix.expect }}
+          VERDICT: ${{ steps.sg.outputs.verdict }}
+          CODE: ${{ steps.sg.outputs.exit-code }}
+          MANIFEST: ${{ steps.sg.outputs.manifest }}
+        run: |
+          set -euo pipefail
+          echo "verdict=$VERDICT exit=$CODE expected=$EXPECT"
+          case "$EXPECT" in
+            PASS) test "$VERDICT" = PASS && test "$CODE" = 0;;
+            BLOCK) test "$VERDICT" = BLOCK && test "$CODE" = 1;;
+            INCOMPLETE) test "$VERDICT" = INCOMPLETE && test "$CODE" = 2;;
+            INVALID) test -z "$VERDICT" && test "$CODE" = 3;;
+          esac
+          if [ "$EXPECT" != INVALID ]; then
+            test -f "$MANIFEST"
+            python3 - "$MANIFEST" <<'EOF'
+          import json, sys
+          m = json.load(open(sys.argv[1]))
+          print("manifest", m["schema_version"], m["verdict"]["verdict"],
+                [(s["scanner"], s["evidence_status"], s["category"]) for s in m["scanners"]])
+          EOF
+          fi
+          if grep -rEq 'ghp_[A-Za-z0-9]{36}' securegate-out; then echo "unredacted token in the evidence"; exit 1; fi
+
+  remote:
+    name: by reference from GitHub (expect BLOCK, job fails)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout (only for the fixture generator)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          path: sg-src
+
+      - name: Build a project with a known SAST finding
+        run: |
+          python3 sg-src/tools/make_fixture.py t-sast-eval "$RUNNER_TEMP/fx"
+          rm -rf sg-src
+
+      - name: Run SecureGate as an external repository would
+        id: sg
+        continue-on-error: true
+        uses: DuclasMatsinhe/SecureGate@semester8-final
+        with:
+          target: ${{ runner.temp }}/fx/t-sast-eval
+          policy: ${{ runner.temp }}/fx/policy.toml
+          artifact-name: securegate-evidence-remote
+
+      - name: Check that the step failed with BLOCK
+        env:
+          OUTCOME: ${{ steps.sg.outcome }}
+          VERDICT: ${{ steps.sg.outputs.verdict }}
+          CODE: ${{ steps.sg.outputs.exit-code }}
+        run: |
+          echo "outcome=$OUTCOME verdict=$VERDICT exit=$CODE"
+          test "$OUTCOME" = failure && test "$VERDICT" = BLOCK && test "$CODE" = 1
