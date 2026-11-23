@@ -110,7 +110,8 @@ runs:
         SG_TARGET: ${{ inputs.target }}
         SG_OUT: ${{ inputs.output-dir }}
       run: |
-        set -uo pipefail
+        # GitHub starts this shell with -e; the gate's non-zero exit is a decision, not an error, so turn -e off.
+        set +e -uo pipefail
         for t in semgrep pip-audit gitleaks; do
           command -v "$t" >/dev/null || echo "::warning title=SecureGate::$t is not on PATH; the gate will report it as missing evidence"
         done
