@@ -1,5 +1,7 @@
 ﻿# SecureGate: Evidence-Aware Security Gating for CI/CD Pipelines
 
+[![Software DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24454543.svg)](https://doi.org/10.5281/zenodo.24454543) [![Data DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24454737.svg)](https://doi.org/10.5281/zenodo.24454737)
+
 SecureGate is a security gate for GitHub Actions. It runs three security scanners — **Semgrep** (SAST), **pip-audit** (SCA) and **Gitleaks** (secret scanning) — and **checks each scanner's evidence before trusting it**. A scanner that crashed, timed out, wrote no report, wrote a broken report or scanned nothing is never mistaken for a clean scan.
 
 B.Tech ICT final-year project (01CT3801), Marwadi University · Duclas Argentina Francisco Matsinhe · Guide: Dharmendrasinh Zala
@@ -126,3 +128,5 @@ The Semester 8 audit of this baseline found its main gap: a missing scanner repo
 ## Licence and citation
 
 Code: [MIT](LICENSE). Experiment results, documentation and figures: [CC BY 4.0](LICENSE-DATA.md). To cite this work, use [CITATION.cff](CITATION.cff) (GitHub shows a "Cite this repository" button).
+
+Archived on Zenodo: software [10.5281/zenodo.24454543](https://doi.org/10.5281/zenodo.24454543) (release v1.0.0-exp02) · experiment results [10.5281/zenodo.24454737](https://doi.org/10.5281/zenodo.24454737) (CC BY 4.0).

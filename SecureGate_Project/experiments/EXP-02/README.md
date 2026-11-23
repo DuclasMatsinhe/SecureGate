@@ -68,3 +68,8 @@ The protocol was frozen without external review (DEC-018). A reviewer who checks
 | Date | Reviewer | Scope reviewed | Outcome |
 |---|---|---|---|
 | | | `protocol.json` (SHA-256 `4716bbba…30fed`), this README, `analysis.py` metric definitions | |
+
+## Archive (23 Nov 2026)
+
+- Software: Zenodo [10.5281/zenodo.24454543](https://doi.org/10.5281/zenodo.24454543), archived automatically from GitHub release `v1.0.0-exp02` (commit `24dd25a`; release archive MD5 `7774f6bade0dc48732734f2def11fb68`, contains this frozen protocol).
+- Results: Zenodo dataset [10.5281/zenodo.24454737](https://doi.org/10.5281/zenodo.24454737) (all versions: 10.5281/zenodo.24454736), file `securegate-results-exp02-final.tar.gz`, MD5 `4638b7b99e77d4331813859eade4105a`, built from `semester8-exp02-results` @ `324fa75` and `semester8-completion-results` @ `21306df`; CC BY 4.0; scanned with Gitleaks, no leaks.

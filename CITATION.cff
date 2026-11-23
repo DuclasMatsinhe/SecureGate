@@ -10,6 +10,14 @@ authors:
     given-names: Dharmendrasinh
     affiliation: "Marwadi University, Rajkot, India"
 license: MIT
+doi: "10.5281/zenodo.24454543"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24454543"
+    description: "SecureGate software, all versions (Zenodo concept DOI)"
+  - type: doi
+    value: "10.5281/zenodo.24454737"
+    description: "Experiment results dataset, EXP-01 pilot and EXP-02 final study (version exp02-final)"
 repository-code: "https://github.com/DuclasMatsinhe/SecureGate"
 date-released: "2026-11-21"
 version: "exp02-final"
