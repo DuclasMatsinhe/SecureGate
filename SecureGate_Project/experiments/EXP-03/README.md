@@ -20,7 +20,8 @@ selection rule, the design and the predictions P1–P6.
    of `PREREGISTRATION.md`, of the selection files and of the EXP-02 harness, so changing any of
    them invalidates the freeze and the final run is refused.
 2. **Archive.** The pre-registration, protocol, freeze file and selection folder are archived on
-   Zenodo before the final run (done by the student).
+   Zenodo before the final run: [10.5281/zenodo.24456056](https://doi.org/10.5281/zenodo.24456056)
+   (published 23 Nov 2026 by the student).
 3. **Smoke run.** `run_config.json` = `smoke`; push to `semester8-exp03-run`. Shard 1 runs one
    EXP-02 project (microblog) with 2 repetitions. No held-out project is touched.
 4. **Final run.** `run_config.json` = `final`; push to `semester8-exp03-run`. Eight shards, one

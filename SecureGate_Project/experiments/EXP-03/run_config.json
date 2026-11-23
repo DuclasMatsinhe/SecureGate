@@ -1,4 +1,5 @@
 {
-  "mode": "smoke",
-  "note": "smoke: shard 1 runs one EXP-02 project (microblog) with 2 repetitions to check the set-up; no held-out project is touched. final: the frozen protocol, 8 shards (one held-out project each), 10 repetitions, run once."
+  "mode": "final",
+  "note": "smoke: shard 1 runs one EXP-02 project (microblog) with 2 repetitions to check the set-up; no held-out project is touched. final: the frozen protocol, 8 shards (one held-out project each), 10 repetitions, run once.",
+  "preregistration_doi": "10.5281/zenodo.24456056"
 }
