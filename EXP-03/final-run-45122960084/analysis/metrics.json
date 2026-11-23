@@ -1,0 +1,4485 @@
+{
+  "definitions": {
+    "SPR_cells": "Silent-pass rate (primary). Faulted cells (kind F or FK) whose modal verdict over repetitions is PASS / all faulted cells of the level.",
+    "SPR_runs": "Faulted runs with verdict PASS / all faulted runs (kind F or FK).",
+    "CC_runs": "Correct cause. Faulted runs with verdict INCOMPLETE and every faulted scanner labelled with an expected category / all faulted runs. Meaningful for S3 and S3P only.",
+    "CC_cells": "Faulted cells whose modal run is INCOMPLETE with the expected category / all faulted cells.",
+    "MAB_runs": "Misattributed BLOCK. Runs of kind F (fault, no finding anywhere) with verdict BLOCK / all kind-F runs: the gate blames the code although only a tool failed. Not computed for level R, where the real projects may hold genuine findings in the other scanners.",
+    "FBR_runs": "False-block rate. Clean-control runs (kind C) with any verdict other than PASS / all kind-C runs.",
+    "TBR_runs": "True-block rate. Known-finding runs (kind K) with verdict BLOCK / all kind-K runs.",
+    "FPP_runs": "Finding preservation. Partial-failure runs (kind FK) whose verdict lists the known finding as a BLOCKING_FINDING reason / all kind-FK runs.",
+    "consistency": "(cell, arm) pairs whose repetitions all gave the same verdict / all (cell, arm) pairs.",
+    "overhead": "Medians over clean, known-finding and baseline runs: evidence-validation time, its share of the engine's run time, and wall time per run.",
+    "paired_tests": "Exact two-sided McNemar test on cell-level silent passes between two arms (discordant cells only)."
+  },
+  "runs": 4000,
+  "levels": {
+    "H": {
+      "arms": [
+        "S0",
+        "S1",
+        "S2",
+        "S3",
+        "S3P"
+      ],
+      "per_arm": {
+        "S0": {
+          "SPR_cells": {
+            "k": 9,
+            "n": 72,
+            "rate": 0.125,
+            "ci95": [
+              0.0672,
+              0.2208
+            ]
+          },
+          "SPR_runs": {
+            "k": 90,
+            "n": 720,
+            "rate": 0.125,
+            "ci95": [
+              0.1028,
+              0.1512
+            ]
+          },
+          "CC_runs": {
+            "k": 0,
+            "n": 720,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0053
+            ]
+          },
+          "CC_cells": {
+            "k": 0,
+            "n": 72,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0507
+            ]
+          },
+          "MAB_runs": null,
+          "FBR_runs": null,
+          "TBR_runs": null,
+          "FPP_runs": null,
+          "verdicts_on_faults": {
+            "PASS": 90,
+            "BLOCK": 630,
+            "INCOMPLETE": 0
+          },
+          "silent_pass_cells": [
+            "H-cookiecutter-flask-F4-gitleaks",
+            "H-cookiecutter-flask-F4-pip-audit",
+            "H-cookiecutter-flask-F4-semgrep",
+            "H-cookiecutter-flask-F7-gitleaks",
+            "H-cookiecutter-flask-F7-pip-audit",
+            "H-cookiecutter-flask-F7-semgrep",
+            "H-flask-ask-F4-pip-audit",
+            "H-rq-dashboard-F4-pip-audit",
+            "H-traefik-manager-F4-gitleaks"
+          ],
+          "overhead": {
+            "evidence_validation_s": {
+              "n": 80,
+              "median": 0.000578,
+              "iqr": [
+                0.000491,
+                0.000675
+              ]
+            },
+            "validation_share_of_run": {
+              "n": 80,
+              "median": 0.000151,
+              "iqr": [
+                0.000117,
+                0.00018
+              ]
+            },
+            "wall_s": {
+              "n": 80,
+              "median": 3.54115,
+              "iqr": [
+                3.44515,
+                4.995325
+              ]
+            },
+            "duration_s": {
+              "n": 80,
+              "median": 3.4855,
+              "iqr": [
+                3.38925,
+                4.91925
+              ]
+            }
+          }
+        },
+        "S1": {
+          "SPR_cells": {
+            "k": 0,
+            "n": 72,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0507
+            ]
+          },
+          "SPR_runs": {
+            "k": 0,
+            "n": 720,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0053
+            ]
+          },
+          "CC_runs": {
+            "k": 0,
+            "n": 720,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0053
+            ]
+          },
+          "CC_cells": {
+            "k": 0,
+            "n": 72,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0507
+            ]
+          },
+          "MAB_runs": null,
+          "FBR_runs": null,
+          "TBR_runs": null,
+          "FPP_runs": null,
+          "verdicts_on_faults": {
+            "PASS": 0,
+            "BLOCK": 720,
+            "INCOMPLETE": 0
+          },
+          "silent_pass_cells": [],
+          "overhead": {
+            "evidence_validation_s": {
+              "n": 80,
+              "median": 0.000581,
+              "iqr": [
+                0.000498,
+                0.00067
+              ]
+            },
+            "validation_share_of_run": {
+              "n": 80,
+              "median": 0.00016,
+              "iqr": [
+                0.000122,
+                0.000189
+              ]
+            },
+            "wall_s": {
+              "n": 80,
+              "median": 3.53015,
+              "iqr": [
+                3.451025,
+                4.752375
+              ]
+            },
+            "duration_s": {
+              "n": 80,
+              "median": 3.474,
+              "iqr": [
+                3.39525,
+                4.6785
+              ]
+            }
+          }
+        },
+        "S2": {
+          "SPR_cells": {
+            "k": 0,
+            "n": 72,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0507
+            ]
+          },
+          "SPR_runs": {
+            "k": 0,
+            "n": 720,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0053
+            ]
+          },
+          "CC_runs": {
+            "k": 0,
+            "n": 720,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0053
+            ]
+          },
+          "CC_cells": {
+            "k": 0,
+            "n": 72,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0507
+            ]
+          },
+          "MAB_runs": null,
+          "FBR_runs": null,
+          "TBR_runs": null,
+          "FPP_runs": null,
+          "verdicts_on_faults": {
+            "PASS": 0,
+            "BLOCK": 720,
+            "INCOMPLETE": 0
+          },
+          "silent_pass_cells": [],
+          "overhead": {
+            "evidence_validation_s": {
+              "n": 80,
+              "median": 0.000594,
+              "iqr": [
+                0.000482,
+                0.000689
+              ]
+            },
+            "validation_share_of_run": {
+              "n": 80,
+              "median": 0.000156,
+              "iqr": [
+                0.000124,
+                0.000191
+              ]
+            },
+            "wall_s": {
+              "n": 80,
+              "median": 3.53825,
+              "iqr": [
+                3.434775,
+                4.8747
+              ]
+            },
+            "duration_s": {
+              "n": 80,
+              "median": 3.482,
+              "iqr": [
+                3.3805,
+                4.79875
+              ]
+            }
+          }
+        },
+        "S3": {
+          "SPR_cells": {
+            "k": 0,
+            "n": 72,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0507
+            ]
+          },
+          "SPR_runs": {
+            "k": 0,
+            "n": 720,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0053
+            ]
+          },
+          "CC_runs": {
+            "k": 720,
+            "n": 720,
+            "rate": 1.0,
+            "ci95": [
+              0.9947,
+              1.0
+            ]
+          },
+          "CC_cells": {
+            "k": 72,
+            "n": 72,
+            "rate": 1.0,
+            "ci95": [
+              0.9493,
+              1.0
+            ]
+          },
+          "MAB_runs": null,
+          "FBR_runs": null,
+          "TBR_runs": null,
+          "FPP_runs": null,
+          "verdicts_on_faults": {
+            "PASS": 0,
+            "BLOCK": 0,
+            "INCOMPLETE": 720
+          },
+          "silent_pass_cells": [],
+          "overhead": {
+            "evidence_validation_s": {
+              "n": 80,
+              "median": 0.000591,
+              "iqr": [
+                0.000502,
+                0.000685
+              ]
+            },
+            "validation_share_of_run": {
+              "n": 80,
+              "median": 0.00016,
+              "iqr": [
+                0.000119,
+                0.000192
+              ]
+            },
+            "wall_s": {
+              "n": 80,
+              "median": 3.52715,
+              "iqr": [
+                3.431325,
+                4.89175
+              ]
+            },
+            "duration_s": {
+              "n": 80,
+              "median": 3.4715,
+              "iqr": [
+                3.37675,
+                4.8175
+              ]
+            }
+          }
+        },
+        "S3P": {
+          "SPR_cells": {
+            "k": 0,
+            "n": 72,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0507
+            ]
+          },
+          "SPR_runs": {
+            "k": 0,
+            "n": 720,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.0053
+            ]
+          },
+          "CC_runs": {
+            "k": 720,
+            "n": 720,
+            "rate": 1.0,
+            "ci95": [
+              0.9947,
+              1.0
+            ]
+          },
+          "CC_cells": {
+            "k": 72,
+            "n": 72,
+            "rate": 1.0,
+            "ci95": [
+              0.9493,
+              1.0
+            ]
+          },
+          "MAB_runs": null,
+          "FBR_runs": null,
+          "TBR_runs": null,
+          "FPP_runs": null,
+          "verdicts_on_faults": {
+            "PASS": 0,
+            "BLOCK": 0,
+            "INCOMPLETE": 720
+          },
+          "silent_pass_cells": [],
+          "overhead": {
+            "evidence_validation_s": {
+              "n": 80,
+              "median": 0.014512,
+              "iqr": [
+                0.01098,
+                0.043762
+              ]
+            },
+            "validation_share_of_run": {
+              "n": 80,
+              "median": 0.004241,
+              "iqr": [
+                0.002633,
+                0.010959
+              ]
+            },
+            "wall_s": {
+              "n": 80,
+              "median": 3.55235,
+              "iqr": [
+                3.43935,
+                4.78095
+              ]
+            },
+            "duration_s": {
+              "n": 80,
+              "median": 3.496,
+              "iqr": [
+                3.38475,
+                4.707
+              ]
+            }
+          }
+        }
+      },
+      "per_fault": {
+        "F2": {
+          "S0": {
+            "k": 0,
+            "n": 24,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.138
+            ]
+          },
+          "S1": {
+            "k": 0,
+            "n": 24,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.138
+            ]
+          },
+          "S2": {
+            "k": 0,
+            "n": 24,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.138
+            ]
+          },
+          "S3": {
+            "k": 0,
+            "n": 24,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.138
+            ]
+          },
+          "S3P": {
+            "k": 0,
+            "n": 24,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.138
+            ]
+          }
+        },
+        "F4": {
+          "S0": {
+            "k": 6,
+            "n": 24,
+            "rate": 0.25,
+            "ci95": [
+              0.12,
+              0.449
+            ]
+          },
+          "S1": {
+            "k": 0,
+            "n": 24,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.138
+            ]
+          },
+          "S2": {
+            "k": 0,
+            "n": 24,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.138
+            ]
+          },
+          "S3": {
+            "k": 0,
+            "n": 24,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.138
+            ]
+          },
+          "S3P": {
+            "k": 0,
+            "n": 24,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.138
+            ]
+          }
+        },
+        "F7": {
+          "S0": {
+            "k": 3,
+            "n": 24,
+            "rate": 0.125,
+            "ci95": [
+              0.0434,
+              0.31
+            ]
+          },
+          "S1": {
+            "k": 0,
+            "n": 24,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.138
+            ]
+          },
+          "S2": {
+            "k": 0,
+            "n": 24,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.138
+            ]
+          },
+          "S3": {
+            "k": 0,
+            "n": 24,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.138
+            ]
+          },
+          "S3P": {
+            "k": 0,
+            "n": 24,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.138
+            ]
+          }
+        }
+      },
+      "paired_tests": [
+        {
+          "arms": [
+            "S0",
+            "S1"
+          ],
+          "cells": 72,
+          "silent_only_first": 9,
+          "silent_only_second": 0,
+          "p_exact": 0.003906
+        },
+        {
+          "arms": [
+            "S1",
+            "S2"
+          ],
+          "cells": 72,
+          "silent_only_first": 0,
+          "silent_only_second": 0,
+          "p_exact": 1.0
+        },
+        {
+          "arms": [
+            "S2",
+            "S3"
+          ],
+          "cells": 72,
+          "silent_only_first": 0,
+          "silent_only_second": 0,
+          "p_exact": 1.0
+        },
+        {
+          "arms": [
+            "S3",
+            "S3P"
+          ],
+          "cells": 72,
+          "silent_only_first": 0,
+          "silent_only_second": 0,
+          "p_exact": 1.0
+        }
+      ],
+      "consistency": {
+        "k": 400,
+        "n": 400,
+        "rate": 1.0,
+        "ci95": [
+          0.9905,
+          1.0
+        ]
+      },
+      "cells": {
+        "H-cookiecutter-flask-F2-gitleaks": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            }
+          }
+        },
+        "H-cookiecutter-flask-F2-pip-audit": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-cookiecutter-flask-F2-semgrep": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-cookiecutter-flask-F4-gitleaks": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "PASS": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            }
+          }
+        },
+        "H-cookiecutter-flask-F4-pip-audit": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "PASS": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-cookiecutter-flask-F4-semgrep": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "PASS": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-cookiecutter-flask-F7-gitleaks": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "PASS": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            }
+          }
+        },
+        "H-cookiecutter-flask-F7-pip-audit": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "PASS": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-cookiecutter-flask-F7-semgrep": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "PASS": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-cookiecutter-flask-base": {
+          "kind": "B",
+          "fault": "F0",
+          "faulted": "",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "PASS": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "PASS": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "PASS": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "PASS": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-ask-F2-gitleaks": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            }
+          }
+        },
+        "H-flask-ask-F2-pip-audit": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-ask-F2-semgrep": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-ask-F4-gitleaks": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            }
+          }
+        },
+        "H-flask-ask-F4-pip-audit": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "PASS": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-ask-F4-semgrep": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-ask-F7-gitleaks": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            }
+          }
+        },
+        "H-flask-ask-F7-pip-audit": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-ask-F7-semgrep": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-ask-base": {
+          "kind": "B",
+          "fault": "F0",
+          "faulted": "",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-jwt-extended-F2-gitleaks": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            }
+          }
+        },
+        "H-flask-jwt-extended-F2-pip-audit": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-jwt-extended-F2-semgrep": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-jwt-extended-F4-gitleaks": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            }
+          }
+        },
+        "H-flask-jwt-extended-F4-pip-audit": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-jwt-extended-F4-semgrep": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-jwt-extended-F7-gitleaks": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            }
+          }
+        },
+        "H-flask-jwt-extended-F7-pip-audit": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-jwt-extended-F7-semgrep": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-jwt-extended-base": {
+          "kind": "B",
+          "fault": "F0",
+          "faulted": "",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-oauthlib-F2-gitleaks": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            }
+          }
+        },
+        "H-flask-oauthlib-F2-pip-audit": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-oauthlib-F2-semgrep": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-oauthlib-F4-gitleaks": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            }
+          }
+        },
+        "H-flask-oauthlib-F4-pip-audit": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-oauthlib-F4-semgrep": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-oauthlib-F7-gitleaks": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            }
+          }
+        },
+        "H-flask-oauthlib-F7-pip-audit": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-oauthlib-F7-semgrep": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-flask-oauthlib-base": {
+          "kind": "B",
+          "fault": "F0",
+          "faulted": "",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-git-webhook-F2-gitleaks": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            }
+          }
+        },
+        "H-git-webhook-F2-pip-audit": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-git-webhook-F2-semgrep": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-git-webhook-F4-gitleaks": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            }
+          }
+        },
+        "H-git-webhook-F4-pip-audit": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-git-webhook-F4-semgrep": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-git-webhook-F7-gitleaks": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            }
+          }
+        },
+        "H-git-webhook-F7-pip-audit": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-git-webhook-F7-semgrep": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-git-webhook-base": {
+          "kind": "B",
+          "fault": "F0",
+          "faulted": "",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-nyaa-F2-gitleaks": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            }
+          }
+        },
+        "H-nyaa-F2-pip-audit": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-nyaa-F2-semgrep": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-nyaa-F4-gitleaks": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            }
+          }
+        },
+        "H-nyaa-F4-pip-audit": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-nyaa-F4-semgrep": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-nyaa-F7-gitleaks": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            }
+          }
+        },
+        "H-nyaa-F7-pip-audit": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-nyaa-F7-semgrep": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-nyaa-base": {
+          "kind": "B",
+          "fault": "F0",
+          "faulted": "",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-rq-dashboard-F2-gitleaks": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            }
+          }
+        },
+        "H-rq-dashboard-F2-pip-audit": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-rq-dashboard-F2-semgrep": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-rq-dashboard-F4-gitleaks": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            }
+          }
+        },
+        "H-rq-dashboard-F4-pip-audit": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "PASS": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-rq-dashboard-F4-semgrep": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-rq-dashboard-F7-gitleaks": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            }
+          }
+        },
+        "H-rq-dashboard-F7-pip-audit": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-rq-dashboard-F7-semgrep": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-rq-dashboard-base": {
+          "kind": "B",
+          "fault": "F0",
+          "faulted": "",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:PARTIAL_COVERAGE;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-traefik-manager-F2-gitleaks": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NONZERO_EXIT": 10
+              }
+            }
+          }
+        },
+        "H-traefik-manager-F2-pip-audit": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NONZERO_EXIT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-traefik-manager-F2-semgrep": {
+          "kind": "F",
+          "fault": "F2",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NONZERO_EXIT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-traefik-manager-F4-gitleaks": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "PASS": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:NO_OUTPUT": 10
+              }
+            }
+          }
+        },
+        "H-traefik-manager-F4-pip-audit": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:NO_OUTPUT;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-traefik-manager-F4-semgrep": {
+          "kind": "F",
+          "fault": "F4",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:NO_OUTPUT;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-traefik-manager-F7-gitleaks": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "gitleaks",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:INVALID_JSON": 10
+              }
+            }
+          }
+        },
+        "H-traefik-manager-F7-pip-audit": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "pip-audit",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:INVALID_JSON;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-traefik-manager-F7-semgrep": {
+          "kind": "F",
+          "fault": "F7",
+          "faulted": "semgrep",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "INCOMPLETE": 10
+              },
+              "categories": {
+                "semgrep:INVALID_JSON;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        },
+        "H-traefik-manager-base": {
+          "kind": "B",
+          "fault": "F0",
+          "faulted": "",
+          "finding_in": "",
+          "per_arm": {
+            "S0": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S1": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S2": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            },
+            "S3P": {
+              "verdicts": {
+                "BLOCK": 10
+              },
+              "categories": {
+                "semgrep:VALID;pip-audit:VALID;gitleaks:VALID": 10
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

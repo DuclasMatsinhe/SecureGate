@@ -1,0 +1,117 @@
+{
+  "level": "H",
+  "runs": 4000,
+  "fault_cells": 72,
+  "baseline_cells": 8,
+  "predictions": {
+    "P1": {
+      "claim": "no fault cell passes under S3 or S3P",
+      "observed": {
+        "S3": "0/72",
+        "S3P": "0/72"
+      },
+      "cells": {
+        "S3": [],
+        "S3P": []
+      },
+      "confirmed": true
+    },
+    "P2": {
+      "claim": "no fault cell passes under S1 or S2",
+      "observed": {
+        "S1": "0/72",
+        "S2": "0/72"
+      },
+      "cells": {
+        "S1": [],
+        "S2": []
+      },
+      "confirmed": true
+    },
+    "P3": {
+      "claim": "S0 outcome of every fault cell follows from the unmodified exit codes",
+      "observed": "72/72 cells as predicted; 9 predicted silent passes",
+      "mismatches": [],
+      "confirmed": true
+    },
+    "P4": {
+      "claim": "S3 names an expected cause in >= 95% of fault cells",
+      "observed": "72/72 (100.0%)",
+      "cells_wrong": [],
+      "confirmed": true
+    },
+    "P5": {
+      "claim": ">= 99% of cell-arm pairs fully consistent",
+      "observed": "400/400 (100.0%)",
+      "inconsistent": [],
+      "confirmed": true
+    },
+    "P6": {
+      "claim": "median validation time below 50 ms (S3) and 1000 ms (S3P) per gate run",
+      "observed": {
+        "S3": "0.47 ms",
+        "S3P": "12.18 ms"
+      },
+      "confirmed": true
+    }
+  },
+  "exploratory_baselines": {
+    "H-cookiecutter-flask-base": {
+      "S0": "PASS",
+      "S1": "PASS",
+      "S2": "PASS",
+      "S3": "PASS",
+      "S3P": "INCOMPLETE"
+    },
+    "H-flask-ask-base": {
+      "S0": "BLOCK",
+      "S1": "BLOCK",
+      "S2": "BLOCK",
+      "S3": "BLOCK",
+      "S3P": "BLOCK"
+    },
+    "H-flask-jwt-extended-base": {
+      "S0": "BLOCK",
+      "S1": "BLOCK",
+      "S2": "BLOCK",
+      "S3": "BLOCK",
+      "S3P": "BLOCK"
+    },
+    "H-flask-oauthlib-base": {
+      "S0": "BLOCK",
+      "S1": "BLOCK",
+      "S2": "BLOCK",
+      "S3": "BLOCK",
+      "S3P": "BLOCK"
+    },
+    "H-git-webhook-base": {
+      "S0": "BLOCK",
+      "S1": "BLOCK",
+      "S2": "BLOCK",
+      "S3": "BLOCK",
+      "S3P": "INCOMPLETE"
+    },
+    "H-nyaa-base": {
+      "S0": "BLOCK",
+      "S1": "BLOCK",
+      "S2": "BLOCK",
+      "S3": "BLOCK",
+      "S3P": "BLOCK"
+    },
+    "H-rq-dashboard-base": {
+      "S0": "BLOCK",
+      "S1": "BLOCK",
+      "S2": "BLOCK",
+      "S3": "BLOCK",
+      "S3P": "INCOMPLETE"
+    },
+    "H-traefik-manager-base": {
+      "S0": "BLOCK",
+      "S1": "BLOCK",
+      "S2": "BLOCK",
+      "S3": "BLOCK",
+      "S3P": "BLOCK"
+    }
+  },
+  "exploratory_s0_silent": "9/72"
+}
