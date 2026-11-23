@@ -78,7 +78,7 @@ The Action installs the pinned scanners (Semgrep 1.180.0, pip-audit 2.10.1, Gitl
 | [EXP-00](SecureGate_Project/experiments/EXP-00-live-scanner-check/README.md) | Live check of how the real scanners fail | Done, 17 Nov 2026 |
 | [EXP-01](SecureGate_Project/experiments/EXP-01-pilot/README.md) | Pilot: S0–S3 × fault classes F1–F10, 844 runs, run twice | Done, 17 Nov 2026 |
 | [EXP-02](SecureGate_Project/experiments/EXP-02/README.md) | Final study: 7,160 runs at three levels (simulated; real scanners on synthetic projects; real scanners on five public projects) | Final run 21 Nov 2026 (frozen protocol), replicated by the candidate run |
-| [EXP-03](SecureGate_Project/experiments/EXP-03/README.md) | Pre-registered held-out confirmation: the real-project level on eight public projects never run before, six predictions written first | Protocol frozen and smoke-tested 23 Nov 2026; final run after the pre-registration is archived |
+| [EXP-03](SecureGate_Project/experiments/EXP-03/README.md) | Pre-registered held-out confirmation: the real-project level on eight public projects never run before, six predictions written first | Pre-registered ([10.5281/zenodo.24456056](https://doi.org/10.5281/zenodo.24456056)); final run 23 Nov 2026: all six predictions confirmed |
 
 To check the results yourself, run `bash SecureGate_Project/experiments/EXP-02/reproduce.sh` or follow [EXP-02/VERIFY.md](SecureGate_Project/experiments/EXP-02/VERIFY.md). Raw results are on the branch `semester8-exp02-results`.
 

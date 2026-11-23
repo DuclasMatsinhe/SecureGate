@@ -41,5 +41,5 @@ The gate's code is at the repository root (`security_engine/`, `tests/`, `tools/
 - Literature review: preliminary review and formal database search completed (18 Nov 2026).
 - EXP-01 pilot: done and replicated (17 Nov 2026).
 - EXP-02 final study: protocol frozen and run as final (21 Nov 2026, 7,160 runs), identical to the earlier candidate run; frozen without the guide's approval (DEC-018).
-- EXP-03 held-out confirmation: pre-registered and frozen, smoke run passed; final run after the pre-registration is archived on Zenodo.
+- EXP-03 held-out confirmation: pre-registered (10.5281/zenodo.24456056) and run on 23 Nov 2026 (4,000 runs); all six predictions confirmed.
 - Research paper: complete draft with the final EXP-02 results; venue to be decided with the guide.
